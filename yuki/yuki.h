@@ -12,13 +12,14 @@ enum YukiDocType
 struct YukiBlockRegion
 {
 	int startLineNum;
-	int endLineNum;
+	int endLineNum;			///< 开区间，不包括 endLineNum 这一行
 	int startColNum;
 	int endColNum;
 	int indent;
 
 	YukiBlockRegion() { startLineNum = 0; endLineNum = -1; indent = -1; }
 	inline bool invalid() { return startLineNum > endLineNum || indent < 0; }
+	inline bool isLineOutOfRegion(int lineNum) const { return endLineNum >= 0 && lineNum >= endLineNum; }
 };
 
 template<typename T>

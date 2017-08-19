@@ -131,8 +131,10 @@
     <ClInclude Include="yuki_directive.h" />
     <ClInclude Include="yuki_document.h" />
     <ClInclude Include="yuki_file_loader.h" />
+    <ClInclude Include="yuki_inline_block.h" />
     <ClInclude Include="yuki_interpreter.h" />
     <ClInclude Include="yuki_node.h" />
+    <ClInclude Include="yuki_paragraph.h" />
     <ClInclude Include="yuki_quote_block.h" />
     <ClInclude Include="yuki_rst_quote_block.h" />
     <ClInclude Include="yuki_string.h" />
@@ -148,7 +150,9 @@
     <ClCompile Include="yuki_body.cpp" />
     <ClCompile Include="yuki_document.cpp" />
     <ClCompile Include="yuki_file_loader.cpp" />
+    <ClCompile Include="yuki_inline_block.cpp" />
     <ClCompile Include="yuki_interpreter.cpp" />
+    <ClCompile Include="yuki_paragraph.cpp" />
     <ClCompile Include="yuki_quote_block.cpp" />
     <ClCompile Include="yuki_rst_quote_block.cpp" />
     <ClCompile Include="yuki_string.cpp" />

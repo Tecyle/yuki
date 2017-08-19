@@ -14,30 +14,18 @@ void YukiQuoteBlockAttribute::parse(YukiStruct* parent)
 {
 	m_parent = parent;
 
-	for (;;)
-	{
-		if (outOfRegion())
-			return;
+	m_fileLoader->skipBlankLinesInRegion(m_limitRegion);
 
-		YukiString line = m_fileLoader->getLine();
-		if (line.isBlankLine())
-		{
-			m_fileLoader->moveToNextLine();
-			continue;
-		}
+	if (outOfRegion())
+		return;
 
-		if (m_fileLoader->match("---") || m_fileLoader->match("--"))
-		{
-			assert(!"Failed match quote block attribute!");
-		}
-		m_fileLoader->matchAndSkipSpace();
+	if (!m_fileLoader->match(L"---") && !m_fileLoader->match(L"--"))
+		assert(!"Failed match quote block attribute!");
+	m_fileLoader->matchAndSkipSpace();
 
-		YukiBlockRegion region;
-		region.startLineNum = m_fileLoader->getLineNum();
-		region.endLineNum = m_limitRegion->endLineNum;
-		region.indent = m_indentLevel;
-		appendChildByRegion(new YukiParagraph(m_fileLoader, m_indentLevel), &region);
-
-		break;
-	}
+	YukiBlockRegion region;
+	region.startLineNum = m_fileLoader->getLineNum() - 1;
+	region.endLineNum = m_limitRegion->endLineNum;
+	region.indent = m_indentLevel;
+	appendChildByRegion(new YukiParagraph(m_fileLoader, m_indentLevel), &region);
 }

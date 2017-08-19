@@ -70,23 +70,29 @@ void YukiBody::parse(YukiStruct* parent)
 
 	for (;;)
 	{
-		YukiString line = m_fileLoader->getLine();
-
-		if(line.invalid())
+		if (outOfRegion())
 			break;
 
-		if (line.isBlankLine())
+		const YukiString* line = m_fileLoader->getLine();
+
+		if(line == nullptr)
+			break;
+
+		if (line->isBlankLine())
 		{
 			m_fileLoader->moveToNextLine();
 			continue;
 		}
 
-		if (line.getIndentLevel() < m_indentLevel)
+		int indentLevel = line->getIndentLevel();
+		// 如果缩进小于当前 body 的缩进，则认为 body 部分已经结束
+		if (indentLevel < m_indentLevel)
 			break;
 
-		if (line.getIndentLevel() > m_indentLevel)
+		if (indentLevel > m_indentLevel)
 		{
-			appendChild(new YukiRstQuoteBlock(m_fileLoader, m_indentLevel));
+			// 如果缩进级别大于当前 body 的缩进级别，则认为出现了 rst 风格的引用块
+			appendChildByRegion(new YukiRstQuoteBlock(m_fileLoader, m_indentLevel), m_limitRegion);
 		}
 		else if (line.matchExplicitMark())
 		{

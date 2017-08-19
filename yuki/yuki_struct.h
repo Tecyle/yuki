@@ -1,4 +1,5 @@
 #pragma once
+#include "yuki_file_loader.h"
 
 class YukiStruct
 {

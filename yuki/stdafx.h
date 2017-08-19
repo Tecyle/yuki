@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <assert.h>
+#include <limits.h>
 #include "yuki_string.h"
 
 #define yuki_error(x)

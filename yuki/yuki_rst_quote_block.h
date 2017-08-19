@@ -1,4 +1,5 @@
 #pragma once
+#include "yuki_quote_block.h"
 
 class YukiRstQuoteBlock : public YukiQuoteBlock
 {

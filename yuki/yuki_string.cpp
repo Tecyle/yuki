@@ -91,6 +91,14 @@ CursorOffset YukiString::matchAndSkipSpace(int startPos, int colNum) const
 	return res;
 }
 
+CursorOffset YukiString::getIndentLevel() const
+{
+	if (isBlankLine())
+		return CursorOffset();
+
+	return matchAndSkipSpace(0, 0);
+}
+
 bool YukiString::isBlankLine() const
 {
 	assert(!invalid());
@@ -104,6 +112,16 @@ bool YukiString::isBlankLine() const
 	return true;
 }
 
+bool YukiString::matchNoEmptyChar(int startPos) const
+{
+	const wchar_t* pos = begin() + startPos;
+
+	if(pos >= end())
+		return false;
+
+	return !isspace(*pos);
+}
+
 /*
 	匹配规则：
 
@@ -111,16 +129,24 @@ bool YukiString::isBlankLine() const
 	* 中间至少要有一个空格
 	* 这一行不能为空
 */
-bool YukiString::matchQuoteBlockAttrMark()
+bool YukiString::matchQuoteBlockAttrMark() const
 {
-	const char* text = textSkipIndent();
-
-	if(!_match(text, "---") && !_match(text, "--"))
+	CursorOffset nowPos = getIndentLevel();
+	if(nowPos.indexOffset < 0)
 		return false;
 
-	int spaceCount = _skipWhiteSpace(text, m_buffer + m_strLength);
-	if(spaceCount == 0)
+	// 先尝试匹配 ``---``，如果不成功再尝试匹配 ``--``，如果都不成功则返回 false
+	int offset = match(L"---", nowPos.indexOffset);
+	if (offset == 0)
+		offset = match(L"--", nowPos.indexOffset);
+	if (offset == 0)
 		return false;
 
-	return text < m_buffer + m_strLength;
+	nowPos += offset;
+	// 需要匹配并跳过空格，空格数量至少为 1
+	CursorOffset cOffset = matchAndSkipSpace(nowPos);
+	if(cOffset.indexOffset == 0)
+		return false;
+
+	return matchNoEmptyChar(nowPos.indexOffset + cOffset.indexOffset);
 }

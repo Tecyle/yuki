@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "yuki.h"
 #include "yuki_file_loader.h"
 
 void YukiFileLoader::loadYukiFile(const char* fileName)
@@ -126,4 +127,18 @@ int YukiFileLoader::matchIndent()
 		return 0;
 
 	return matchAndSkipSpace();
+}
+
+int YukiFileLoader::skipBlankLinesInRegion(const YukiBlockRegion* region)
+{
+	int lineCount = 0;
+	while (!region->isLineOutOfRegion(getLineNum()) && getLine()->isBlankLine())
+	{
+		if (!moveToNextLine())
+			break;
+
+		++lineCount;
+	}
+
+	return lineCount;
 }

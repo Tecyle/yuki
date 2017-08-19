@@ -11,11 +11,16 @@ enum YukiQuoteLevel
 class YukiQuoteBlockAttribute : public YukiStruct
 {
 public:
+	YukiQuoteBlockAttribute(YukiFileLoader* fileLoader, int indentLevel);
+
 	virtual void parse(YukiStruct* parent);
 };
 
 class YukiQuoteBlock : public YukiStruct
 {
+public:
+	YukiQuoteBlock(YukiFileLoader* fileLoader, int indentLevel);
+
 private:
 	YukiQuoteLevel m_quoteLevel;
 };

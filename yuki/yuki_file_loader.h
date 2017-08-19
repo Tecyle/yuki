@@ -13,6 +13,7 @@ public:
 	bool match(const wchar_t* str);
 	int matchAndSkipSpace();
 	int matchIndent();
+	int skipBlankLinesInRegion(const YukiBlockRegion* region);
 
 protected:
 	void splitLines();

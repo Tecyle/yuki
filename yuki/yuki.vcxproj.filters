@@ -75,6 +75,12 @@
     <ClInclude Include="yuki_quote_block.h">
       <Filter>yuki_structure\block</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_paragraph.h">
+      <Filter>yuki_structure\block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_inline_block.h">
+      <Filter>yuki_structure\inline</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -100,6 +106,12 @@
     </ClCompile>
     <ClCompile Include="yuki_quote_block.cpp">
       <Filter>yuki_structure\block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_paragraph.cpp">
+      <Filter>yuki_structure\block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_inline_block.cpp">
+      <Filter>yuki_structure\inline</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
