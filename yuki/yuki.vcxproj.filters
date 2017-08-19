@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="normal">
+      <UniqueIdentifier>{c313afc1-8e0e-4550-b49d-9fe38eef6703}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="docs">
+      <UniqueIdentifier>{d99725d4-65d9-4afa-982b-2a17cec638a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_basic">
+      <UniqueIdentifier>{16a164e8-9e28-4e93-b2a3-9458128991a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_structure">
+      <UniqueIdentifier>{0cc8324a-f440-41ba-97f7-afff2dc1efb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_structure\list">
+      <UniqueIdentifier>{f2c8c6f5-3929-4c98-8de3-1598c165362e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_structure\block">
+      <UniqueIdentifier>{388005d7-39bf-4a01-aff5-8a01dd784933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_structure\image">
+      <UniqueIdentifier>{c93f6ba0-98a6-43df-8b65-6f62656b918a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_structure\table">
+      <UniqueIdentifier>{eadbfe80-ce2d-49c8-8342-efe9a0727fe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_structure\formula">
+      <UniqueIdentifier>{3ab0a31f-3850-4c10-a409-0579ddae4a05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_structure\inline">
+      <UniqueIdentifier>{e30dca0d-650f-473b-9395-b670c1a06f53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{45538a4c-d8ac-48f7-8479-c86c06311c98}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>normal</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>normal</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_node.h">
+      <Filter>yuki_basic</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_string.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_directive.h">
+      <Filter>yuki_basic</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_struct.h">
+      <Filter>yuki_basic</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki.h">
+      <Filter>yuki_basic</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_body.h">
+      <Filter>yuki_structure</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_document.h">
+      <Filter>yuki_structure</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_file_loader.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_interpreter.h">
+      <Filter>yuki_basic</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_rst_quote_block.h">
+      <Filter>yuki_structure\block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_quote_block.h">
+      <Filter>yuki_structure\block</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>normal</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_document.cpp">
+      <Filter>yuki_structure</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_file_loader.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_string.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_interpreter.cpp">
+      <Filter>yuki_basic</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_body.cpp">
+      <Filter>yuki_structure</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_rst_quote_block.cpp">
+      <Filter>yuki_structure\block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_quote_block.cpp">
+      <Filter>yuki_structure\block</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="orgnization.md">
+      <Filter>docs</Filter>
+    </None>
+  </ItemGroup>
+</Project>
