@@ -23,3 +23,4 @@
 
 #define yuki_error(x)
 #define yuki_tabSize() (8)
+#define yuki_simple_inline_markup() (false)

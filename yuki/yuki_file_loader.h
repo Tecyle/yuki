@@ -6,9 +6,17 @@ public:
 	void loadYukiFile(const char* fileName);
 
 	const YukiString* getLine(int offset = 0);
+	wchar_t getChar(int offset = 0);
 	inline int getLineNum() const { return m_cursor.rowNum; }
 
 	bool moveToNextLine();
+	// 查看当前行当前位置的前一个字符
+	// 如果不存在前一个字符，则返回 0
+	// 如果前一个字符是转义字符，则返回 1
+	wchar_t peekPreviousCharInline();
+
+	inline void saveCursor() { m_savedCursor = m_cursor; }
+	inline void restoreCursor() { m_cursor = m_savedCursor; }
 
 	bool match(const wchar_t* str);
 	int matchAndSkipSpace();

@@ -77,7 +77,7 @@ void YukiFileLoader::splitLines()
 			++p;
 		}
 
-		m_lines[lineIndex].initWithLineBuffer(pStart, p - pStart);
+		m_lines[lineIndex].init(pStart, p - pStart);
 
 		++p;
 		pStart = p;

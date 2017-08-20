@@ -17,8 +17,8 @@
 		* __underline__
 		* ==mark==
 		* ***bold and italic***
-		* x^2^
-		* H^^2^^O
+		* x ^^2^^
+		* H vv2vv O
 
 	2. 结构标记
 
@@ -59,8 +59,13 @@
 			* 空白字符
 			* 下列标点符号：- . , : ; ! ? \ / ' " ) ] } > 或者其它类似的非 ASCII 字符集的标点符号
 
+	有以下符号被作为起始符号：
+	
+	* ` - _ = ^ v ! < | [ :
+
 	识别的顺序：
 
+	1. 
 */
 void YukiInlineBlock::parse(YukiStruct* parent)
 {

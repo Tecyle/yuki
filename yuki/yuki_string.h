@@ -23,7 +23,7 @@ public:
 	/*
 		初始化一行，末尾带上 \n
 	*/
-	void initWithLineBuffer(wchar_t* buffer, size_t len);
+	void init(wchar_t* buffer, size_t len);
 
 	inline bool invalid() const { return m_buffer == nullptr; }
 

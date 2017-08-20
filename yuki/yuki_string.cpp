@@ -36,7 +36,7 @@ static inline int _skipWhiteSpace(const char* &src, const char* end)
 	return spaceCount;
 }
 
-void YukiString::initWithLineBuffer(wchar_t* buffer, size_t len)
+void YukiString::init(wchar_t* buffer, size_t len)
 {
 	m_buffer = buffer;
 	m_strLength = len;
