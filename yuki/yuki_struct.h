@@ -12,7 +12,7 @@ public:
 	virtual void appendChild(YukiStruct* child) = 0;
 	virtual void appendChildByRegion(YukiStruct* child, const YukiBlockRegion* region) = 0;
 
-	virtual void parse(YukiStruct* parent) = 0;
+	virtual bool parse(YukiStruct* parent) = 0;
 
 	virtual bool outOfRegion() const { return m_limitRegion == nullptr || m_fileLoader->getLineNum() >= m_limitRegion->endLineNum; }
 

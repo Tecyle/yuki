@@ -10,7 +10,7 @@ class YukiDocument : public YukiStruct
 public:
 	inline virtual YukiNode* getNode() const { return m_node; }
 
-	virtual void parse(YukiStruct* parent);
+	virtual bool parse(YukiStruct* parent);
 
 public:
 	YukiDocument(YukiFileLoader* m_fileLoader, int indentLevel);

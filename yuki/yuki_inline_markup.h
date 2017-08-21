@@ -17,6 +17,8 @@ protected:
 	virtual bool searchInfix();
 	virtual bool searchSufix();
 
+	virtual bool searchAndMatch(const wchar_t* matchStr, YukiString* readText);
+
 protected:
 	const wchar_t* m_prefix;
 	const wchar_t* m_infix;

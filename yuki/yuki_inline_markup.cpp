@@ -131,17 +131,30 @@ bool YukiInlineMarkup::matchPrefix()
 
 bool YukiInlineMarkup::searchInfix()
 {
-	bool matchSucc = false;
 	// 不存在中缀的话，直接成功
 	if (m_infix == nullptr)
 		return true;
+
+	return searchAndMatch(m_infix, &m_text1);
+}
+
+bool YukiInlineMarkup::searchSufix()
+{
+	return searchAndMatch(m_sufix, m_infix == nullptr ? &m_text1 : &m_text2);
+}
+
+bool YukiInlineMarkup::searchAndMatch(const wchar_t* matchStr, YukiString* readText)
+{
+	bool matchSucc = false;
+
+	assert(matchStr != nullptr);
 
 	wchar_t* textOffset = m_fileLoader->getCStr();
 	int textLength = 0;
 	wchar_t curChar = m_fileLoader->getChar();
 	while (!outOfRegion())
 	{
-		if (!m_fileLoader->match(m_infix))
+		if (!m_fileLoader->match(matchStr))
 		{
 			++textLength;
 			m_fileLoader->moveToNextChar();
@@ -150,18 +163,20 @@ bool YukiInlineMarkup::searchInfix()
 		else
 		{
 			// 检查规则 3
-			if (text.empty())
+			if (textLength == 0)
 				return false;
 
-			if (matchInfixRules(curChar, m_fileLoader->getChar(), m_allowEscapeNearMark))
-			{
-				// 匹配成功
-				matchSucc = true;
+			if (matchStr == m_infix)
+				matchSucc = matchInfixRules(curChar, m_fileLoader->getChar(), m_allowEscapeNearMark);
+			else
+				matchSucc = matchSufixRules(curChar, m_fileLoader->getChar(), m_allowEscapeNearMark);
+
+			if (matchSucc)
 				break;
-			}
+
 			// 匹配失败，继续尝试向后搜索
-			textLength += wcslen(m_infix);
-			m_fileLoader->moveToNextChar(wcslen(m_infix));
+			textLength += wcslen(matchStr);
+			m_fileLoader->moveToNextChar(wcslen(matchStr));
 			curChar = m_fileLoader->getChar();
 		}
 	}
@@ -169,6 +184,6 @@ bool YukiInlineMarkup::searchInfix()
 	if (!matchSucc)
 		return false;
 
-	m_text1.init(textOffset, textLength);
+	readText->init(textOffset, textLength);
 	return true;
 }

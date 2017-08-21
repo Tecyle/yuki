@@ -150,3 +150,24 @@ bool YukiString::matchQuoteBlockAttrMark() const
 
 	return matchNoEmptyChar(nowPos.indexOffset + cOffset.indexOffset);
 }
+
+CursorOffset YukiString::moveSingleChar(int startPos, int colNum) const
+{
+	CursorOffset res;
+
+	if (startPos >= m_strLength - 1)
+		return res;
+
+	wchar_t ch = m_buffer[startPos];
+	int offset = 1;
+
+	if (ch == '\t')
+	{
+		offset = alignPosToTabSize(colNum) - colNum;
+	}
+
+	res.colOffset = colNum + offset;
+	res.indexOffset = startPos + 1;
+
+	return res;
+}

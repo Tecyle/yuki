@@ -43,6 +43,8 @@ public:
 
 	bool matchQuoteBlockAttrMark() const;
 
+	CursorOffset moveSingleChar(int startPos, int colNum) const;
+
 
 protected:
 	wchar_t* textSkipIndent();

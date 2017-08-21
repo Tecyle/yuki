@@ -6,7 +6,7 @@ class YukiRstQuoteBlock : public YukiQuoteBlock
 public:
 	YukiRstQuoteBlock(YukiFileLoader* fileLoader, int indentLevel);
 
-	virtual void parse(YukiStruct* parent);
+	virtual bool parse(YukiStruct* parent);
 
 protected:
 	void searchingBlockRegion();

@@ -46,10 +46,23 @@ bool YukiFileLoader::moveToNextLine()
 	if (m_cursor.rowNum < 0 || m_cursor.rowNum >= m_lineCount)
 		return false;
 
-	m_cursor.index += m_lines[m_cursor.rowNum].length();
+	m_cursor.index += m_lines[m_cursor.rowNum].length() - m_cursor.indexInline;
 	++m_cursor.rowNum;
 	m_cursor.colNum = 0;
 	m_cursor.indexInline = 0;
+
+	return true;
+}
+
+bool YukiFileLoader::moveToNextChar(int steps /*= 1*/)
+{
+	while (steps > 0)
+	{
+		if (!moveSingleChar())
+			return false;
+
+		--steps;
+	}
 
 	return true;
 }
@@ -89,6 +102,34 @@ void YukiFileLoader::initStates()
 {
 	m_cursor.rowNum = m_cursor.colNum = m_cursor.index = m_cursor.indexInline = 0;
 	m_savedCursor = m_cursor;
+}
+
+bool YukiFileLoader::moveSingleChar()
+{
+	if (m_cursor.index >= m_bufferSize)
+		return false;
+
+	wchar_t curChar = getChar();
+	const YukiString* line = getLine();
+	if (line == nullptr)
+		return false;
+
+	// 如果在行尾，移动到下一行行首
+	if (m_cursor.indexInline == line->length() - 1)
+	{
+		assert(curChar == '\n');
+		return moveToNextLine();
+	}
+
+	// 如果遇到了 \r，则确保该字符是倒数第二个，忽略并移动到下一行行首
+	if (curChar == '\r')
+	{
+		assert(m_cursor.indexInline == line->length() - 2);
+		return moveToNextLine();
+	}
+
+	// 行内移动，只需要注意 tab 的位置
+	line->moveSingleChar();
 }
 
 bool YukiFileLoader::match(const wchar_t* str)

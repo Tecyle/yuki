@@ -7,5 +7,5 @@
 class YukiInlineBlock : public YukiStruct
 {
 public:
-	virtual void parse(YukiStruct* parent);
+	virtual bool parse(YukiStruct* parent);
 };

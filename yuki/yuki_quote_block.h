@@ -13,7 +13,7 @@ class YukiQuoteBlockAttribute : public YukiStruct
 public:
 	YukiQuoteBlockAttribute(YukiFileLoader* fileLoader, int indentLevel);
 
-	virtual void parse(YukiStruct* parent);
+	virtual bool parse(YukiStruct* parent);
 };
 
 class YukiQuoteBlock : public YukiStruct

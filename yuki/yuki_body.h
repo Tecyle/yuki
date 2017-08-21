@@ -10,5 +10,5 @@ class YukiBody : public YukiStruct
 public:
 	YukiBody(YukiFileLoader* fileLoader, int indentLevel);
 
-	virtual void parse(YukiStruct* parent);
+	virtual bool parse(YukiStruct* parent);
 };

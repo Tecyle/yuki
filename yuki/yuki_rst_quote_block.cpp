@@ -18,7 +18,7 @@
 
 	这个结构本身只是提供框架，不移动字符流指针
 */
-void YukiRstQuoteBlock::parse(YukiStruct* parent)
+bool YukiRstQuoteBlock::parse(YukiStruct* parent)
 {
 	m_parent = parent;
 

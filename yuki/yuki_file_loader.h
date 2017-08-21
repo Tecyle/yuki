@@ -7,6 +7,7 @@ public:
 
 	const YukiString* getLine(int offset = 0);
 	wchar_t getChar(int offset = 0);
+	inline wchar_t* getCStr() { return m_fileBuffer + m_cursor.index; }
 	inline int getLineNum() const { return m_cursor.rowNum; }
 
 	bool moveToNextLine();
@@ -14,6 +15,7 @@ public:
 	// 如果不存在前一个字符，则返回 0
 	// 如果前一个字符是转义字符，则返回 1
 	wchar_t peekPreviousCharInline();
+	bool moveToNextChar(int steps = 1);
 
 	inline void saveCursor() { m_savedCursor = m_cursor; }
 	inline void restoreCursor() { m_cursor = m_savedCursor; }
@@ -26,6 +28,8 @@ public:
 protected:
 	void splitLines();
 	void initStates();
+
+	bool moveSingleChar();
 
 private:
 	wchar_t* m_fileBuffer;
