@@ -8,7 +8,7 @@ class YukiBodyNode : public YukiNode
 class YukiBody : public YukiStruct
 {
 public:
-	YukiBody(YukiFileLoader* fileLoader, int indentLevel);
+	YukiBody(YukiFileLoader* fileLoader, const YukiBlockRegion* region);
 
 	virtual bool parse(YukiStruct* parent);
 };

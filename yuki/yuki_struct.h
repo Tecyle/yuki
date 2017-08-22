@@ -4,26 +4,30 @@
 class YukiStruct
 {
 public:
-	virtual YukiStruct* getParent() const = 0;
-	virtual YukiStruct* getRoot() const = 0;
-
-	virtual YukiNode* getNode() const = 0;
-
-	virtual void appendChild(YukiStruct* child) = 0;
-	virtual void appendChildByRegion(YukiStruct* child, const YukiBlockRegion* region) = 0;
+	virtual YukiStruct* getParent() { return m_parent; }
+	virtual bool appendChild(YukiStruct* child);
 
 	virtual bool parse(YukiStruct* parent) = 0;
 
-	virtual bool outOfRegion() const { return m_limitRegion == nullptr || m_fileLoader->getLineNum() >= m_limitRegion->endLineNum; }
+	virtual bool outOfRegion(int lineNum, int colNum) { return m_limitRegion != nullptr && !m_limitRegion->inRegion(lineNum, colNum); }
 
-	YukiStruct(YukiFileLoader* fileLoader, int indentLevel)
+	YukiStruct(YukiFileLoader* fileLoader, const YukiBlockRegion* region)
 		: m_fileLoader(fileLoader)
-		, m_indentLevel(indentLevel)
+		, m_limitRegion(region)
 	{}
 
 protected:
 	const YukiBlockRegion* m_limitRegion;
 	YukiStruct* m_parent;
 	YukiFileLoader* m_fileLoader;
-	int m_indentLevel;
+	vector<YukiStruct*> m_children;
 };
+
+bool YukiStruct::appendChild(YukiStruct* child)
+{
+	if (!child->parse(this))
+		return false;
+
+	m_children.push_back(child);
+	return true;
+}

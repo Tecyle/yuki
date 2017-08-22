@@ -13,7 +13,7 @@ public:
 	virtual bool parse(YukiStruct* parent);
 
 public:
-	YukiDocument(YukiFileLoader* m_fileLoader, int indentLevel);
+	YukiDocument(YukiFileLoader* m_fileLoader);
 
 private:
 	YukiDocumentNode* m_node;

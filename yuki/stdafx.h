@@ -9,7 +9,7 @@
 
 #define WIN32_LEAN_AND_MEAN             // 从 Windows 头中排除极少使用的资料
 
-#ifdef _WIN32 || Wow64
+#ifdef _WIN32 || _Wow64
 #	include <windows.h>
 #endif
 
@@ -20,6 +20,10 @@
 #include <assert.h>
 #include <limits.h>
 #include "yuki_string.h"
+
+#include <vector>
+#include <string>
+using namespace std;
 
 #define yuki_error(x)
 #define yuki_tabSize() (8)

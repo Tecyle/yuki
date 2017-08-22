@@ -84,6 +84,9 @@
     <ClInclude Include="yuki_inline_markup.h">
       <Filter>yuki_structure\inline</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_inline_text.h">
+      <Filter>yuki_structure\inline</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -117,6 +120,9 @@
       <Filter>yuki_structure\inline</Filter>
     </ClCompile>
     <ClCompile Include="yuki_inline_markup.cpp">
+      <Filter>yuki_structure\inline</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_inline_text.cpp">
       <Filter>yuki_structure\inline</Filter>
     </ClCompile>
   </ItemGroup>

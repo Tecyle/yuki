@@ -64,8 +64,14 @@
 	16. 如果以 ``| `` 打头，则识别为行列表
 	17. 然后只剩段落了
 */
-void YukiBody::parse(YukiStruct* parent)
+YukiBody::YukiBody(YukiFileLoader* fileLoader, const YukiBlockRegion* region)
+	: YukiStruct(fileLoader, region)
 {
+}
+
+bool YukiBody::parse(YukiStruct* parent)
+{
+	int indentLevel = m_limitRegion->indent;
 	m_parent = parent;
 
 	for (;;)
@@ -84,15 +90,15 @@ void YukiBody::parse(YukiStruct* parent)
 			continue;
 		}
 
-		int indentLevel = line->getIndentLevel();
+		int indentLevel = line->getIndentLevel().colOffset;
 		// 如果缩进小于当前 body 的缩进，则认为 body 部分已经结束
-		if (indentLevel < m_indentLevel)
+		if (indentLevel < indentLevel)
 			break;
 
-		if (indentLevel > m_indentLevel)
+		if (indentLevel > indentLevel)
 		{
 			// 如果缩进级别大于当前 body 的缩进级别，则认为出现了 rst 风格的引用块
-			appendChildByRegion(new YukiRstQuoteBlock(m_fileLoader, m_indentLevel), m_limitRegion);
+			appendChild(new YukiRstQuoteBlock(m_fileLoader, m_limitRegion));
 		}
 		else if (line.matchExplicitMark())
 		{
