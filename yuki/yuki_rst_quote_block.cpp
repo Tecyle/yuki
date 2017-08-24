@@ -26,10 +26,10 @@ bool YukiRstQuoteBlock::parse(YukiStruct* parent)
 	searchingBlockRegion();
 
 	if(!m_bodyRegion.invalid())
-		appendChildByRegion(new YukiBody(m_fileLoader, m_quoteBlockIndent), &m_bodyRegion);
+		appendChild(new YukiBody(m_fileLoader, &m_bodyRegion));
 
 	if (!m_attrRegion.invalid())
-		appendChildByRegion(new YukiQuoteBlockAttribute(m_fileLoader, m_quoteBlockIndent), &m_attrRegion);
+		appendChild(new YukiQuoteBlockAttribute(m_fileLoader, m_attrRegion));
 }
 
 /*
@@ -47,8 +47,9 @@ void YukiRstQuoteBlock::searchingBlockRegion()
 	int indentSize = INT_MAX;
 
 	int lineNum = m_fileLoader->getLineNum();
-	m_bodyRegion.startLineNum = lineNum;
-	m_bodyRegion.endLineNum = m_bodyRegion.startLineNum - 1;
+	m_bodyRegion.type = m_limitRegion->type;
+	m_bodyRegion.startLineNum = m_limitRegion->startLineNum;
+	m_bodyRegion.startColNum = m_limitRegion->startColNum;
 
 	// 在 region 范围内搜索引用块的结束位置
 	for (;; ++offset)

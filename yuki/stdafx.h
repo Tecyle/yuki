@@ -28,3 +28,6 @@ using namespace std;
 #define yuki_error(x)
 #define yuki_tabSize() (8)
 #define yuki_simple_inline_markup() (false)
+
+#define yuki_get_absolute_index(index, total) \
+	((index) < 0 ? (total) + (index) : (index))

@@ -9,6 +9,7 @@ public:
 	wchar_t getChar(int offset = 0);
 	inline wchar_t* getCStr() { return m_fileBuffer + m_cursor.index; }
 	inline int getLineNum() const { return m_cursor.rowNum; }
+	inline int getColNum() const { return m_cursor.colNum; }
 
 	bool moveToNextLine();
 	// 查看当前行当前位置的前一个字符

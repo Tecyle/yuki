@@ -4,7 +4,7 @@
 class YukiRstQuoteBlock : public YukiQuoteBlock
 {
 public:
-	YukiRstQuoteBlock(YukiFileLoader* fileLoader, int indentLevel);
+	YukiRstQuoteBlock(YukiFileLoader* fileLoader, const YukiBlockRegion* region);
 
 	virtual bool parse(YukiStruct* parent);
 

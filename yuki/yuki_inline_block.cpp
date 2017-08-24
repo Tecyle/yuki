@@ -67,7 +67,7 @@
 
 	1. 
 */
-void YukiInlineBlock::parse(YukiStruct* parent)
+bool YukiInlineBlock::parse(YukiStruct* parent)
 {
 
 }

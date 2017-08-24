@@ -10,6 +10,7 @@ public:
 	virtual bool parse(YukiStruct* parent) = 0;
 
 	virtual bool outOfRegion(int lineNum, int colNum) { return m_limitRegion != nullptr && !m_limitRegion->inRegion(lineNum, colNum); }
+	virtual bool outOfRegion() { return outOfRegion(m_fileLoader->getLineNum(), m_fileLoader->getColNum()); }
 
 	YukiStruct(YukiFileLoader* fileLoader, const YukiBlockRegion* region)
 		: m_fileLoader(fileLoader)

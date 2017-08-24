@@ -34,6 +34,9 @@
     <Filter Include="utils">
       <UniqueIdentifier>{45538a4c-d8ac-48f7-8479-c86c06311c98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utils\string">
+      <UniqueIdentifier>{08695f69-3daf-4a8b-b904-7c13ae808c21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -87,6 +90,12 @@
     <ClInclude Include="yuki_inline_text.h">
       <Filter>yuki_structure\inline</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_lined_string.h">
+      <Filter>utils\string</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_internal_types.h">
+      <Filter>yuki_basic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -124,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="yuki_inline_text.cpp">
       <Filter>yuki_structure\inline</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_lined_string.cpp">
+      <Filter>utils\string</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
