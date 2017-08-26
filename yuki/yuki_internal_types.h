@@ -16,6 +16,9 @@ enum yuki_region_type
 class YukiRegion
 {
 public:
+	YukiRegion(const YukiRegion* region);
+
+public:
 	__inline void setSLn(int sLn) { m_sLn = sLn; }
 	__inline int getSLn() const { return m_sLn; }
 	__inline void setSCol(int sCol) { m_sCol = sCol; }
@@ -30,6 +33,8 @@ public:
 	__inline void setIndent(int indent) { m_indent = indent; }
 	__inline int getIndent() { return m_indent; }
 
+	virtual bool outOfRegion();
+
 protected:
 	yuki_region_type m_regionType;	///< 区域的类型
 	int m_sLn;	///< 区域的起始行号，0 开始
@@ -40,24 +45,4 @@ protected:
 	int m_sCh;	///< 区间起始的行内字符序号
 
 	int m_indent;	///< 这个区域的缩进
-};
-
-class YukiLinedRegion : public YukiRegion
-{
-public:
-	YukiLinedRegion(int sLn, int sCol, int eLn, int eCol, int sCh)
-	{
-		m_regionType = Yuki_linedRegion;
-		m_sLn = sLn;
-		m_sCol = sCol;
-		m_eLn = eLn;
-		m_eCol = eCol;
-		m_sCh = sCh;
-		m_indent = 0;
-	}
-};
-
-class YukiBlockRegion : public YukiRegion
-{
-
 };

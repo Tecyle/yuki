@@ -90,11 +90,20 @@
     <ClInclude Include="yuki_inline_text.h">
       <Filter>yuki_structure\inline</Filter>
     </ClInclude>
-    <ClInclude Include="yuki_lined_string.h">
-      <Filter>utils\string</Filter>
-    </ClInclude>
     <ClInclude Include="yuki_internal_types.h">
       <Filter>yuki_basic</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_file_string.h">
+      <Filter>utils\string</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_line_string.h">
+      <Filter>utils\string</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_region_string.h">
+      <Filter>utils\string</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_region_ex.h">
+      <Filter>utils\string</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,8 +143,20 @@
     <ClCompile Include="yuki_inline_text.cpp">
       <Filter>yuki_structure\inline</Filter>
     </ClCompile>
-    <ClCompile Include="yuki_lined_string.cpp">
+    <ClCompile Include="yuki_file_string.cpp">
       <Filter>utils\string</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_line_string.cpp">
+      <Filter>utils\string</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_region_string.cpp">
+      <Filter>utils\string</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_region_ex.cpp">
+      <Filter>utils\string</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_internal_types.cpp">
+      <Filter>yuki_basic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
