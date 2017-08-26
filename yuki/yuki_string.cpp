@@ -1,14 +1,6 @@
 #include "stdafx.h"
 #include <string.h>
 
-static inline int alignPosToTabSize(int pos)
-{
-	int tabSize = yuki_tabSize();
-	int res = (pos + tabSize) / tabSize;
-	res *= tabSize;
-	return res;
-}
-
 static inline bool _match(const char* &src, const char* cmp)
 {
 	size_t cmpLength = strlen(cmp);

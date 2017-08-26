@@ -17,6 +17,52 @@ static int countLines(const wchar_t* str)
 	return res;
 }
 
+static __inline int alignPosToTabSize(int pos)
+{
+	int tabSize = yuki_tabSize();
+	int res = (pos + tabSize) / tabSize;
+	res *= tabSize;
+	return res;
+}
+
+class YukiLinedRegionString : public YukiRegionString
+{
+public:
+	YukiLinedRegionString(YukiLinedString* parent, int sLn, int sCol, int eLn, int eCol, int sCh, int indent) 
+		: YukiRegionString(parent)
+	{
+		m_region = new YukiLinedRegion(sLn, sCol, eLn, eCol, sCh);
+		
+		assert(indent != YUKI_ERROR_INDENT);
+		m_region->setIndent(indent);
+
+		m_lineCount = eCol == -1 ? parent->getLineCount() : eCol;
+		m_lineCount -= sLn;
+		m_lines = parent->getLine(sLn);
+	}
+
+	~YukiLinedRegionString() { delete m_region; }
+
+
+
+// 	const YukiRegion* calcRegionBySubregion(const YukiRegion* subregion)
+// 	{
+// 		// 行区域套行区域还是行区域，行区域套块区域是块区域
+// 		if (subregion->getRegionType() == Yuki_linedRegion)
+// 			return new YukiLinedRegion(
+// 				m_region->getSLn() + subregion->getSLn(),
+// 				m_region->getSCol() + subregion->getSCol(),
+// 				m_region->getSLn() + subregion->getELn(),
+// 				m_region->getSCol() + subregion->getECol(),
+// 				calc
+// 			)
+// 	}
+
+private:
+	const YukiStringLine* m_lines;
+	int m_lineCount;
+};
+
 YukiLinedString::YukiLinedString()
 {
 	m_buffer = nullptr;
@@ -75,9 +121,12 @@ YukiStringLine::YukiStringLine(YukiLinedString* parent, int ln, wchar_t* & str)
 	m_parent = parent;
 	m_ln = ln;
 	m_index = str - parent->m_buffer;
+	m_indent = 0;
 
 	wchar_t* beginPos = str;
 	bool needPassOneChar = false;
+	bool countingIndent = true;
+	int col = 0;
 	for (;; str++)
 	{
 		// 遇到字符串结尾，结束搜索行
@@ -96,9 +145,25 @@ YukiStringLine::YukiStringLine(YukiLinedString* parent, int ln, wchar_t* & str)
 			}
 			break;
 		}
+
+		// 尝试统计缩进级别
+		if (countingIndent)
+		{
+			if (!isspace(*str))
+			{
+				countingIndent = false;
+				continue;
+			}
+
+			m_indent = *str == '\t' ? alignPosToTabSize(m_indent) : m_indent + 1;
+		}
 	}
 
-	m_length = str - beginPos + 1;
+	// 如果推出循环的时候都在统计缩进，表明这一行是空行
+	if (countingIndent)
+		m_indent = YUKI_ERROR_INDENT;
+
+	m_length = str - beginPos;
 	if (needPassOneChar)
 		str++;
 }
