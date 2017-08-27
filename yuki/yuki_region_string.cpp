@@ -16,10 +16,23 @@ YukiLinedRegionString::YukiLinedRegionString(YukiFileString* parent, const YukiR
 
 	m_lineCount = region->getELn() == -1 ? parent->getLineCount() : region->getELn();
 	m_lineCount -= region->getSLn();
-	m_lines = parent->getLine(region->getSLn());
+	
+	m_lines = (YukiLineString*)malloc(m_lineCount * sizeof(YukiLineString));
+	if (m_lineCount == 1)
+	{
+		m_lines[0].YukiLineString::YukiLineString(parent->getLine(region->getSLn()), region->getSCol(), region->getECol());
+		return;
+	}
+
+	m_lines[0].YukiLineString::YukiLineString(parent->getLine(region->getSLn()), region->getSCol(), -1);
+	for (int i = 1; i < m_lineCount - 1; ++i)
+	{
+		m_lines[i].YukiLineString::YukiLineString(parent->getLine(region->getSLn() + i));
+	}
+	m_lines[m_lineCount - 1].YukiLineString::YukiLineString(parent->getLine(region->getSLn()), 0, region->getECol());
 }
 
 YukiLinedRegionString::~YukiLinedRegionString()
 { 
-	delete m_region; 
+	delete m_region;
 }

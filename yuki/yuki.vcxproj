@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -131,6 +131,7 @@
     <ClInclude Include="yuki_directive.h" />
     <ClInclude Include="yuki_document.h" />
     <ClInclude Include="yuki_file_loader.h" />
+    <ClInclude Include="yuki_file_reader.h" />
     <ClInclude Include="yuki_inline_block.h" />
     <ClInclude Include="yuki_inline_markup.h" />
     <ClInclude Include="yuki_inline_text.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="yuki_interpreter.h" />
     <ClInclude Include="yuki_file_string.h" />
     <ClInclude Include="yuki_line_string.h" />
+    <ClInclude Include="yuki_matcher.h" />
     <ClInclude Include="yuki_node.h" />
     <ClInclude Include="yuki_paragraph.h" />
     <ClInclude Include="yuki_quote_block.h" />
@@ -157,6 +159,7 @@
     <ClCompile Include="yuki_body.cpp" />
     <ClCompile Include="yuki_document.cpp" />
     <ClCompile Include="yuki_file_loader.cpp" />
+    <ClCompile Include="yuki_file_reader.cpp" />
     <ClCompile Include="yuki_inline_block.cpp" />
     <ClCompile Include="yuki_inline_markup.cpp" />
     <ClCompile Include="yuki_inline_text.cpp" />

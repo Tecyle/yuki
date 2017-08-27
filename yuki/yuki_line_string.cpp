@@ -13,12 +13,45 @@ static __inline int alignPosToTabSize(int pos)
 	return res;
 }
 
+static __inline int countIndentLevel(const wchar_t* str, int length, int col)
+{
+	int countedLength = 0;
+	int indent = col;
+
+	while (countedLength < length)
+	{
+		if (*str == '\t')
+			indent = alignPosToTabSize(indent);
+		else if (isspace(*str))
+			indent++;
+		else
+			return indent;
+
+		countedLength++;
+		str++;
+	}
+
+	return YUKI_ERROR_INDENT;
+}
+
 bool YukiLineString::moveCursorToNext(yuki_cursor& cursor)
 {
-	if (cursor.ch == m_length - 1)
+	if (cursor.ch - m_ch == m_length - 1 || cursor.ch < m_ch)
 		return false;
 
-	wchar_t c = m_parent->get
+	wchar_t c = *getCStr();
+	if (c == '\t')
+	{
+		int col = cursor.col + m_col;
+		cursor.col += alignPosToTabSize(col) - col;
+	}
+	else
+	{
+		cursor.col++;
+	}
+
+	cursor.ch++;
+	return true;
 }
 
 wchar_t YukiLineString::getCharAtIndex(int ch) const
@@ -34,6 +67,8 @@ YukiLineString::YukiLineString(YukiFileString* parent, int ln, wchar_t* & str)
 	m_ln = ln;
 	m_index = str - parent->m_buffer;
 	m_indent = 0;
+	m_col = 0;
+	m_ch = 0;
 
 	wchar_t* beginPos = str;
 	bool needPassOneChar = false;
@@ -80,12 +115,53 @@ YukiLineString::YukiLineString(YukiFileString* parent, int ln, wchar_t* & str)
 		str++;
 }
 
-YukiLineString::YukiLineString(YukiLineString* base, int startCol, int endCol)
+YukiLineString::YukiLineString(const YukiLineString* base, int startCol, int endCol)
 {
-
+	m_parent = base->m_parent;
+	m_ln = base->m_ln;
+	m_col = startCol;
+	m_ch = base->getChByCol(startCol);
+	m_index = base->m_index + m_ch;
+	int endCh = endCol == -1 ? base->m_length - 1 : base->getChByCol(endCol);
+	m_length = endCh - m_ch;
+	m_ch += base->m_ch;
+	
+	// 统计子行的缩进
+	m_indent = countIndentLevel(getCStr(), getLength(), m_col);
 }
 
-int YukiLineString::getChByCol(int col)
+YukiLineString::YukiLineString(const YukiLineString* r)
 {
+	m_parent = r->m_parent;
+	m_ln = r->m_ln;
+	m_col = r->m_col;
+	m_ch = r->m_ch;
+	m_index = r->m_index;
+	m_length = r->m_length;
+	m_indent = r->m_indent;
+}
 
+int YukiLineString::getChByCol(int col) const
+{
+	col = m_col + col;
+
+	const wchar_t* str = getCStr();
+	const wchar_t* p = str;
+	int cc = m_col;
+	int res = 0;
+	while (cc < col)
+	{
+		if (p - str > getLength())
+			return -1;
+
+		if (*str == '\t')
+			cc = alignPosToTabSize(cc);
+		else
+			cc++;
+
+		res++;
+		p++;
+	}
+
+	return cc > col ? res - 1 : res;
 }

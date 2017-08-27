@@ -37,6 +37,9 @@
     <Filter Include="utils\string">
       <UniqueIdentifier>{08695f69-3daf-4a8b-b904-7c13ae808c21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utils\match &amp; reader">
+      <UniqueIdentifier>{e626b2f8-c496-4d03-ae67-43434465490d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -105,6 +108,12 @@
     <ClInclude Include="yuki_region_ex.h">
       <Filter>utils\string</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_file_reader.h">
+      <Filter>utils\match &amp; reader</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_matcher.h">
+      <Filter>utils\match &amp; reader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -157,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="yuki_internal_types.cpp">
       <Filter>yuki_basic</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_file_reader.cpp">
+      <Filter>utils\match &amp; reader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
