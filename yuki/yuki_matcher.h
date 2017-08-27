@@ -14,3 +14,8 @@ public:
 	*/
 	virtual bool match(YukiFileReader* reader, YukiRegion* region) = 0;
 };
+
+class YukiMatcherManager
+{
+
+};
