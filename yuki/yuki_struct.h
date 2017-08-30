@@ -34,6 +34,7 @@ protected:
 	__inline YukiStruct* getParser(const wchar_t* name);
 	__inline YukiFileReader* getFileReader();
 	__inline YukiMatcherCollection* getMatcherCollection();
+	__inline YukiMatcher* getMatcher(const wchar_t* name);
 
 protected:
 	const wchar_t* m_name;

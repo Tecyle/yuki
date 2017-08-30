@@ -46,6 +46,12 @@
     <Filter Include="yuki_generator\yuki_html5_generator">
       <UniqueIdentifier>{41557f2a-d7a8-452e-bbf3-bc0da4273579}</UniqueIdentifier>
     </Filter>
+    <Filter Include="yuki_structure\title">
+      <UniqueIdentifier>{fcd3915b-a9ba-4850-965f-8c6e48a391ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\memories">
+      <UniqueIdentifier>{cda74e1e-7ee6-4d96-b821-22461d3b7d9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -129,6 +135,12 @@
     <ClInclude Include="string_hashmap.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_section.h">
+      <Filter>yuki_structure</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_memo_pools.h">
+      <Filter>utils\memories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -196,6 +208,12 @@
     </ClCompile>
     <ClCompile Include="yuki_global.cpp">
       <Filter>yuki_basic</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_section.cpp">
+      <Filter>yuki_structure</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_memo_pools.cpp">
+      <Filter>utils\memories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
