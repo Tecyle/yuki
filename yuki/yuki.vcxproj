@@ -125,6 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="string_hashmap.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="yuki.h" />
     <ClInclude Include="yuki_body.h" />
@@ -132,6 +133,8 @@
     <ClInclude Include="yuki_document.h" />
     <ClInclude Include="yuki_file_loader.h" />
     <ClInclude Include="yuki_file_reader.h" />
+    <ClInclude Include="yuki_generator.h" />
+    <ClInclude Include="yuki_global.h" />
     <ClInclude Include="yuki_inline_block.h" />
     <ClInclude Include="yuki_inline_markup.h" />
     <ClInclude Include="yuki_inline_text.h" />
@@ -160,6 +163,8 @@
     <ClCompile Include="yuki_document.cpp" />
     <ClCompile Include="yuki_file_loader.cpp" />
     <ClCompile Include="yuki_file_reader.cpp" />
+    <ClCompile Include="yuki_generator.cpp" />
+    <ClCompile Include="yuki_global.cpp" />
     <ClCompile Include="yuki_inline_block.cpp" />
     <ClCompile Include="yuki_inline_markup.cpp" />
     <ClCompile Include="yuki_inline_text.cpp" />
@@ -167,6 +172,8 @@
     <ClCompile Include="yuki_interpreter.cpp" />
     <ClCompile Include="yuki_file_string.cpp" />
     <ClCompile Include="yuki_line_string.cpp" />
+    <ClCompile Include="yuki_matcher.cpp" />
+    <ClCompile Include="yuki_node.cpp" />
     <ClCompile Include="yuki_paragraph.cpp" />
     <ClCompile Include="yuki_quote_block.cpp" />
     <ClCompile Include="yuki_region_ex.cpp" />

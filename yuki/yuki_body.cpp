@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "yuki.h"
+#include "yuki_internal_types.h"
 #include "yuki_rst_quote_block.h"
+#include "yuki_matcher.h"
 #include "yuki_body.h"
 
 /*
@@ -64,106 +66,51 @@
 	16. 如果以 ``| `` 打头，则识别为行列表
 	17. 然后只剩段落了
 */
-YukiBody::YukiBody(YukiFileLoader* fileLoader, const YukiBlockRegion* region)
-	: YukiStruct(fileLoader, region)
+YukiBody::YukiBody(YukiGlobal* globalData)
+	: YukiStruct(globalData)
 {
+	m_name = L"body";
+	m_type = Yuki_blockType;
 }
 
-bool YukiBody::parse(YukiStruct* parent)
+bool YukiBody::parse(YukiNode* parent, const YukiRegion* region)
 {
-	int indentLevel = m_limitRegion->indent;
-	m_parent = parent;
+	int indentLevel = region->getIndent();
+	YukiFileReader* fileReader = getFileReader();
+	const YukiRegion* oldRegion = fileReader->selectRegion(region);
+	YukiBodyNode* bodyNode = new YukiBodyNode;
+	YukiMatcherCollection* matchers = getMatcherCollection();
+	auto followMatchers = matchers->getFollowSet(getName());
 
-	for (;;)
+	while (!fileReader->outOfRegion())
 	{
-		if (outOfRegion())
-			break;
-
-		const YukiString* line = m_fileLoader->getLine();
-
-		if(line == nullptr)
-			break;
+		const YukiLineString* line = fileReader->getLine();
 
 		if (line->isBlankLine())
 		{
-			m_fileLoader->moveToNextLine();
+			fileReader->moveToNextLine();
 			continue;
 		}
 
-		int indentLevel = line->getIndentLevel().colOffset;
-		// 如果缩进小于当前 body 的缩进，则认为 body 部分已经结束
-		if (indentLevel < indentLevel)
+		if (line->getIndent() < region->getIndent())
 			break;
 
-		if (indentLevel > indentLevel)
+		bool matched = false;
+		for (auto matcherName : *followMatchers)
 		{
-			// 如果缩进级别大于当前 body 的缩进级别，则认为出现了 rst 风格的引用块
-			appendChild(new YukiRstQuoteBlock(m_fileLoader, m_limitRegion));
+			if (matchers->getMatcher(matcherName)->lookAhead(line, fileReader))
+			{
+				if (!getParser(matcherName)->parse(bodyNode, region))
+					continue;
+				matched = true;
+				break;
+			}
 		}
-		else if (line.matchExplicitMark())
-		{
-			doExplicitMark();
-		}
-		else if (line.matchMarkdownLiteralBlockMark())
-		{
-			appendChild(new YukiMdLiteralBlock());
-		}
-		else if (line.matchDoctestMark())
-		{
-			appendChild(new YukiRstDoctestBlock());
-		}
-		else if (line.matchMarkdownQuoteBlockMark())
-		{
-			appendChild(new YukiMdQuoteBlock());
-		}
-		else if(line.matchRstLiteralBlockMark())
-		{
-			appendChild(new YukiRstLiteralBlock());
-		}
-		else if (line.matchBulletListMark())
-		{
-			appendChild(new YukiBulletListMark());
-		}
-		else if (line.matchNumericListMark())
-		{
-			appendChild(new YukiNumericList());
-		}
-		else if (line.matchFieldListMark())
-		{
-			appendChild(new YukiFieldList());
-		}
-		else if (line.matchSeperatorMark())
-		{
-			appendChild(new YukiSeperator());
-		}
-		else if (line.matchGridTableMark())
-		{
-			appendChild(new YukiGridTable());
-		}
-		else if (line.matchSimpleTableMark())
-		{
-			appendChild(new YukiSimpleTable());
-		}
-		else if (line.matchOptionListMark())
-		{
-			appendChild(new YukiOptionList());
-		}
-		else if (line.matchDefinitionListMark())
-		{
-			appendChild(new YukiDefinitionList());
-		}
-		else if (line.matchMarkdownTableMark())
-		{
-			appendChild(new YukiMarkdownTable());
-		}
-		else if (line.matchLineListMark())
-		{
-			appendChild(new YukiLineList());
-		}
-		else
-		{
-			appendChild(new YukiParagraph());
-		}
+
+		assert(matched);
 	}
 
+	fileReader->selectRegion(oldRegion);
+	bodyNode->setRegion(fileReader->cutRegion());
+	parent->appendChild(bodyNode);
 }

@@ -3,18 +3,32 @@
 class YukiDocumentNode : public YukiNode
 {
 public:
+	YukiDocumentNode(const YukiRegion* region);
+
+private:
+	// Œƒµµ Ù–‘
+	wstring m_author;
+	wstring m_authors;
+	wstring m_organization;
+	wstring m_contact;
+	wstring m_address;
+	wstring m_version;
+	wstring m_status;
+	wstring m_date;
+	wstring m_copyright;
+	wstring m_abstract;
+
+	wstring m_title;
 };
 
 class YukiDocument : public YukiStruct
 {
 public:
-	inline virtual YukiNode* getNode() const { return m_node; }
-
-	virtual bool parse(YukiStruct* parent);
+	YukiDocument(YukiGlobal* globalData);
 
 public:
-	YukiDocument(YukiFileLoader* m_fileLoader);
+	YukiDocumentNode* parseYukiDocument();
 
-private:
-	YukiDocumentNode* m_node;
+protected:
+	virtual bool parse(YukiNode* parent, const YukiRegion* region) override;
 };

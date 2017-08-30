@@ -25,6 +25,9 @@
 #include <string>
 using namespace std;
 
+#include "string_hashmap.h"
+#include "yuki_global.h"
+
 #define yuki_error(x)
 #define yuki_tabSize() (8)
 #define yuki_simple_inline_markup() (false)

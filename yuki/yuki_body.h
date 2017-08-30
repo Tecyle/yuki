@@ -8,7 +8,8 @@ class YukiBodyNode : public YukiNode
 class YukiBody : public YukiStruct
 {
 public:
-	YukiBody(YukiFileLoader* fileLoader, const YukiBlockRegion* region);
+	YukiBody(YukiGlobal* globalData);
 
-	virtual bool parse(YukiStruct* parent);
+public:
+	virtual bool parse(YukiNode* parent, const YukiRegion* region) override;
 };

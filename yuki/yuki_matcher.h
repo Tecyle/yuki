@@ -15,7 +15,20 @@ public:
 	virtual bool match(YukiFileReader* reader, YukiRegion* region) = 0;
 };
 
-class YukiMatcherManager
+class YukiMatcherCollection
 {
+public:
+	YukiMatcherCollection(YukiGlobal* globalData);
 
+public:
+	// 初始化
+	__inline void addFollowSet(const wchar_t* parent, const wchar_t* child);
+
+	// 获取
+	__inline YukiMatcher* getMatcher(const wchar_t* parent);
+	__inline const vector<const wchar_t*>* getFollowSet(const wchar_t* parent) const;
+
+protected:
+	StringHashmap<YukiMatcher*> m_matchers;
+	StringHashmap<vector<const wchar_t*>> m_followSet;
 };

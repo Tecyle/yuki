@@ -21,34 +21,34 @@ enum yuki_struct_type
 class YukiStruct
 {
 public:
-	YukiStruct(YukiFileReader* fileReader, const YukiBlockRegion* region, YukiStruct* parent);
+	YukiStruct(YukiGlobal* globalData);
 	~YukiStruct();
 
 public:
-	// 父子关系
-	virtual __inline YukiStruct* getParent();
-	virtual bool appendChild(YukiStruct* child);
-	virtual __inline YukiStruct* getChild(int index);
-	virtual __inline int getChildrenCount();
-
-public:
-	// 成员关系
-	virtual __inline const wchar_t* getName() const;
-	virtual __inline yuki_struct_type getType() const;
-	virtual __inline YukiNode* getNode();
-	virtual __inline YukiMatcher* getMatcher();
-	virtual __inline const YukiRegion* getRegion();
-
-public:
 	// 解析
-	virtual bool parse() = 0;
+	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) = 0;
+
+	__inline const wchar_t* getName() const { return m_name; }
+
+protected:
+	__inline YukiStruct* getParser(const wchar_t* name);
+	__inline YukiFileReader* getFileReader();
+	__inline YukiMatcherCollection* getMatcherCollection();
 
 protected:
 	const wchar_t* m_name;
 	yuki_struct_type m_type;
-	const YukiRegion* m_region;
-	YukiFileReader* m_fileReader;
-	YukiStruct* m_parent;
-	vector<YukiStruct*> m_children;
+	YukiGlobal* m_globalData;
 };
 
+class YukiStructCollection
+{
+public:
+	YukiStructCollection(YukiGlobal* globalData);
+
+public:
+	__inline YukiString* getStruct(const wchar_t* name);
+
+private:
+	StringHashmap<YukiStruct*> m_structMap;
+};
