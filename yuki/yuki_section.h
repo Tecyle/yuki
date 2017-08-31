@@ -14,4 +14,5 @@ public:
 	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) override;
 
 private:
+	const YukiRegion* searchSectionBodyRegion();
 };

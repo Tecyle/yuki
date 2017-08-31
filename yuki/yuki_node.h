@@ -5,7 +5,7 @@
 	语法解析的结果会生成一个节点树，代表了整个文档的逻辑结构。
 */
 
-class YukiNode
+class YukiNode : virtual public YukiDynamicClass
 {
 protected:
 	YukiNode(YukiNode* parent, const YukiRegion* region);
@@ -21,6 +21,8 @@ public:
 
 	virtual const YukiRegion* getRegion() const { return m_region; }
 
+	virtual __inline void appendChild(YukiNode* child);
+
 protected:
 	const wchar_t* m_nodeName;
 	yuki_struct_type m_nodeType;
@@ -31,7 +33,7 @@ protected:
 	YukiRegion* m_region;
 };
 
-class YukiWalkerAction
+class YukiWalkerAction : virtual public YukiDynamicClass
 {
 public:
 	// 在访问 currentNode 的子节点之前调用

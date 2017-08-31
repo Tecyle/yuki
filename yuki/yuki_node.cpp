@@ -19,3 +19,10 @@ void YukiNodeWalker::visit(YukiNode* root)
 	}
 	action->afterVisit(m_rootNode, root);
 }
+
+void YukiNode::appendChild(YukiNode* child)
+{
+	assert(child->m_parent == nullptr);
+	child->m_parent = this;
+	m_children.push_back(child);
+}

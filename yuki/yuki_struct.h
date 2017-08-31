@@ -18,7 +18,7 @@ enum yuki_struct_type
 	Yuki_controlType		 ///< 格式控制类型
 };
 
-class YukiStruct
+class YukiStruct : virtual public YukiDynamicClass
 {
 public:
 	YukiStruct(YukiGlobal* globalData);

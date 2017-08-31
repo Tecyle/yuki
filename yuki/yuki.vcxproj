@@ -131,6 +131,7 @@
     <ClInclude Include="yuki_body.h" />
     <ClInclude Include="yuki_directive.h" />
     <ClInclude Include="yuki_document.h" />
+    <ClInclude Include="yuki_dynamic_class.h" />
     <ClInclude Include="yuki_file_loader.h" />
     <ClInclude Include="yuki_file_reader.h" />
     <ClInclude Include="yuki_generator.h" />
@@ -143,6 +144,7 @@
     <ClInclude Include="yuki_file_string.h" />
     <ClInclude Include="yuki_line_string.h" />
     <ClInclude Include="yuki_matcher.h" />
+    <ClInclude Include="yuki_md_title_matcher.h" />
     <ClInclude Include="yuki_memo_pools.h" />
     <ClInclude Include="yuki_node.h" />
     <ClInclude Include="yuki_paragraph.h" />
@@ -175,6 +177,7 @@
     <ClCompile Include="yuki_file_string.cpp" />
     <ClCompile Include="yuki_line_string.cpp" />
     <ClCompile Include="yuki_matcher.cpp" />
+    <ClCompile Include="yuki_md_title_matcher.cpp" />
     <ClCompile Include="yuki_memo_pools.cpp" />
     <ClCompile Include="yuki_node.cpp" />
     <ClCompile Include="yuki_paragraph.cpp" />

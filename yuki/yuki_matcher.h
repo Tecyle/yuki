@@ -13,6 +13,8 @@ public:
 		* 匹配成功返回 true，匹配失败返回 false，不需要手动还原光标
 	*/
 	virtual bool match(YukiFileReader* reader, YukiRegion* region) = 0;
+
+	virtual bool lookAhead(const YukiLineString* line, YukiFileReader* reader) = 0;
 };
 
 class YukiMatcherCollection

@@ -52,6 +52,12 @@
     <Filter Include="utils\memories">
       <UniqueIdentifier>{cda74e1e-7ee6-4d96-b821-22461d3b7d9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utils\match &amp; reader\matchers">
+      <UniqueIdentifier>{a199e962-8f06-41e8-8d8f-07a08b937e79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\match &amp; reader\matchers\title">
+      <UniqueIdentifier>{6f87698a-787a-4801-9aa4-2e3be3e447af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -141,6 +147,12 @@
     <ClInclude Include="yuki_memo_pools.h">
       <Filter>utils\memories</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_dynamic_class.h">
+      <Filter>utils\memories</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_md_title_matcher.h">
+      <Filter>utils\match &amp; reader\matchers\title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -214,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="yuki_memo_pools.cpp">
       <Filter>utils\memories</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_md_title_matcher.cpp">
+      <Filter>utils\match &amp; reader\matchers\title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
