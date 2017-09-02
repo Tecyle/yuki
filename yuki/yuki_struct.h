@@ -27,6 +27,7 @@ public:
 public:
 	// ½âÎö
 	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) = 0;
+	virtual bool match() = 0;
 
 	__inline const wchar_t* getName() const { return m_name; }
 

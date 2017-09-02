@@ -58,6 +58,15 @@
     <Filter Include="utils\match &amp; reader\matchers\title">
       <UniqueIdentifier>{6f87698a-787a-4801-9aa4-2e3be3e447af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="yuki_generator\yuki_docx_generator">
+      <UniqueIdentifier>{787ba496-b1ec-425c-ab10-c5198b1d71a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_generator\yuki_pdf_generator">
+      <UniqueIdentifier>{abb07fcb-dc19-4d50-aeaf-09765104b891}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_generator\yuki_latex_generator">
+      <UniqueIdentifier>{eff7cf4e-df44-4198-a452-3a58800c5ff3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -153,6 +162,15 @@
     <ClInclude Include="yuki_md_title_matcher.h">
       <Filter>utils\match &amp; reader\matchers\title</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_rst_title_matcher.h">
+      <Filter>utils\match &amp; reader\matchers\title</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_md_header.h">
+      <Filter>yuki_structure\title</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_rst_header.h">
+      <Filter>yuki_structure\title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -229,6 +247,15 @@
     </ClCompile>
     <ClCompile Include="yuki_md_title_matcher.cpp">
       <Filter>utils\match &amp; reader\matchers\title</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_rst_title_matcher.cpp">
+      <Filter>utils\match &amp; reader\matchers\title</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_md_header.cpp">
+      <Filter>yuki_structure\title</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_rst_header.cpp">
+      <Filter>yuki_structure\title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

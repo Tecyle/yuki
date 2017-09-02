@@ -18,8 +18,14 @@ public:
 public:
 	__inline int getLn() const { return m_ln; }
 	__inline int getLength() const { return m_length; }
+	__inline int getContentLength() const;
 	__inline wchar_t getCharAtIndex(int ch) const;
 	__inline bool isBlankLine() const { return m_indent == YUKI_ERROR_INDENT; }
+	__inline int getIndent() const { return m_indent; }
+	__inline bool isSeperator() const;
+
+	__inline yuki_cursor beginCursor() const;
+	__inline yuki_cursor endCursor() const;
 
 protected:
 	// YukiFileString 专用的构造函数，通过可移动的 str 指针来构造一行

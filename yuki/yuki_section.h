@@ -3,6 +3,7 @@
 class YukiSectionNode : public YukiNode 
 {
 public:
+	YukiSectionNode();
 
 private:
 	int m_sectionLevel;

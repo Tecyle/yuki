@@ -36,12 +36,12 @@ bool YukiSection::parse(YukiNode* parentNode, const YukiRegion* region)
 const YukiRegion* YukiSection::searchSectionBodyRegion()
 {
 	YukiFileReader* fileReader = getFileReader();
-	int ln;
 	bool lastLineIsBlankLine = false;
 
-	for (ln=0; ln < fileReader->getLineCount(); ++ln)
+	yuki_cursor oldCursor = fileReader->getCursor();
+	do
 	{
-		const YukiLineString* line = fileReader->getLine(ln);
+		const YukiLineString* line = fileReader->getLine();
 
 		if (line->isBlankLine())
 		{
@@ -51,14 +51,17 @@ const YukiRegion* YukiSection::searchSectionBodyRegion()
 
 		if (lastLineIsBlankLine)
 		{
-			if (getMatcher(L"md_header")->lookAhead(line, fileReader)
-				|| getMatcher(L"rst_header")->lookAhead(line, fileReader))
+			if (getParser(L"md_header")->match()
+				|| getParser(L"rst_header")->match())
 			{
-				return fileReader->cutRegionFromCursorTo(ln - 1, -1);
+				yuki_cursor endCursor = fileReader->getCursor();
+				fileReader->setCursor(oldCursor);
+				return fileReader->cutRegionFromCursorTo(endCursor);
 			}
 			lastLineIsBlankLine = false;
 		}
-	}
+	} while (fileReader->moveToNextLine());
 
+	fileReader->setCursor(oldCursor);
 	return fileReader->getRegion();
 }

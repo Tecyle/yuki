@@ -144,6 +144,7 @@
     <ClInclude Include="yuki_file_string.h" />
     <ClInclude Include="yuki_line_string.h" />
     <ClInclude Include="yuki_matcher.h" />
+    <ClInclude Include="yuki_md_header.h" />
     <ClInclude Include="yuki_md_title_matcher.h" />
     <ClInclude Include="yuki_memo_pools.h" />
     <ClInclude Include="yuki_node.h" />
@@ -151,7 +152,9 @@
     <ClInclude Include="yuki_quote_block.h" />
     <ClInclude Include="yuki_region_ex.h" />
     <ClInclude Include="yuki_region_string.h" />
+    <ClInclude Include="yuki_rst_header.h" />
     <ClInclude Include="yuki_rst_quote_block.h" />
+    <ClInclude Include="yuki_rst_title_matcher.h" />
     <ClInclude Include="yuki_section.h" />
     <ClInclude Include="yuki_string.h" />
     <ClInclude Include="yuki_struct.h" />
@@ -177,6 +180,7 @@
     <ClCompile Include="yuki_file_string.cpp" />
     <ClCompile Include="yuki_line_string.cpp" />
     <ClCompile Include="yuki_matcher.cpp" />
+    <ClCompile Include="yuki_md_header.cpp" />
     <ClCompile Include="yuki_md_title_matcher.cpp" />
     <ClCompile Include="yuki_memo_pools.cpp" />
     <ClCompile Include="yuki_node.cpp" />
@@ -184,7 +188,9 @@
     <ClCompile Include="yuki_quote_block.cpp" />
     <ClCompile Include="yuki_region_ex.cpp" />
     <ClCompile Include="yuki_region_string.cpp" />
+    <ClCompile Include="yuki_rst_header.cpp" />
     <ClCompile Include="yuki_rst_quote_block.cpp" />
+    <ClCompile Include="yuki_rst_title_matcher.cpp" />
     <ClCompile Include="yuki_section.cpp" />
     <ClCompile Include="yuki_string.cpp" />
   </ItemGroup>

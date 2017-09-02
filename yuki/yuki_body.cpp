@@ -98,13 +98,10 @@ bool YukiBody::parse(YukiNode* parent, const YukiRegion* region)
 		bool matched = false;
 		for (auto matcherName : *followMatchers)
 		{
-			if (matchers->getMatcher(matcherName)->lookAhead(line, fileReader))
-			{
-				if (!getParser(matcherName)->parse(bodyNode, region))
-					continue;
-				matched = true;
-				break;
-			}
+			if (!getParser(matcherName)->parse(bodyNode, region))
+				continue;
+			matched = true;
+			break;
 		}
 
 		assert(matched);
