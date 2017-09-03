@@ -31,7 +31,7 @@ public:
 	__inline void setSCh(int sCh) { m_sCh = sCh; }
 	__inline int getSCh() const { return m_sCh; }
 	__inline void setIndent(int indent) { m_indent = indent; }
-	__inline int getIndent() { return m_indent; }
+	__inline int getIndent() const { return m_indent; }
 
 	virtual bool outOfRegion();
 

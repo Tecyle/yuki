@@ -35,3 +35,7 @@ using namespace std;
 
 #define yuki_get_absolute_index(index, total) \
 	((index) < 0 ? (total) + (index) : (index))
+
+#if !defined(assert)
+#	define assert(o)
+#endif

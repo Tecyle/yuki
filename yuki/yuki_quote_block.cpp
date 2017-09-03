@@ -1,31 +1,65 @@
 #include "stdafx.h"
 #include "yuki.h"
+#include "yuki_internal_types.h"
+#include "yuki_file_reader.h"
+#include "yuki_line_string.h"
 #include "yuki_quote_block.h"
 
 /*
-	当进入解析函数的时候，说明已经成功识别解析了
 	解析要点：
 
 	1. 跳过空行
 	2. 跳过 ``--`` 打头的文字段
-	3. 按照 paragraph 解析
+	3. 按照 inline_block 解析
 */
-void YukiQuoteBlockAttribute::parse(YukiStruct* parent)
+bool YukiQuoteBlockAttribute::parse(YukiNode* parentNode, const YukiRegion* region)
 {
-	m_parent = parent;
+	YukiFileReader* reader = getFileReader();
+	yuki_cursor oldCursor = reader->getCursor();
+	if (!matchNoBackward())
+	{
+		reader->setCursor(oldCursor);
+		return false;
+	}
 
-	m_fileLoader->skipBlankLinesInRegion(m_limitRegion);
+	YukiQuoteBlockAttributeNode* attrNode = new YukiQuoteBlockAttributeNode;
+	getParser(L"inline_block")->parse(attrNode, reader->cutRegionFromCursorToEnd());
+	parentNode->appendChild(parentNode);
+	return true;
+}
 
-	if (outOfRegion())
-		return;
+/*
+	在 match 的时候，仅判断前缀，不判断缩进相关
+	缩进相关的应该在 quote block 那一层判断
+*/
+bool YukiQuoteBlockAttribute::match()
+{
+	YukiFileReader* reader = getFileReader();
+	yuki_cursor oldCursor = reader->getCursor();
 
-	if (!m_fileLoader->match(L"---") && !m_fileLoader->match(L"--"))
-		assert(!"Failed match quote block attribute!");
-	m_fileLoader->matchAndSkipSpace();
+	bool succ = matchNoBackward();
 
-	YukiBlockRegion region;
-	region.startLineNum = m_fileLoader->getLineNum() - 1;
-	region.endLineNum = m_limitRegion->endLineNum;
-	region.indent = m_indentLevel;
-	appendChildByRegion(new YukiParagraph(m_fileLoader, m_indentLevel), &region);
+	reader->setCursor(oldCursor);
+	return succ;
+}
+
+bool YukiQuoteBlockAttribute::matchNoBackward()
+{
+	YukiFileReader* reader = getFileReader();
+
+	reader->skipSpaces();
+	if (!reader->matchStr(L"---")
+		&& !reader->matchStr(L"--")
+		&& !reader->matchStr(L"——"))
+	{
+		return false;
+	}
+
+	if (reader->skipSpaces() <= 0)
+		return false;
+
+	if (reader->cursorAtLineEnd())
+		return false;
+
+	return true;
 }

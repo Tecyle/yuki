@@ -1,18 +1,15 @@
 #pragma once
 #include "yuki_quote_block.h"
 
-class YukiRstQuoteBlock : public YukiQuoteBlock
+class YukiRstQuoteBlock : public YukiStruct
 {
 public:
-	YukiRstQuoteBlock(YukiFileLoader* fileLoader, const YukiBlockRegion* region);
-
-	virtual bool parse(YukiStruct* parent);
+	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) override;
+	virtual bool match() override;
 
 protected:
-	void searchingBlockRegion();
+	void searchingBlockRegion(const YukiRegion* &bodyRegion, const YukiRegion* &attrRegion);
 
 private:
 	int m_quoteBlockIndent;
-	YukiBlockRegion m_bodyRegion;
-	YukiBlockRegion m_attrRegion;
 };

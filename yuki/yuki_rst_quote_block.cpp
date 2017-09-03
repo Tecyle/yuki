@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "yuki.h"
+#include "yuki_internal_types.h"
+#include "yuki_file_reader.h"
+#include "yuki_line_string.h"
 #include "yuki_struct.h"
 #include "yuki_body.h"
 #include "yuki_quote_block.h"
@@ -18,18 +21,41 @@
 
 	这个结构本身只是提供框架，不移动字符流指针
 */
-bool YukiRstQuoteBlock::parse(YukiStruct* parent)
+bool YukiRstQuoteBlock::parse(YukiNode* parentNode, const YukiRegion* region)
 {
-	m_parent = parent;
+	if (!match())
+		return false;
 
+	YukiQuoteBlockNode* quoteNode = new YukiQuoteBlockNode;
+	const YukiRegion* bodyRegion;
+	const YukiRegion* attrRegion;
+
+	quoteNode->setQuoteLevel(QuoteLevel_default);
 	// 确定引用块的位置
-	searchingBlockRegion();
+	searchingBlockRegion(bodyRegion, attrRegion);
 
-	if(!m_bodyRegion.invalid())
-		appendChild(new YukiBody(m_fileLoader, &m_bodyRegion));
+	assert(bodyRegion != nullptr || attrRegion != nullptr);
 
-	if (!m_attrRegion.invalid())
-		appendChild(new YukiQuoteBlockAttribute(m_fileLoader, m_attrRegion));
+	if (bodyRegion != nullptr)
+		getParser(L"body")->parse(quoteNode, bodyRegion);
+
+	if (attrRegion != nullptr)
+		getParser(L"quote_block_attribute")->parse(quoteNode, attrRegion);
+		
+	parentNode->appendChild(quoteNode);
+	return true;
+}
+
+
+bool YukiRstQuoteBlock::match()
+{
+	YukiFileReader* reader = getFileReader();
+	const YukiRegion* region = reader->getRegion();
+
+	const YukiLineString* line = reader->getLine();
+	assert(!line->isBlankLine());
+
+	return line->getIndent() > region->getIndent();
 }
 
 /*
@@ -38,82 +64,75 @@ bool YukiRstQuoteBlock::parse(YukiStruct* parent)
 	1. BodyRegion：引用块主体部分的位置
 	2. AttributeRegion：引用块 Attribute 范围的位置
 */
-void YukiRstQuoteBlock::searchingBlockRegion()
+void YukiRstQuoteBlock::searchingBlockRegion(const YukiRegion* &bodyRegion, const YukiRegion* &attrRegion)
 {
-	const YukiString* line = nullptr;
-	int offset = 0;
-	bool lastLineIsBlankLine = false;
-	bool foundAttrRegion = false;
-	int indentSize = INT_MAX;
+	YukiFileReader* reader = getFileReader();
+	int indent = reader->getRegion()->getIndent();
+	int commonIndent = INT_MAX;	///< 统计 body 部分的最大公共缩进
+	bool lastLineIsBlankLine = true;
+	bool hasAttr = false;
+	yuki_cursor oldCursor = reader->getCursor();
+	yuki_cursor startCursor = oldCursor;
+	bodyRegion = nullptr;
+	attrRegion = nullptr;
 
-	int lineNum = m_fileLoader->getLineNum();
-	m_bodyRegion.type = m_limitRegion->type;
-	m_bodyRegion.startLineNum = m_limitRegion->startLineNum;
-	m_bodyRegion.startColNum = m_limitRegion->startColNum;
-
-	// 在 region 范围内搜索引用块的结束位置
-	for (;; ++offset)
+	// 搜索 body 部分
+	do
 	{
-		if(outOfRegion())
-			break;
-
-		line = m_fileLoader->getLine(offset);
-
+		const YukiLineString* line = reader->getLine();
+		// 获取超出范围，则认为只有 body 部分
 		if (line == nullptr)
-			break;
-
+		{
+			bodyRegion = reader->cutRegionToCursorFrom(startCursor, commonIndent);
+			goto search_finished;
+		}
+		// 标记遇到了空行
 		if (line->isBlankLine())
 		{
 			lastLineIsBlankLine = true;
-			// Attribute 后面出现的空行意味着引用块结束
-			if (foundAttrRegion)
+			continue;
+		}
+		// 如果遇到缩进小于当前缩进的行，则认为 quote block 结束
+		if (line->getIndent() < indent)
+		{
+			bodyRegion = reader->cutRegionToCursorFrom(startCursor, commonIndent);
+			goto search_finished;
+		}
+		// 统计最大公共缩进
+		commonIndent = yuki_min(commonIndent, line->getIndent());
+		if (lastLineIsBlankLine)
+		{
+			// 如果某一行的缩进等于最大公共缩进，并且匹配 Attribute，则结束 body 部分
+			if (line->getIndent() == commonIndent && getParser(L"quote_block_attribute")->match())
 			{
-				++m_attrRegion.endLineNum;
+				bodyRegion = reader->cutRegionToCursorFrom(startCursor, commonIndent);
+				startCursor = reader->getCursor();
+				hasAttr = true;
 				break;
 			}
-			++m_bodyRegion.endLineNum;
-			continue;
-		}
-		else
-		{
 			lastLineIsBlankLine = false;
 		}
+	} while (reader->moveToNextLine());
 
-		// 统计缩进
-		int curLineIndent = line->getIndentLevel().colOffset;
+	// 搜索 attribute 部分
+	while (reader->moveToNextLine())
+	{
+		// 能进到这里，说明上面的 attr 标签匹配成功了
+		// 所以，只需移进缩进匹配的行
+		const YukiLineString* line = reader->getLine();
 
-		// 直接统计 Attribute 的范围
-		if (foundAttrRegion)
+		if (line == nullptr || line->isBlankLine() || line->getIndent() != commonIndent)
 		{
-			// Attribute 需要满足，行的缩进等于最大公共缩进
-			// 如果不满足，则认为 Attribute 块结束
-			if(curLineIndent != indentSize)
-				break;
-
-			++m_attrRegion.endLineNum;
-			continue;
-		}
-
-		// 如果某一行的缩进比引用块的缩进要小，则结束引用块
-		if(curLineIndent <= m_indentLevel)
-			break;
-		// 求解到目前为止，出现的最大公共缩进
-		indentSize = yuki_min(indentSize, curLineIndent);
-
-		// 统计 body 部分范围
-		// 检测是否出现 attribute 部分
-		if (lastLineIsBlankLine && curLineIndent == indentSize && line->matchQuoteBlockAttrMark())
-		{
-			foundAttrRegion = true;
-			m_attrRegion.startLineNum = lineNum + offset;
-			m_attrRegion.endLineNum = m_attrRegion.startLineNum - 1;
-		}
-		else
-		{
-			++m_bodyRegion.endLineNum;
+			attrRegion = reader->cutRegionToCursorFrom(startCursor, commonIndent);
+			goto search_finished;
 		}
 	}
+	// 未满足所有条件就跳出
+	if (hasAttr)
+	{
+		attrRegion = reader->cutRegionToCursorFrom(startCursor, commonIndent);
+	}
 
-	m_bodyRegion.indent = m_attrRegion.indent = m_quoteBlockIndent = indentSize;
-	assert(indentSize != INT_MAX);
+search_finished:
+	reader->setCursor(oldCursor);
 }

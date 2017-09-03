@@ -1,5 +1,10 @@
 #include "stdafx.h"
 #include "yuki.h"
+#include "yuki_internal_types.h"
+#include "yuki_file_reader.h"
+#include "yuki_line_string.h"
+#include "yuki_struct.h"
+#include "yuki_matcher.h"
 #include "yuki_inline_block.h"
 
 /*
@@ -67,7 +72,65 @@
 
 	1. 
 */
-bool YukiInlineBlock::parse(YukiStruct* parent)
-{
+static const wchar_t* g_startCharSet = L"*`-_=^v!<|[";
+static const wchar_t* g_headSet = L"-:/'\"<([{：、‘“《（【";
+static const wchar_t* g_fllowSet = L"-.,:;!?\\/'\")]}。，：；！？、’”）】";
 
+bool YukiInlineBlock::parse(YukiNode* parentNode, const YukiRegion* region)
+{
+	YukiFileReader* reader = getFileReader();
+	yuki_cursor startCursor = reader->getCursor();
+	wchar_t ch;
+	bool isLastCharInHeadSet = true;
+	bool isLastCharSlash = false;
+	const YukiRegion* oldRegion = reader->selectRegion(region);
+
+	for(;;)
+	{
+		ch = reader->getChar();
+		// 判断当前是否可以进入内联标记检测
+		if ((yuki_simple_inline_markup() || isLastCharInHeadSet)
+			&& !isLastCharSlash
+			&& wcschr(g_startCharSet, ch) != nullptr)
+		{
+			if (parseInlineMarkup(parentNode, startCursor))
+			{
+				continue;
+			}
+		}
+		// 判断该字符后面是否可以跟着内联标记
+		if (!yuki_simple_inline_markup())
+		{
+			isLastCharInHeadSet = (isspace(ch) || wcschr(g_headSet, ch));
+		}
+		isLastCharSlash = ch == '\\';
+		
+		if(!reader->moveToNextChar())
+			break;
+	}
+
+	// 最后一段 plain_text 生成
+	getParser(L"plain_text")->parse(parentNode, reader->cutRegionFromCursorToEnd());
+	reader->selectRegion(oldRegion);
+	return true;
+}
+
+bool YukiInlineBlock::parseInlineMarkup(YukiNode* parentNode, yuki_cursor& formerCursor)
+{
+	YukiFileReader* reader = getFileReader();
+	wchar_t ch = reader->getChar();
+	yuki_cursor cursor = reader->getCursor();
+
+	for (auto matcherName : *getMatcherCollection()->getInlineFollowSet(ch))
+	{
+		if (getParser(matcherName)->parse(parentNode, reader->getRegion()))
+		{
+			YukiPlainText* plainText = dynamic_cast<YukiPlainText*>(getParser(L"plain_text"));
+			plainText->parseInPenult(parentNode, reader->cutRegionBetween(formerCursor, cursor));
+			formerCursor = reader->getCursor();
+			return true;
+		}
+	}
+
+	return false;
 }

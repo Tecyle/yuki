@@ -7,5 +7,10 @@
 class YukiInlineBlock : public YukiStruct
 {
 public:
-	virtual bool parse(YukiStruct* parent);
+	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) override;
+	// 内联结构永远匹配
+	virtual bool match() override { return true; }
+
+private:
+	bool parseInlineMarkup(YukiNode* parentNode, yuki_cursor& formerCursor);
 };

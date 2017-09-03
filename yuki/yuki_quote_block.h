@@ -1,6 +1,6 @@
 #pragma once
 
-enum YukiQuoteLevel
+enum yuki_quote_level
 {
 	QuoteLevel_default,
 	QuoteLevel_danger,
@@ -8,19 +8,24 @@ enum YukiQuoteLevel
 	QuoteLevel_info,
 };
 
+class YukiQuoteBlockAttributeNode : public YukiNode
+{
+
+};
+
 class YukiQuoteBlockAttribute : public YukiStruct
 {
 public:
-	YukiQuoteBlockAttribute(YukiFileLoader* fileLoader, int indentLevel);
-
-	virtual bool parse(YukiStruct* parent);
+	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) override;
+	virtual bool match() override;
+	virtual bool matchNoBackward();
 };
 
-class YukiQuoteBlock : public YukiStruct
+class YukiQuoteBlockNode : public YukiNode
 {
 public:
-	YukiQuoteBlock(YukiFileLoader* fileLoader, int indentLevel);
+	void setQuoteLevel(yuki_quote_level level);
 
 private:
-	YukiQuoteLevel m_quoteLevel;
+	yuki_quote_level m_quoteLevel;
 };

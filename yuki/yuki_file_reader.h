@@ -6,6 +6,10 @@ public:
 	const YukiRegion* selectRegion(const YukiRegion* region);
 	int skipBlankLines();
 	const YukiRegion* cutRegionFromCursorTo(yuki_cursor cursor);
+	const YukiRegion* cutRegionFromCursorToEnd();
+	// 如果提供了 indent，则使用这个值作为 indent，如果是 -1，则自动计算 indent
+	const YukiRegion* cutRegionToCursorFrom(yuki_cursor cursor, int indent = -1);
+	const YukiRegion* cutRegionBetween(yuki_cursor start, yuki_cursor end);
 	const YukiRegion* getRegion();
 	int getLineCount() const;
 	const YukiLineString* getLine(int offset = 0) const;
@@ -23,6 +27,9 @@ public:
 		匹配不会移动当前光标。
 	*/
 	yuki_cursor findSuffixChar(wchar_t ch, int count = 0);
+
+	bool moveToNextChar();
+	wchar_t getChar();
 
 protected:
 	YukiFileString m_fileString;

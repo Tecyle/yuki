@@ -37,8 +37,10 @@ public:
 	// ªÒ»°
 	__inline YukiMatcher* getMatcher(const wchar_t* parent);
 	__inline const vector<const wchar_t*>* getFollowSet(const wchar_t* parent) const;
+	__inline const vector<const wchar_t*>* getInlineFollowSet(wchar_t ch) const;
 
 protected:
 	StringHashmap<YukiMatcher*> m_matchers;
 	StringHashmap<vector<const wchar_t*>> m_followSet;
+	unordered_map<wchar_t, vector<const wchar_t*>> m_inlineFollowSet;
 };
