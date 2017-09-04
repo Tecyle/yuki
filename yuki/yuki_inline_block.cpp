@@ -5,6 +5,7 @@
 #include "yuki_line_string.h"
 #include "yuki_struct.h"
 #include "yuki_matcher.h"
+#include "yuki_plain_text.h"
 #include "yuki_inline_block.h"
 
 /*

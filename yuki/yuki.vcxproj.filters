@@ -117,9 +117,6 @@
     <ClInclude Include="yuki_inline_markup.h">
       <Filter>yuki_structure\inline</Filter>
     </ClInclude>
-    <ClInclude Include="yuki_inline_text.h">
-      <Filter>yuki_structure\inline</Filter>
-    </ClInclude>
     <ClInclude Include="yuki_internal_types.h">
       <Filter>yuki_basic</Filter>
     </ClInclude>
@@ -171,6 +168,15 @@
     <ClInclude Include="yuki_rst_header.h">
       <Filter>yuki_structure\title</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_plain_text.h">
+      <Filter>yuki_structure\inline</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_reserved_text.h">
+      <Filter>yuki_structure\inline</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_chained_string.h">
+      <Filter>utils\string</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -204,9 +210,6 @@
       <Filter>yuki_structure\inline</Filter>
     </ClCompile>
     <ClCompile Include="yuki_inline_markup.cpp">
-      <Filter>yuki_structure\inline</Filter>
-    </ClCompile>
-    <ClCompile Include="yuki_inline_text.cpp">
       <Filter>yuki_structure\inline</Filter>
     </ClCompile>
     <ClCompile Include="yuki_file_string.cpp">
@@ -256,6 +259,15 @@
     </ClCompile>
     <ClCompile Include="yuki_rst_header.cpp">
       <Filter>yuki_structure\title</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_plain_text.cpp">
+      <Filter>yuki_structure\inline</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_reserved_text.cpp">
+      <Filter>yuki_structure\inline</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_chained_string.cpp">
+      <Filter>utils\string</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

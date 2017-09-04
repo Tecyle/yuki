@@ -10,22 +10,24 @@
 class YukiInlineMarkup : public YukiStruct
 {
 public:
-	virtual bool parse(YukiStruct* parent);
+	virtual bool match() override;
 
 protected:
 	virtual bool matchPrefix();
-	virtual bool searchInfix();
-	virtual bool searchSufix();
+	virtual bool matchInfix(yuki_cursor& cursor);
+	virtual bool matchSuffix(yuki_cursor& cursor);
 
-	virtual bool searchAndMatch(const wchar_t* matchStr, YukiString* readText);
+	virtual bool searchAndMatch(const wchar_t* pattern, yuki_cursor& contentCursor);
 
 protected:
 	const wchar_t* m_prefix;
 	const wchar_t* m_infix;
 	const wchar_t* m_sufix;
 
-	YukiString m_text1;
-	YukiString m_text2;
+	const YukiRegion* m_textRegion1;
+	const YukiRegion* m_textRegion2;
+
+	yuki_cursor m_endCursor;
 
 	bool m_allowEscapeNearMark;		///< 决定前缀后面以及后缀前面是否可以紧跟一个转义字符
 };

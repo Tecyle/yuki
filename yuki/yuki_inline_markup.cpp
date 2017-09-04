@@ -1,24 +1,52 @@
 #include "stdafx.h"
 #include "yuki.h"
+#include "yuki_internal_types.h"
+#include "yuki_file_reader.h"
+#include "yuki_line_string.h"
 #include "yuki_inline_markup.h"
 
-bool YukiInlineMarkup::parse(YukiStruct* parent)
+bool YukiInlineMarkup::match()
 {
-	m_fileLoader->saveCursor();
+	YukiFileReader* reader = getFileReader();
+	yuki_cursor oldCursor = reader->getCursor();
+	yuki_cursor startCursor;
+	yuki_cursor endCursor;
+	bool succ = false;
 
+	m_textRegion1 = nullptr;
+	m_textRegion2 = nullptr;
+
+	// 匹配前缀
 	if (!matchPrefix())
-		goto match_failed;
+		goto match_finished;
 
-	if (!searchInfix())
-		goto match_failed;
+	startCursor = reader->getCursor();
+	// 如果存在中缀，匹配中缀
+	if (m_infix != nullptr)
+	{
+		if (!matchInfix(endCursor))
+			goto match_finished;
 
-	if (!searchSufix())
-		goto match_failed;
+		m_textRegion1 = reader->cutRegionBetween(startCursor, endCursor);
+		startCursor = reader->getCursor();
+	}
 
-	return true;
-match_failed:
-	m_fileLoader->restoreCursor();
-	return false;
+	// 匹配后缀
+	if (!matchSuffix(endCursor))
+		goto match_finished;
+
+	if (m_infix == nullptr)
+		m_textRegion1 = reader->cutRegionBetween(startCursor, endCursor);
+	else
+		m_textRegion2 = reader->cutRegionBetween(startCursor, endCursor);
+
+	// 记录匹配成功之后的位置，防止重复搜索
+	m_endCursor = reader->getCursor();
+	succ = true;
+
+match_finished:
+	reader->setCursor(oldCursor);
+	return succ;
 }
 
 /*
@@ -38,11 +66,12 @@ match_failed:
 			* 空白字符
 			* 下列标点符号：- : / ' " < ( [ { 或者其它类似的非 ASCII 字符集的标点符号
 */
+const static wchar_t* rule6TokenSet = L"-:/'\"<([{：“‘《（【";
+const static wchar_t* rule5StartSet = L"'\"<([{‘“《（【";
+const static wchar_t* rule5EndSet = L"'\">)]}’”》）】";
+const static wchar_t* rule7Set = L"-.,:;!?\\/'\")]}>。，：；！？、’”）】》";
 static bool matchPrefixRules(wchar_t prev, wchar_t next)
 {
-	const static wchar_t* rule6TokenSet = L"-:/'\"<([{：“‘《（【";
-	const static wchar_t* rule5StartSet = L"'\"<([{‘“《（【";
-	const static wchar_t* rule5EndSet = L"'\">)]}’”》）】";
 
 	// 规则 6
 	if (!yuki_simple_inline_markup())
@@ -71,6 +100,31 @@ static bool matchPrefixRules(wchar_t prev, wchar_t next)
 	return true;
 }
 
+bool YukiInlineMarkup::matchPrefix()
+{
+	YukiFileReader* reader = getFileReader();
+	wchar_t prevChar = reader->peekPreviousChar();
+
+	assert(m_prefix != nullptr);
+	if (!reader->matchStr(m_prefix))
+		return false;
+
+	wchar_t curChar = reader->getChar();
+
+	return matchPrefixRules(prevChar, curChar);
+}
+
+bool YukiInlineMarkup::matchInfix(yuki_cursor& cursor)
+{
+	assert(m_infix != nullptr);
+	return searchAndMatch(m_infix, cursor);
+}
+
+bool YukiInlineMarkup::matchSuffix(yuki_cursor& cursor)
+{
+	return searchAndMatch(m_sufix, cursor);
+}
+
 /*
 	后缀识别原则：
 
@@ -88,8 +142,6 @@ static bool matchPrefixRules(wchar_t prev, wchar_t next)
 */
 static bool matchSufixRules(wchar_t prev, wchar_t next, bool allowEscape)
 {
-	const static wchar_t* rule7Set = L"-.,:;!?\\/'\")]}>。，：；！？、’”）】》";
-
 	// 检查规则 2
 	if (isspace(next))
 		return false;
@@ -113,77 +165,59 @@ static bool matchSufixRules(wchar_t prev, wchar_t next, bool allowEscape)
 */
 inline static bool matchInfixRules(wchar_t prev, wchar_t next, bool allowEscape)
 {
+	// 规则 6
+	if (!yuki_simple_inline_markup())
+	{
+		if (prev != 0									// 不是一行的最开始位置
+			&& !isspace(prev)							// 不是空白字符
+			&& wcschr(rule6TokenSet, prev) == nullptr	// 没有紧跟在允许的开始符号后面
+			)
+			return false;
+	}
+
 	return matchPrefixRules(prev, next) && matchSufixRules(prev, next, allowEscape);
 }
 
-bool YukiInlineMarkup::matchPrefix()
+bool YukiInlineMarkup::searchAndMatch(const wchar_t* pattern, yuki_cursor& contentCursor)
 {
-	wchar_t prevChar = m_fileLoader->peekPreviousCharInline();
-
-	assert(m_prefix != nullptr);
-	if (!m_fileLoader->match(m_prefix))
-		return false;
-
-	wchar_t curChar = m_fileLoader->getChar();
-
-	return matchPrefixRules(prevChar, curChar);
-}
-
-bool YukiInlineMarkup::searchInfix()
-{
-	// 不存在中缀的话，直接成功
-	if (m_infix == nullptr)
-		return true;
-
-	return searchAndMatch(m_infix, &m_text1);
-}
-
-bool YukiInlineMarkup::searchSufix()
-{
-	return searchAndMatch(m_sufix, m_infix == nullptr ? &m_text1 : &m_text2);
-}
-
-bool YukiInlineMarkup::searchAndMatch(const wchar_t* matchStr, YukiString* readText)
-{
+	YukiFileReader* reader = getFileReader();
 	bool matchSucc = false;
 
-	assert(matchStr != nullptr);
+	assert(pattern != nullptr);
 
-	wchar_t* textOffset = m_fileLoader->getCStr();
 	int textLength = 0;
-	wchar_t curChar = m_fileLoader->getChar();
-	while (!outOfRegion())
+	wchar_t lastChar = 0;
+	yuki_cursor lastCursor;
+	for(;reader->moveToNextChar();)
 	{
-		if (!m_fileLoader->match(matchStr))
+		lastCursor = reader->getCursor();
+		if (!reader->matchStr(pattern))
 		{
-			++textLength;
-			m_fileLoader->moveToNextChar();
-			curChar = m_fileLoader->getChar();
+			textLength++;
+			lastChar = reader->getChar();
+			continue;
 		}
+		// 遇到匹配的模式
+		// 检查规则 3
+		if (textLength == 0)
+			return false;
+
+		if (pattern == m_infix)
+			matchSucc = matchInfixRules(lastChar, reader->getChar(), m_allowEscapeNearMark);
 		else
-		{
-			// 检查规则 3
-			if (textLength == 0)
-				return false;
+			matchSucc = matchSufixRules(lastChar, reader->getChar(), m_allowEscapeNearMark);
 
-			if (matchStr == m_infix)
-				matchSucc = matchInfixRules(curChar, m_fileLoader->getChar(), m_allowEscapeNearMark);
-			else
-				matchSucc = matchSufixRules(curChar, m_fileLoader->getChar(), m_allowEscapeNearMark);
+		if (matchSucc)
+			break;
 
-			if (matchSucc)
-				break;
-
-			// 匹配失败，继续尝试向后搜索
-			textLength += wcslen(matchStr);
-			m_fileLoader->moveToNextChar(wcslen(matchStr));
-			curChar = m_fileLoader->getChar();
-		}
+		// 匹配失败，继续尝试向后搜索
+		textLength += wcslen(pattern);
+		lastChar = reader->getChar();
 	}
 
 	if (!matchSucc)
 		return false;
 
-	readText->init(textOffset, textLength);
+	contentCursor = lastCursor;
 	return true;
 }

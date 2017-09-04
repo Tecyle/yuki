@@ -129,6 +129,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="yuki.h" />
     <ClInclude Include="yuki_body.h" />
+    <ClInclude Include="yuki_chained_string.h" />
     <ClInclude Include="yuki_directive.h" />
     <ClInclude Include="yuki_document.h" />
     <ClInclude Include="yuki_dynamic_class.h" />
@@ -138,7 +139,7 @@
     <ClInclude Include="yuki_global.h" />
     <ClInclude Include="yuki_inline_block.h" />
     <ClInclude Include="yuki_inline_markup.h" />
-    <ClInclude Include="yuki_inline_text.h" />
+    <ClInclude Include="yuki_reserved_text.h" />
     <ClInclude Include="yuki_internal_types.h" />
     <ClInclude Include="yuki_interpreter.h" />
     <ClInclude Include="yuki_file_string.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="yuki_memo_pools.h" />
     <ClInclude Include="yuki_node.h" />
     <ClInclude Include="yuki_paragraph.h" />
+    <ClInclude Include="yuki_plain_text.h" />
     <ClInclude Include="yuki_quote_block.h" />
     <ClInclude Include="yuki_region_ex.h" />
     <ClInclude Include="yuki_region_string.h" />
@@ -167,6 +169,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="yuki_body.cpp" />
+    <ClCompile Include="yuki_chained_string.cpp" />
     <ClCompile Include="yuki_document.cpp" />
     <ClCompile Include="yuki_file_loader.cpp" />
     <ClCompile Include="yuki_file_reader.cpp" />
@@ -174,7 +177,7 @@
     <ClCompile Include="yuki_global.cpp" />
     <ClCompile Include="yuki_inline_block.cpp" />
     <ClCompile Include="yuki_inline_markup.cpp" />
-    <ClCompile Include="yuki_inline_text.cpp" />
+    <ClCompile Include="yuki_reserved_text.cpp" />
     <ClCompile Include="yuki_internal_types.cpp" />
     <ClCompile Include="yuki_interpreter.cpp" />
     <ClCompile Include="yuki_file_string.cpp" />
@@ -185,6 +188,7 @@
     <ClCompile Include="yuki_memo_pools.cpp" />
     <ClCompile Include="yuki_node.cpp" />
     <ClCompile Include="yuki_paragraph.cpp" />
+    <ClCompile Include="yuki_plain_text.cpp" />
     <ClCompile Include="yuki_quote_block.cpp" />
     <ClCompile Include="yuki_region_ex.cpp" />
     <ClCompile Include="yuki_region_string.cpp" />

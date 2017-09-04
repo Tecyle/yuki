@@ -28,8 +28,10 @@ public:
 	*/
 	yuki_cursor findSuffixChar(wchar_t ch, int count = 0);
 
+	// 该函数会跳过区域的缩进
 	bool moveToNextChar();
 	wchar_t getChar();
+	wchar_t peekPreviousChar();
 
 protected:
 	YukiFileString m_fileString;
