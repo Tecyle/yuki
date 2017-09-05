@@ -73,6 +73,9 @@
     <Filter Include="yuki_structure\inline\struct_markup">
       <UniqueIdentifier>{31367ceb-7265-4a81-b10f-333a0a5d921c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="yuki_structure\block\explicit_markup_block">
+      <UniqueIdentifier>{1e2aca67-4cf6-4977-85b8-b71f4b36017c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -216,6 +219,9 @@
     <ClInclude Include="yuki_inline_sub.h">
       <Filter>yuki_structure\inline\format_markup</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_explicit_markup.h">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -340,6 +346,9 @@
     </ClCompile>
     <ClCompile Include="yuki_inline_sub.cpp">
       <Filter>yuki_structure\inline\format_markup</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_explicit_markup.cpp">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

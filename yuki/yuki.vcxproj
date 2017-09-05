@@ -133,6 +133,7 @@
     <ClInclude Include="yuki_directive.h" />
     <ClInclude Include="yuki_document.h" />
     <ClInclude Include="yuki_dynamic_class.h" />
+    <ClInclude Include="yuki_explicit_markup.h" />
     <ClInclude Include="yuki_file_loader.h" />
     <ClInclude Include="yuki_file_reader.h" />
     <ClInclude Include="yuki_generator.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="yuki_body.cpp" />
     <ClCompile Include="yuki_chained_string.cpp" />
     <ClCompile Include="yuki_document.cpp" />
+    <ClCompile Include="yuki_explicit_markup.cpp" />
     <ClCompile Include="yuki_file_loader.cpp" />
     <ClCompile Include="yuki_file_reader.cpp" />
     <ClCompile Include="yuki_generator.cpp" />
