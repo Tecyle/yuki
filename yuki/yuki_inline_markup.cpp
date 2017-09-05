@@ -122,7 +122,7 @@ bool YukiInlineMarkup::matchInfix(yuki_cursor& cursor)
 
 bool YukiInlineMarkup::matchSuffix(yuki_cursor& cursor)
 {
-	return searchAndMatch(m_sufix, cursor);
+	return searchAndMatch(m_suffix, cursor);
 }
 
 /*

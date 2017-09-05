@@ -37,6 +37,8 @@ public:
 
 	virtual bool empty() const;
 
+	__inline yuki_cursor getCursorAtRegionBegin() const;
+
 protected:
 	yuki_region_type m_regionType;	///< 区域的类型
 	int m_sLn;	///< 区域的起始行号，0 开始

@@ -19,6 +19,7 @@ public:
 	__inline int getLn() const { return m_ln; }
 	__inline int getLength() const { return m_length; }
 	__inline int getContentLength() const;
+	__inline const wchar_t* getContentPtr() const;
 	__inline wchar_t getCharAtIndex(int ch) const;
 	__inline bool isBlankLine() const { return m_indent == YUKI_ERROR_INDENT; }
 	__inline int getIndent() const { return m_indent; }

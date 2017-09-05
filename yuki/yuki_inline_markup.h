@@ -6,6 +6,13 @@
 	[前缀] 文本1 [中缀] 文本2 [后缀]
 
 	其中，中缀 和 文本2 是可以省略的。
+
+	使用方法：
+	继承本类后，按需设置前缀中缀和后缀，以及标记是否可以后跟转义符
+	然后在 parse 方法中调用 match，可以获取
+	m_textRegion1 : 文本1 的区间
+	m_textRegion2 : 文本2 的区间
+	m_endCursor : 结束位置的光标
 */
 class YukiInlineMarkup : public YukiStruct
 {
@@ -22,7 +29,7 @@ protected:
 protected:
 	const wchar_t* m_prefix;
 	const wchar_t* m_infix;
-	const wchar_t* m_sufix;
+	const wchar_t* m_suffix;
 
 	const YukiRegion* m_textRegion1;
 	const YukiRegion* m_textRegion2;
