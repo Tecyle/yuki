@@ -246,6 +246,9 @@
     <ClInclude Include="yuki_hyperlink_target.h">
       <Filter>yuki_structure\block\explicit_markup_block</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_link_uri.h">
+      <Filter>yuki_structure\inline\assistance</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -391,6 +394,9 @@
     </ClCompile>
     <ClCompile Include="yuki_hyperlink_target.cpp">
       <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_link_uri.cpp">
+      <Filter>yuki_structure\inline\assistance</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

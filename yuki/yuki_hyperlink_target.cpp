@@ -11,6 +11,7 @@ bool YukiHyperlinkTarget::parse(YukiNode* parentNode, const YukiRegion* region)
 {
 	YukiFileReader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
+	const YukiRegion* oldRegion = reader->selectRegion(region);
 
 	if (!matchNoBackward())
 	{
@@ -18,7 +19,14 @@ bool YukiHyperlinkTarget::parse(YukiNode* parentNode, const YukiRegion* region)
 		return false;
 	}
 
-	getParser(L"uri")
+	YukiHyperlinkTargetNode* node = new YukiHyperlinkTargetNode;
+
+	if (!getParser(L"link_uri")->parse(node, reader->cutRegionFromCursorToEnd()))
+	{
+		node->setTargetType(HyperlinkTarget_internal);
+	}
+
+	return true;
 }
 
 bool YukiHyperlinkTarget::match()

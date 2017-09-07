@@ -1,13 +1,17 @@
 #pragma once
 
-class YukiInternalHyperlinkTargetNode : public YukiNode
+enum yuki_hyperlink_target_type
 {
-
+	HyperlinkTarget_internal,
+	HyperlinkTarget_external,
+	HyperlinkTarget_alias
 };
 
-class YukiExternalHyperlinkTargetNode : public YukiNode
+class YukiHyperlinkTargetNode : public YukiNode
 {
-
+public:
+	void setTargetType(yuki_hyperlink_target_type type);
+	wstring& uri();
 };
 
 class YukiHyperlinkTarget : public YukiStruct
