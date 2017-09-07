@@ -76,6 +76,12 @@
     <Filter Include="yuki_structure\block\explicit_markup_block">
       <UniqueIdentifier>{1e2aca67-4cf6-4977-85b8-b71f4b36017c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utils\symbol table">
+      <UniqueIdentifier>{081c385e-ef6c-414b-86ef-5c56a3b1c54a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_structure\inline\assistance">
+      <UniqueIdentifier>{06d25cdb-952b-4ac1-9240-6a7a594a4ae0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -177,12 +183,6 @@
     <ClInclude Include="yuki_rst_header.h">
       <Filter>yuki_structure\title</Filter>
     </ClInclude>
-    <ClInclude Include="yuki_plain_text.h">
-      <Filter>yuki_structure\inline</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_reserved_text.h">
-      <Filter>yuki_structure\inline</Filter>
-    </ClInclude>
     <ClInclude Include="yuki_chained_string.h">
       <Filter>utils\string</Filter>
     </ClInclude>
@@ -220,6 +220,30 @@
       <Filter>yuki_structure\inline\format_markup</Filter>
     </ClInclude>
     <ClInclude Include="yuki_explicit_markup.h">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_comment.h">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_footnote_citation_definition.h">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_symbol_table.h">
+      <Filter>utils\symbol table</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_target_table.h">
+      <Filter>utils\symbol table</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_reserved_text.h">
+      <Filter>yuki_structure\inline\assistance</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_plain_text.h">
+      <Filter>yuki_structure\inline\assistance</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_simple_reference_name.h">
+      <Filter>yuki_structure\inline\assistance</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_hyperlink_target.h">
       <Filter>yuki_structure\block\explicit_markup_block</Filter>
     </ClInclude>
   </ItemGroup>
@@ -305,12 +329,6 @@
     <ClCompile Include="yuki_rst_header.cpp">
       <Filter>yuki_structure\title</Filter>
     </ClCompile>
-    <ClCompile Include="yuki_plain_text.cpp">
-      <Filter>yuki_structure\inline</Filter>
-    </ClCompile>
-    <ClCompile Include="yuki_reserved_text.cpp">
-      <Filter>yuki_structure\inline</Filter>
-    </ClCompile>
     <ClCompile Include="yuki_chained_string.cpp">
       <Filter>utils\string</Filter>
     </ClCompile>
@@ -348,6 +366,30 @@
       <Filter>yuki_structure\inline\format_markup</Filter>
     </ClCompile>
     <ClCompile Include="yuki_explicit_markup.cpp">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_comment.cpp">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_footnote_citation_definition.cpp">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_symbol_table.cpp">
+      <Filter>utils\symbol table</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_target_table.cpp">
+      <Filter>utils\symbol table</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_reserved_text.cpp">
+      <Filter>yuki_structure\inline\assistance</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_plain_text.cpp">
+      <Filter>yuki_structure\inline\assistance</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_simple_reference_name.cpp">
+      <Filter>yuki_structure\inline\assistance</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_hyperlink_target.cpp">
       <Filter>yuki_structure\block\explicit_markup_block</Filter>
     </ClCompile>
   </ItemGroup>

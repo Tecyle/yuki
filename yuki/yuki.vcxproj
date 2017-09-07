@@ -130,14 +130,17 @@
     <ClInclude Include="yuki.h" />
     <ClInclude Include="yuki_body.h" />
     <ClInclude Include="yuki_chained_string.h" />
+    <ClInclude Include="yuki_comment.h" />
     <ClInclude Include="yuki_directive.h" />
     <ClInclude Include="yuki_document.h" />
     <ClInclude Include="yuki_dynamic_class.h" />
     <ClInclude Include="yuki_explicit_markup.h" />
     <ClInclude Include="yuki_file_loader.h" />
     <ClInclude Include="yuki_file_reader.h" />
+    <ClInclude Include="yuki_footnote_citation_definition.h" />
     <ClInclude Include="yuki_generator.h" />
     <ClInclude Include="yuki_global.h" />
+    <ClInclude Include="yuki_hyperlink_target.h" />
     <ClInclude Include="yuki_inline_block.h" />
     <ClInclude Include="yuki_inline_bold_italic.h" />
     <ClInclude Include="yuki_inline_code.h" />
@@ -170,8 +173,11 @@
     <ClInclude Include="yuki_rst_quote_block.h" />
     <ClInclude Include="yuki_rst_title_matcher.h" />
     <ClInclude Include="yuki_section.h" />
+    <ClInclude Include="yuki_simple_reference_name.h" />
     <ClInclude Include="yuki_string.h" />
     <ClInclude Include="yuki_struct.h" />
+    <ClInclude Include="yuki_symbol_table.h" />
+    <ClInclude Include="yuki_target_table.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -182,12 +188,15 @@
     </ClCompile>
     <ClCompile Include="yuki_body.cpp" />
     <ClCompile Include="yuki_chained_string.cpp" />
+    <ClCompile Include="yuki_comment.cpp" />
     <ClCompile Include="yuki_document.cpp" />
     <ClCompile Include="yuki_explicit_markup.cpp" />
     <ClCompile Include="yuki_file_loader.cpp" />
     <ClCompile Include="yuki_file_reader.cpp" />
+    <ClCompile Include="yuki_footnote_citation_definition.cpp" />
     <ClCompile Include="yuki_generator.cpp" />
     <ClCompile Include="yuki_global.cpp" />
+    <ClCompile Include="yuki_hyperlink_target.cpp" />
     <ClCompile Include="yuki_inline_block.cpp" />
     <ClCompile Include="yuki_inline_bold_italic.cpp" />
     <ClCompile Include="yuki_inline_code.cpp" />
@@ -220,7 +229,10 @@
     <ClCompile Include="yuki_rst_quote_block.cpp" />
     <ClCompile Include="yuki_rst_title_matcher.cpp" />
     <ClCompile Include="yuki_section.cpp" />
+    <ClCompile Include="yuki_simple_reference_name.cpp" />
     <ClCompile Include="yuki_string.cpp" />
+    <ClCompile Include="yuki_symbol_table.cpp" />
+    <ClCompile Include="yuki_target_table.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="orgnization.md" />

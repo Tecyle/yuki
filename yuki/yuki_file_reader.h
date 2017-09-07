@@ -9,7 +9,7 @@ public:
 	const YukiRegion* cutRegionFromCursorToEnd();
 	// 如果提供了 indent，则使用这个值作为 indent，如果是 -1，则自动计算 indent
 	const YukiRegion* cutRegionToCursorFrom(yuki_cursor cursor, int indent = -1);
-	const YukiRegion* cutRegionBetween(yuki_cursor start, yuki_cursor end);
+	const YukiRegion* cutRegionBetween(yuki_cursor start, yuki_cursor end, int indent = -1);
 	const YukiRegion* getRegion();
 	int getLineCount() const;
 	const YukiLineString* getLine(int offset = 0) const;
@@ -29,8 +29,8 @@ public:
 	yuki_cursor findSuffixChar(wchar_t ch, int count = 0);
 
 	// 该函数会跳过区域的缩进
-	bool moveToNextChar();
-	wchar_t getChar();
+	bool moveToNextChar(bool crossLines = true);
+	wchar_t getChar(int offset = 0);
 	wchar_t peekPreviousChar();
 
 protected:

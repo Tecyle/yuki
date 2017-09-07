@@ -39,3 +39,8 @@ using namespace std;
 #if !defined(assert)
 #	define assert(o)
 #endif
+
+__inline bool yuki_isWordChar(wchar_t ch)
+{
+	return isalnum(ch);
+}

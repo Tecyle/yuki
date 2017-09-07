@@ -17,6 +17,11 @@ bool YukiExplicitMarkup::parse(YukiNode* parentNode, const YukiRegion* region)
 	}
 	// 搜索块范围
 	int indent = reader->getLine()->getIndent();
+	bool meetContent = !reader->cursorAtLineEnd();
+	bool lastLineIsBlankLine = false;
+	int commonIndent = INT_MAX;
+	yuki_cursor endCursor;
+	yuki_cursor startCursor = oldCursor;
 	oldCursor = reader->getCursor();
 	while (reader->moveToNextLine())
 	{
@@ -25,13 +30,33 @@ bool YukiExplicitMarkup::parse(YukiNode* parentNode, const YukiRegion* region)
 		if (line == nullptr)
 			break;
 
-		if(line->isBlankLine())
+		if (line->isBlankLine())
+		{
+			// 用 endCursor 去掉末尾多余的空行
+			if (meetContent && !lastLineIsBlankLine)
+				endCursor = reader->getCursor();
+			lastLineIsBlankLine = true;
 			continue;
+		}
 
 		if (line->getIndent() <= indent)
 			break;
+
+		if (lastLineIsBlankLine)
+		{
+			// 在遇见正文内容之前遇到的空行全部忽略
+			if (!meetContent)
+			{
+				startCursor = reader->getCursor();
+				meetContent = true;
+			}
+			lastLineIsBlankLine = false;
+		}
+		commonIndent = yuki_min(commonIndent, line->getIndent());
 	}
-	const YukiRegion* explicitBlockRegion = reader->cutRegionToCursorFrom(oldCursor);
+	const YukiRegion* explicitBlockRegion = meetContent ?
+		reader->cutRegionBetween(startCursor, endCursor, commonIndent)
+		: reader->cutRegionToCursorFrom(oldCursor);
 	reader->setCursor(oldCursor);
 	// 决定使用什么块解析
 	wchar_t ch = reader->getChar();
