@@ -61,7 +61,59 @@ bool YukiLinkUri::parse(YukiNode* parentNode, const YukiRegion* region)
 
 void YukiLinkUri::parseAliasTarget(YukiHyperlinkTargetNode* node)
 {
+	YukiFileReader* reader = getFileReader();
 	node->setTargetType(HyperlinkTarget_alias);
 	// 第一个字符为有效字符，判断是否是 反引号，从而决定解析类型及错误
+	bool hasQuote = reader->getChar() == '`';
+	if (hasQuote)
+		reader->moveToNextChar();
+	
+	wstring& target = node->uri();
+	bool isLastCharNotWord = false;
+	do 
+	{
+		wchar_t ch = reader->getChar();
+		
+		if (ch == '\\')
+		{
+			// 转义字符，原样保留
+			reader->moveToNextChar();
+			ch = reader->getChar();
+			target += ch;
+			isLastCharNotWord = !yuki_isWordChar(ch);
+			continue;
+		}
 
+		if (yuki_isWordChar(ch))
+		{
+			// 字符数字直接附加
+			target += ch;
+			isLastCharNotWord = false;
+			continue;
+		}
+
+		// 如果遇到反引号
+		if (hasQuote)
+		{
+			if (ch == '`')
+			{
+				reader->moveToNextChar();
+				break;
+			}
+		}
+		else if (ch == '_')
+			break;
+
+		// 其它字符，均翻译成简单的横线
+		if (!isLastCharNotWord)
+		{
+			target += '-';
+			isLastCharNotWord = true;
+		}
+	} while (reader->moveToNextChar());
+}
+
+void YukiLinkUri::parseUrlTarget(YukiHyperlinkTargetNode* node)
+{
+	// TODO
 }
