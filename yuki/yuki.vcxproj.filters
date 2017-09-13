@@ -249,6 +249,12 @@
     <ClInclude Include="yuki_link_uri.h">
       <Filter>yuki_structure\inline\assistance</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_substitution_definition.h">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_directives.h">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -397,6 +403,12 @@
     </ClCompile>
     <ClCompile Include="yuki_link_uri.cpp">
       <Filter>yuki_structure\inline\assistance</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_substitution_definition.cpp">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_directives.cpp">
+      <Filter>yuki_structure\block\explicit_markup_block</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

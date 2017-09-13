@@ -115,5 +115,23 @@ void YukiLinkUri::parseAliasTarget(YukiHyperlinkTargetNode* node)
 
 void YukiLinkUri::parseUrlTarget(YukiHyperlinkTargetNode* node)
 {
-	// TODO
+	YukiFileReader* reader = getFileReader();
+	node->setTargetType(HyperlinkTarget_external);
+	// ¿Õ°××Ö·ûºöÂÔ£¬×ªÒå×Ö·ûÔ­ÑùÊä³ö
+	wstring& target = node->uri();
+	do 
+	{
+		wchar_t ch = reader->getChar();
+
+		if (isspace(ch))
+			continue;
+
+		if (ch == '\\')
+		{
+			reader->moveToNextChar();
+			ch = reader->getChar();
+		}
+
+		target += ch;
+	} while (reader->moveToNextChar());
 }

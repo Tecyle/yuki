@@ -132,6 +132,7 @@
     <ClInclude Include="yuki_chained_string.h" />
     <ClInclude Include="yuki_comment.h" />
     <ClInclude Include="yuki_directive.h" />
+    <ClInclude Include="yuki_directives.h" />
     <ClInclude Include="yuki_document.h" />
     <ClInclude Include="yuki_dynamic_class.h" />
     <ClInclude Include="yuki_explicit_markup.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="yuki_simple_reference_name.h" />
     <ClInclude Include="yuki_string.h" />
     <ClInclude Include="yuki_struct.h" />
+    <ClInclude Include="yuki_substitution_definition.h" />
     <ClInclude Include="yuki_symbol_table.h" />
     <ClInclude Include="yuki_target_table.h" />
   </ItemGroup>
@@ -190,6 +192,7 @@
     <ClCompile Include="yuki_body.cpp" />
     <ClCompile Include="yuki_chained_string.cpp" />
     <ClCompile Include="yuki_comment.cpp" />
+    <ClCompile Include="yuki_directives.cpp" />
     <ClCompile Include="yuki_document.cpp" />
     <ClCompile Include="yuki_explicit_markup.cpp" />
     <ClCompile Include="yuki_file_loader.cpp" />
@@ -233,6 +236,7 @@
     <ClCompile Include="yuki_section.cpp" />
     <ClCompile Include="yuki_simple_reference_name.cpp" />
     <ClCompile Include="yuki_string.cpp" />
+    <ClCompile Include="yuki_substitution_definition.cpp" />
     <ClCompile Include="yuki_symbol_table.cpp" />
     <ClCompile Include="yuki_target_table.cpp" />
   </ItemGroup>
