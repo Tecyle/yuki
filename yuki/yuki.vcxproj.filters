@@ -82,6 +82,9 @@
     <Filter Include="yuki_structure\inline\assistance">
       <UniqueIdentifier>{06d25cdb-952b-4ac1-9240-6a7a594a4ae0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="yuki_structure\block\explicit_markup_block\directives">
+      <UniqueIdentifier>{1e781a75-75a2-4e31-b127-037f4a7fb5a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
