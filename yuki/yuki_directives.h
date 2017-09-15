@@ -51,8 +51,36 @@ public:
 
 	virtual bool matchNoBackward();
 
+	virtual __inline bool enableInlineMode(bool enable);
+	virtual __inline bool inlineMode() const { return m_inlineMode; }
+
+	__inline bool acceptArguments() { return m_acceptArguments; }
+	__inline bool acceptOptionLists() { return m_acceptOptionLists; }
+	__inline bool acceptBody() { return m_acceptBody; }
+	__inline bool acceptInlineMode() { return m_allowInlineMode; }
+
 protected:
-	bool m_acceptArguments;
-	bool m_acceptOptionLists;
-	bool m_acceptBody;
+	virtual bool matchNoBackwardInlineMode();
+	virtual bool matchNoBackwardBlockMode();
+
+	virtual bool parseInlineMode(YukiNode* parentNode, const YukiRegion* region);
+	virtual bool parseBlockMode(YukiNode* parentNode, const YukiRegion* region);
+
+	virtual bool parseArguments(YukiNode* parentNode, const YukiRegion* region);
+	virtual bool parseOptionLists(YukiNode* parentNode, const YukiRegion* region);
+	virtual bool parseBody(YukiNode* parentNode, const YukiRegion* region);
+
+protected:
+	const bool m_acceptArguments;
+	const bool m_acceptOptionLists;
+	const bool m_acceptBody;
+	const bool m_allowInlineMode;
+	bool m_inlineMode;
+
+	const YukiRegion* m_argumentsRegion;
+	yuki_cursor m_argumentsCursor;
+	const YukiRegion* m_optionListRegion;
+	yuki_cursor m_optionListCursor;
+	const YukiRegion* m_bodyRegion;
+	yuki_cursor m_bodyCursor;
 };
