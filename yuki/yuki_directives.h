@@ -66,9 +66,15 @@ protected:
 	virtual bool parseInlineMode(YukiNode* parentNode, const YukiRegion* region);
 	virtual bool parseBlockMode(YukiNode* parentNode, const YukiRegion* region);
 
-	virtual bool parseArguments(YukiNode* parentNode, const YukiRegion* region);
-	virtual bool parseOptionLists(YukiNode* parentNode, const YukiRegion* region);
-	virtual bool parseBody(YukiNode* parentNode, const YukiRegion* region);
+	virtual bool parseArguments(YukiNode* parentNode, const YukiRegion* region) = 0;
+	virtual bool parseOptionLists(YukiNode* parentNode, const YukiRegion* region) = 0;
+	virtual bool parseBody(YukiNode* parentNode, const YukiRegion* region) = 0;
+
+	virtual YukiNode* getMainDirectiveNode() = 0;
+
+	virtual bool matchArguments();
+	virtual bool matchOptionList();
+	virtual bool matchBody();
 
 protected:
 	const bool m_acceptArguments;
@@ -76,6 +82,8 @@ protected:
 	const bool m_acceptBody;
 	const bool m_allowInlineMode;
 	bool m_inlineMode;
+
+	bool m_isFirstLine;
 
 	const YukiRegion* m_argumentsRegion;
 	yuki_cursor m_argumentsCursor;

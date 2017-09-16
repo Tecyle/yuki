@@ -65,7 +65,16 @@ bool YukiDirectives::matchNoBackward()
 
 bool YukiDirective::parse(YukiNode* parentNode, const YukiRegion* region)
 {
-	return inlineMode() ? parseInlineMode(parentNode, region) : parseBlockMode(parentNode, region);
+	YukiFileReader* reader = getFileReader();
+	yuki_cursor oldCursor = reader->getCursor();
+	const YukiRegion* oldRegion = reader->selectRegion(region);
+
+	bool succ =  inlineMode() ? parseInlineMode(parentNode, region) : parseBlockMode(parentNode, region);
+
+	if (!succ)
+		reader->setCursor(oldCursor);
+	reader->selectRegion(oldRegion);
+	return succ;
 }
 
 bool YukiDirective::match()
@@ -119,19 +128,129 @@ bool YukiDirective::matchNoBackwardBlockMode()
 	m_bodyRegion = nullptr;
 	m_argumentsRegion = nullptr;
 	m_optionListRegion = nullptr;
+	m_isFirstLine = true;
+	bool succ = false;
 
-	if (reader->cursorAtLineEnd())
+	if (!reader->cursorAtLineEnd())
 	{
+		// 第一行有内容，并且不接受 arguments，则直接识别为 body
 		if (!acceptArguments())
 		{
-			m_bodyCursor = cursor;
-			m_bodyRegion = reader->cutRegionFromCursorToEnd();
-			return true;
+			return matchBody();
 		}
-		// step 7
+		// 第一行有内容，则应该识别为 arguments
+		matchArguments();
+		matchOptionList();
+		matchBody();
+	}
+	else
+	{
+		// 第一行没有内容，尝试识别 option list
 		if (!reader->moveToNextLine())
 			return true;
-		cursor = reader->getCursor();
-		// TODO
+
+		m_isFirstLine = false;
+		if (!matchOptionList())
+		{
+			// option list 识别失败的话，则识别为 arguments 或者 body
+			if (acceptArguments())
+				matchArguments();
+			else
+				matchBody();
+		}
+		else
+		{
+			// option list 识别成功之后，识别 body
+			matchBody();
+		}
 	}
+
+	return true;
+}
+
+bool YukiDirective::parseBlockMode(YukiNode* parentNode, const YukiRegion* region)
+{
+	YukiFileReader* reader = getFileReader();
+	
+	if (!matchNoBackwardBlockMode())
+		return false;
+
+	YukiNode* node = getMainDirectiveNode();
+	if (m_argumentsRegion != nullptr)
+	{
+		reader->setCursor(m_argumentsCursor);
+		parseArguments(node, m_argumentsRegion);
+	}
+
+	if (m_optionListRegion != nullptr)
+	{
+		reader->setCursor(m_optionListCursor);
+		parseOptionLists(node, m_optionListRegion);
+	}
+
+	if (m_bodyRegion != nullptr)
+	{
+		reader->setCursor(m_bodyCursor);
+		parseBody(node, m_bodyRegion);
+	}
+
+	return true;
+}
+
+bool YukiDirective::matchArguments()
+{
+	YukiFileReader* reader = getFileReader();
+	if (!acceptArguments())
+		return false;
+
+	bool needOptionList = acceptOptionLists();
+	int commonIndent = m_isFirstLine ? INT_MAX : reader->getLine()->getIndent();
+	YukiStruct* parser = getParser(L"option_list");
+	m_argumentsCursor = reader->getCursor();
+
+	while (reader->moveToNextLine())
+	{
+		const YukiLineString* line = reader->getLine();
+		// 遇到空行，表示 arguments 部分结束
+		if(line->isBlankLine())
+			break;
+		// 如果尝试 option list 成功，则结束
+		if (needOptionList && line->getIndent() <= commonIndent)
+		{
+			if (parser->match())
+				break;
+		}
+	}
+
+	// 记录 arguments 的区域
+	m_argumentsRegion = reader->cutRegionToCursorFrom(m_argumentsCursor);
+	return true;
+}
+
+bool YukiDirective::matchOptionList()
+{
+	YukiFileReader* reader = getFileReader();
+	if (!acceptOptionLists())
+		return false;
+
+	YukiOptionList* parser = dynamic_cast<YukiOptionList*>(getParser(L"option_list"));
+	if (!parser->match())
+		return false;
+
+	m_optionListCursor = reader->getCursor();
+	m_optionListRegion = parser->testValidRegion();
+
+	return true;
+}
+
+bool YukiDirective::matchBody()
+{
+	YukiFileReader* reader = getFileReader();
+	if (!acceptBody())
+		return false;
+
+	m_bodyCursor = reader->getCursor();
+	m_bodyRegion = reader->cutRegionFromCursorToEnd();
+
+	return true;
 }

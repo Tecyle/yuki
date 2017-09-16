@@ -258,6 +258,9 @@
     <ClInclude Include="yuki_directives.h">
       <Filter>yuki_structure\block\explicit_markup_block</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_md_literal_block.h">
+      <Filter>yuki_structure\block</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -412,6 +415,9 @@
     </ClCompile>
     <ClCompile Include="yuki_directives.cpp">
       <Filter>yuki_structure\block\explicit_markup_block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_md_literal_block.cpp">
+      <Filter>yuki_structure\block</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
