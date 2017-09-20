@@ -33,6 +33,9 @@ public:
 	wchar_t getChar(int offset = 0);
 	wchar_t peekPreviousChar();
 
+	bool searchStr(const wchar_t* str, bool crossLine = false);
+	bool matchBlankLine();
+
 protected:
 	YukiFileString m_fileString;
 };

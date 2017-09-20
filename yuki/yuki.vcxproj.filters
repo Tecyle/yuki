@@ -261,6 +261,12 @@
     <ClInclude Include="yuki_md_literal_block.h">
       <Filter>yuki_structure\block</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_doctest_block.h">
+      <Filter>yuki_structure\block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_md_quote_block.h">
+      <Filter>yuki_structure\block</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -417,6 +423,12 @@
       <Filter>yuki_structure\block\explicit_markup_block</Filter>
     </ClCompile>
     <ClCompile Include="yuki_md_literal_block.cpp">
+      <Filter>yuki_structure\block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_doctest_block.cpp">
+      <Filter>yuki_structure\block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_md_quote_block.cpp">
       <Filter>yuki_structure\block</Filter>
     </ClCompile>
   </ItemGroup>

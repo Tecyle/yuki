@@ -133,6 +133,7 @@
     <ClInclude Include="yuki_comment.h" />
     <ClInclude Include="yuki_directive.h" />
     <ClInclude Include="yuki_directives.h" />
+    <ClInclude Include="yuki_doctest_block.h" />
     <ClInclude Include="yuki_document.h" />
     <ClInclude Include="yuki_dynamic_class.h" />
     <ClInclude Include="yuki_explicit_markup.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="yuki_inline_underline.h" />
     <ClInclude Include="yuki_link_uri.h" />
     <ClInclude Include="yuki_md_literal_block.h" />
+    <ClInclude Include="yuki_md_quote_block.h" />
     <ClInclude Include="yuki_reserved_text.h" />
     <ClInclude Include="yuki_internal_types.h" />
     <ClInclude Include="yuki_interpreter.h" />
@@ -194,6 +196,7 @@
     <ClCompile Include="yuki_chained_string.cpp" />
     <ClCompile Include="yuki_comment.cpp" />
     <ClCompile Include="yuki_directives.cpp" />
+    <ClCompile Include="yuki_doctest_block.cpp" />
     <ClCompile Include="yuki_document.cpp" />
     <ClCompile Include="yuki_explicit_markup.cpp" />
     <ClCompile Include="yuki_file_loader.cpp" />
@@ -217,6 +220,7 @@
     <ClCompile Include="yuki_inline_underline.cpp" />
     <ClCompile Include="yuki_link_uri.cpp" />
     <ClCompile Include="yuki_md_literal_block.cpp" />
+    <ClCompile Include="yuki_md_quote_block.cpp" />
     <ClCompile Include="yuki_reserved_text.cpp" />
     <ClCompile Include="yuki_internal_types.cpp" />
     <ClCompile Include="yuki_interpreter.cpp" />

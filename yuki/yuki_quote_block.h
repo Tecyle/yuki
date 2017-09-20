@@ -1,13 +1,5 @@
 #pragma once
 
-enum yuki_quote_level
-{
-	QuoteLevel_default,
-	QuoteLevel_danger,
-	QuoteLevel_warning,
-	QuoteLevel_info,
-};
-
 class YukiQuoteBlockAttributeNode : public YukiNode
 {
 
@@ -24,8 +16,7 @@ public:
 class YukiQuoteBlockNode : public YukiNode
 {
 public:
-	void setQuoteLevel(yuki_quote_level level);
+	void setQuoteCategory(wstring categoryName);
 
 private:
-	yuki_quote_level m_quoteLevel;
 };
