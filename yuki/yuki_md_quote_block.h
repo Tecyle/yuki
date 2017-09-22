@@ -24,5 +24,13 @@
 */
 class YukiMdQuoteBlock : public YukiStruct
 {
+public:
+	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) override;
+	virtual bool match() override;
 
+private:
+	bool matchNoBackward();
+
+private:
+	wstring m_quoteLevel;
 };
