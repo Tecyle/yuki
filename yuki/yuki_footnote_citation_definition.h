@@ -13,7 +13,7 @@ class YukiCitationDefinitionNode : public YukiNode
 class YukiFootnoteCitationDefinition : public YukiStruct
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) override;
+	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
 
 protected:
 	bool parseLabel(wstring& label, bool& isFootnote);

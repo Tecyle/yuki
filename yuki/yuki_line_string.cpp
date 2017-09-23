@@ -61,7 +61,7 @@ wchar_t YukiLineString::getCharAtIndex(int ch) const
 	return m_parent->m_buffer[ch];
 }
 
-YukiLineString::YukiLineString(YukiFileString* parent, int ln, wchar_t* & str)
+YukiLineString::YukiLineString(yuki_file_string* parent, int ln, wchar_t* & str)
 {
 	m_parent = parent;
 	m_ln = ln;

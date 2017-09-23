@@ -6,7 +6,7 @@
 #include "yuki_struct.h"
 #include "yuki_explicit_markup.h"
 
-bool YukiExplicitMarkup::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiExplicitMarkup::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -54,7 +54,7 @@ bool YukiExplicitMarkup::parse(YukiNode* parentNode, const YukiRegion* region)
 		}
 		commonIndent = yuki_min(commonIndent, line->getIndent());
 	}
-	const YukiRegion* explicitBlockRegion = meetContent ?
+	const yuki_region* explicitBlockRegion = meetContent ?
 		reader->cutRegionBetween(startCursor, endCursor, commonIndent)
 		: reader->cutRegionToCursorFrom(oldCursor);
 	reader->setCursor(oldCursor);

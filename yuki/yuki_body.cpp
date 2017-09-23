@@ -73,11 +73,11 @@ YukiBody::YukiBody(YukiGlobal* globalData)
 	m_type = Yuki_blockType;
 }
 
-bool YukiBody::parse(YukiNode* parent, const YukiRegion* region)
+bool YukiBody::parse(YukiNode* parent, const yuki_region* region)
 {
 	int indentLevel = region->getIndent();
 	YukiFileReader* fileReader = getFileReader();
-	const YukiRegion* oldRegion = fileReader->selectRegion(region);
+	const yuki_region* oldRegion = fileReader->selectRegion(region);
 	YukiBodyNode* bodyNode = new YukiBodyNode;
 	YukiMatcherCollection* matchers = getMatcherCollection();
 	auto followMatchers = matchers->getFollowSet(getName());

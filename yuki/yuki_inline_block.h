@@ -7,7 +7,7 @@
 class YukiInlineBlock : public YukiStruct
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) override;
+	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
 	// 内联结构永远匹配
 	virtual bool match() override { return true; }
 

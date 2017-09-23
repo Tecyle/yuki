@@ -4,11 +4,11 @@
 class YukiRstQuoteBlock : public YukiStruct
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) override;
+	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
 	virtual bool match() override;
 
 protected:
-	void searchingBlockRegion(const YukiRegion* &bodyRegion, const YukiRegion* &attrRegion);
+	void searchingBlockRegion(const yuki_region* &bodyRegion, const yuki_region* &attrRegion);
 
 private:
 	int m_quoteBlockIndent;

@@ -32,7 +32,7 @@
 class YukiDirectives : public YukiStruct
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) override;
+	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
 	virtual bool match() override;
 
 protected:
@@ -46,7 +46,7 @@ protected:
 class YukiDirective : public YukiStruct
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) override;
+	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
 	virtual bool match() override;
 
 	virtual bool matchNoBackward();
@@ -63,12 +63,12 @@ protected:
 	virtual bool matchNoBackwardInlineMode();
 	virtual bool matchNoBackwardBlockMode();
 
-	virtual bool parseInlineMode(YukiNode* parentNode, const YukiRegion* region);
-	virtual bool parseBlockMode(YukiNode* parentNode, const YukiRegion* region);
+	virtual bool parseInlineMode(YukiNode* parentNode, const yuki_region* region);
+	virtual bool parseBlockMode(YukiNode* parentNode, const yuki_region* region);
 
-	virtual bool parseArguments(YukiNode* parentNode, const YukiRegion* region) = 0;
-	virtual bool parseOptionLists(YukiNode* parentNode, const YukiRegion* region) = 0;
-	virtual bool parseBody(YukiNode* parentNode, const YukiRegion* region) = 0;
+	virtual bool parseArguments(YukiNode* parentNode, const yuki_region* region) = 0;
+	virtual bool parseOptionLists(YukiNode* parentNode, const yuki_region* region) = 0;
+	virtual bool parseBody(YukiNode* parentNode, const yuki_region* region) = 0;
 
 	virtual YukiNode* getMainDirectiveNode() = 0;
 
@@ -85,10 +85,10 @@ protected:
 
 	bool m_isFirstLine;
 
-	const YukiRegion* m_argumentsRegion;
+	const yuki_region* m_argumentsRegion;
 	yuki_cursor m_argumentsCursor;
-	const YukiRegion* m_optionListRegion;
+	const yuki_region* m_optionListRegion;
 	yuki_cursor m_optionListCursor;
-	const YukiRegion* m_bodyRegion;
+	const yuki_region* m_bodyRegion;
 	yuki_cursor m_bodyCursor;
 };

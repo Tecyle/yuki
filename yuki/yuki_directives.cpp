@@ -6,11 +6,11 @@
 #include "yuki_directives.h"
 #include "yuki_simple_reference_name.h"
 
-bool YukiDirectives::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiDirectives::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const YukiRegion* oldRegion = reader->selectRegion(region);
+	const yuki_region* oldRegion = reader->selectRegion(region);
 	bool succ = false;
 
 	if (!matchNoBackward())
@@ -63,11 +63,11 @@ bool YukiDirectives::matchNoBackward()
 	return true;
 }
 
-bool YukiDirective::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiDirective::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const YukiRegion* oldRegion = reader->selectRegion(region);
+	const yuki_region* oldRegion = reader->selectRegion(region);
 
 	bool succ =  inlineMode() ? parseInlineMode(parentNode, region) : parseBlockMode(parentNode, region);
 
@@ -168,7 +168,7 @@ bool YukiDirective::matchNoBackwardBlockMode()
 	return true;
 }
 
-bool YukiDirective::parseBlockMode(YukiNode* parentNode, const YukiRegion* region)
+bool YukiDirective::parseBlockMode(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* reader = getFileReader();
 	

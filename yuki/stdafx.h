@@ -1,9 +1,9 @@
-// stdafx.h : 标准系统包含文件的包含文件，
-// 或是经常使用但不常更改的
-// 特定于项目的包含文件
-//
-
 #pragma once
+
+/*
+	编码规范：
+	1. 所有 yuki 的类型名采用全小写加下划线的形式，变量名中间不加下划线。
+*/
 
 #include "targetver.h"
 
@@ -35,10 +35,6 @@ using namespace std;
 
 #define yuki_get_absolute_index(index, total) \
 	((index) < 0 ? (total) + (index) : (index))
-
-#if !defined(assert)
-#	define assert(o)
-#endif
 
 __inline bool yuki_isWordChar(wchar_t ch)
 {

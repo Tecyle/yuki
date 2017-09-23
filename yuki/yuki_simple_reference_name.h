@@ -16,7 +16,7 @@ public:
 	bool parseReferenceName(wstring* res);
 
 protected:
-	virtual bool parse(YukiNode*, const YukiRegion*) {}
+	virtual bool parse(YukiNode*, const yuki_region*) {}
 	virtual bool match() {}
 
 	bool parseWordBlock(wstring* res);

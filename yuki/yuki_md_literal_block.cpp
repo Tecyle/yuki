@@ -10,11 +10,11 @@ static bool yuki_isLanguageNameChar(wchar_t ch)
 	return !isspace(ch) && ch != '`';
 }
 
-bool YukiMdLiteralBlock::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiMdLiteralBlock::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const YukiRegion* oldRegion = reader->selectRegion(region);
+	const yuki_region* oldRegion = reader->selectRegion(region);
 	bool succ = false;
 
 	if (!matchNoBackward())
@@ -37,7 +37,7 @@ bool YukiMdLiteralBlock::parse(YukiNode* parentNode, const YukiRegion* region)
 		line = reader->getLine();
 	}
 	// 决定主体部位的位置
-	const YukiRegion* bodyRegion = reader->cutRegionBetween(oldCursor, newCursor);
+	const yuki_region* bodyRegion = reader->cutRegionBetween(oldCursor, newCursor);
 	YukiLiteralBlockNode* node = new YukiLiteralBlockNode;
 	node->setLanguage(m_language);
 	reader->setCursor(oldCursor);

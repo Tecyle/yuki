@@ -3,14 +3,14 @@
 class YukiFileReader
 {
 public:
-	const YukiRegion* selectRegion(const YukiRegion* region);
+	const yuki_region* selectRegion(const yuki_region* region);
 	int skipBlankLines();
-	const YukiRegion* cutRegionFromCursorTo(yuki_cursor cursor, int indent = -1);
-	const YukiRegion* cutRegionFromCursorToEnd();
+	const yuki_region* cutRegionFromCursorTo(yuki_cursor cursor, int indent = -1);
+	const yuki_region* cutRegionFromCursorToEnd();
 	// 如果提供了 indent，则使用这个值作为 indent，如果是 -1，则自动计算 indent
-	const YukiRegion* cutRegionToCursorFrom(yuki_cursor cursor, int indent = -1);
-	const YukiRegion* cutRegionBetween(yuki_cursor start, yuki_cursor end, int indent = -1);
-	const YukiRegion* getRegion();
+	const yuki_region* cutRegionToCursorFrom(yuki_cursor cursor, int indent = -1);
+	const yuki_region* cutRegionBetween(yuki_cursor start, yuki_cursor end, int indent = -1);
+	const yuki_region* getRegion();
 	int getLineCount() const;
 	const YukiLineString* getLine(int offset = 0) const;
 	yuki_cursor getCursor() const;
@@ -37,5 +37,5 @@ public:
 	bool matchBlankLine();
 
 protected:
-	YukiFileString m_fileString;
+	yuki_file_string m_fileString;
 };

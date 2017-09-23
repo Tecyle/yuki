@@ -8,7 +8,7 @@
 class YukiNode : virtual public YukiDynamicClass
 {
 protected:
-	YukiNode(YukiNode* parent, const YukiRegion* region);
+	YukiNode(YukiNode* parent, const yuki_region* region);
 
 public:
 	virtual yuki_struct_type getNodeType() const { return m_nodeType; }
@@ -19,7 +19,7 @@ public:
 	virtual YukiNode* getChild(int index);
 	virtual const vector<YukiNode*>& getChildren() const { return m_children; }
 
-	virtual const YukiRegion* getRegion() const { return m_region; }
+	virtual const yuki_region* getRegion() const { return m_region; }
 
 	virtual __inline void appendChild(YukiNode* child);
 
@@ -30,7 +30,7 @@ protected:
 	YukiNode* m_parent;
 	vector<YukiNode*> m_children;
 
-	YukiRegion* m_region;
+	yuki_region* m_region;
 };
 
 class YukiWalkerAction : virtual public YukiDynamicClass

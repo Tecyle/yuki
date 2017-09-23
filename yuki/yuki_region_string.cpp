@@ -6,7 +6,7 @@
 #include "yuki_region_string.h"
 #include "yuki_file_string.h"
 
-YukiLinedRegionString::YukiLinedRegionString(YukiFileString* parent, const YukiRegion* region)
+YukiLinedRegionString::YukiLinedRegionString(yuki_file_string* parent, const yuki_region* region)
 	: YukiRegionString(parent)
 {
 	m_region = new YukiLinedRegion(dynamic_cast<const YukiLinedRegion*>(region));

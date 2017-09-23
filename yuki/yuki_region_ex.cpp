@@ -4,11 +4,11 @@
 #include "yuki_region_ex.h"
 
 YukiLinedRegion::YukiLinedRegion(const YukiLinedRegion* region)
-	: YukiRegion(region)
+	: yuki_region(region)
 {
 }
 
 YukiBlockRegion::YukiBlockRegion(const YukiBlockRegion* region)
-	: YukiRegion(region)
+	: yuki_region(region)
 {
 }

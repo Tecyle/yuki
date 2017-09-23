@@ -12,7 +12,7 @@
 	2. 跳过 ``--`` 打头的文字段
 	3. 按照 inline_block 解析
 */
-bool YukiQuoteBlockAttribute::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiQuoteBlockAttribute::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();

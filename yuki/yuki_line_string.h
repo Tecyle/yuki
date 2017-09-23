@@ -2,12 +2,12 @@
 #define YUKI_ERROR_INDENT -1
 #define YUKI_AUTO_CALC_INDENT -2
 
-class YukiFileString;
+class yuki_file_string;
 
 class YukiLineString
 {
 public:
-	friend class YukiFileString;
+	friend class yuki_file_string;
 	friend class YukiLinedRegionString;
 	friend class YukiBlockRegionString;
 
@@ -28,9 +28,11 @@ public:
 	__inline yuki_cursor beginCursor() const;
 	__inline yuki_cursor endCursor() const;
 
+	__inline int getOffset() const { return m_index; }
+
 protected:
 	// YukiFileString 专用的构造函数，通过可移动的 str 指针来构造一行
-	YukiLineString(YukiFileString* parent, int ln, wchar_t* & str);
+	YukiLineString(yuki_file_string* parent, int ln, wchar_t* & str);
 	// YukiRegionString 专用构造函数，通过截取一段 YukiLineString 来构造一行
 	YukiLineString(const YukiLineString* base, int startCol, int endCol);
 
@@ -42,7 +44,7 @@ protected:
 	__inline wchar_t* getCStr() const { return m_parent->m_buffer + m_index; }
 
 private:
-	YukiFileString* m_parent;
+	yuki_file_string* m_parent;
 	int m_ln;	///< 这一行所在的行号，全局
 	int m_col;	///< 这一行的开始列号，全局
 	int m_ch;	///< 这一行的行内字符序号，全局

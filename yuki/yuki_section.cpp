@@ -13,10 +13,10 @@
 
 	标题的前面必须有空行或者是文档开头
 */
-bool YukiSection::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiSection::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* fileReader = getFileReader();
-	const YukiRegion* oldRegion = fileReader->selectRegion(region);
+	const yuki_region* oldRegion = fileReader->selectRegion(region);
 	YukiSectionNode* sectionNode = new YukiSectionNode;
 
 	fileReader->skipBlankLines();
@@ -33,7 +33,7 @@ bool YukiSection::parse(YukiNode* parentNode, const YukiRegion* region)
 	return true;
 }
 
-const YukiRegion* YukiSection::searchSectionBodyRegion()
+const yuki_region* YukiSection::searchSectionBodyRegion()
 {
 	YukiFileReader* fileReader = getFileReader();
 	bool lastLineIsBlankLine = false;

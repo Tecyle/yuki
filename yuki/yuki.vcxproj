@@ -23,13 +23,13 @@
     <ProjectGuid>{61B156AC-7D3F-4FE2-94D8-A283BD5DDD61}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>yuki</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -159,6 +159,7 @@
     <ClInclude Include="yuki_link_uri.h" />
     <ClInclude Include="yuki_md_literal_block.h" />
     <ClInclude Include="yuki_md_quote_block.h" />
+    <ClInclude Include="yuki_region_manager.h" />
     <ClInclude Include="yuki_reserved_text.h" />
     <ClInclude Include="yuki_internal_types.h" />
     <ClInclude Include="yuki_interpreter.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="yuki_link_uri.cpp" />
     <ClCompile Include="yuki_md_literal_block.cpp" />
     <ClCompile Include="yuki_md_quote_block.cpp" />
+    <ClCompile Include="yuki_region_manager.cpp" />
     <ClCompile Include="yuki_reserved_text.cpp" />
     <ClCompile Include="yuki_internal_types.cpp" />
     <ClCompile Include="yuki_interpreter.cpp" />

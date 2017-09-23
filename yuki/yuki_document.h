@@ -3,7 +3,7 @@
 class YukiDocumentNode : public YukiNode
 {
 public:
-	YukiDocumentNode(const YukiRegion* region);
+	YukiDocumentNode(const yuki_region* region);
 
 private:
 	// Œƒµµ Ù–‘
@@ -30,5 +30,5 @@ public:
 	YukiDocumentNode* parseYukiDocument();
 
 protected:
-	virtual bool parse(YukiNode* parent, const YukiRegion* region) override;
+	virtual bool parse(YukiNode* parent, const yuki_region* region) override;
 };

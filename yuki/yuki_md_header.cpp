@@ -10,7 +10,7 @@
 
 /*
 */
-bool YukiMdHeader::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiMdHeader::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	if (!match())
 		return false;
@@ -28,7 +28,7 @@ bool YukiMdHeader::parse(YukiNode* parentNode, const YukiRegion* region)
 	// 检查标题行的末尾是否有对称的标题标记符号
 	yuki_cursor startCursor = reader->getCursor();
 	yuki_cursor endCursor = reader->findSuffixChar('#', headerLevel);
-	const YukiRegion* headerTextRegion = new YukiLinedRegion(startCursor, endCursor);
+	const yuki_region* headerTextRegion = new YukiLinedRegion(startCursor, endCursor);
 
 	getParser(L"inline_block")->parse(headerNode, headerTextRegion);
 	reader->moveToNextLine();

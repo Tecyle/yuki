@@ -12,7 +12,7 @@ public:
 		* 匹配得到的区间要在 region 参数中返回
 		* 匹配成功返回 true，匹配失败返回 false，不需要手动还原光标
 	*/
-	virtual bool match(YukiFileReader* reader, YukiRegion* region) = 0;
+	virtual bool match(YukiFileReader* reader, yuki_region* region) = 0;
 
 	/*
 		无论匹配失败与否，都不能改变原本光标的位置

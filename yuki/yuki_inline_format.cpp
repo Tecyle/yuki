@@ -6,7 +6,7 @@
 #include "yuki_inline_markup.h"
 #include "yuki_inline_format.h"
 
-bool YukiInlineFormat::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiInlineFormat::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	if (!match())
 		return false;

@@ -6,7 +6,7 @@
 #include "yuki_region_ex.h"
 #include "yuki_rst_header.h"
 
-bool YukiRstHeader::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiRstHeader::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	if (!match())
 		return false;
@@ -31,7 +31,7 @@ bool YukiRstHeader::parse(YukiNode* parentNode, const YukiRegion* region)
 
 	// 标题内容解析
 	titleSize = line->getIndent() + line->getContentLength();
-	const YukiRegion* headerTextRegion = new YukiLinedRegion(line->beginCursor(), line->endCursor());
+	const yuki_region* headerTextRegion = new YukiLinedRegion(line->beginCursor(), line->endCursor());
 	getParser(L"inline_block")->parse(headerNode, headerTextRegion);
 
 	// 下标线分析

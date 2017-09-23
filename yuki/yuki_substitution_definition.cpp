@@ -7,11 +7,11 @@
 #include "yuki_substitution_definition.h"
 #include "yuki_simple_reference_name.h"
 
-bool YukiSubstitutionDefinition::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiSubstitutionDefinition::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const YukiRegion* oldRegion = reader->selectRegion(region);
+	const yuki_region* oldRegion = reader->selectRegion(region);
 	bool succ = false;
 
 	if (!reader->matchChar('|'))

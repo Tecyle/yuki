@@ -7,11 +7,11 @@
 #include "yuki_footnote_citation_definition.h"
 #include "yuki_hyperlink_target.h"
 
-bool YukiHyperlinkTarget::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiHyperlinkTarget::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const YukiRegion* oldRegion = reader->selectRegion(region);
+	const yuki_region* oldRegion = reader->selectRegion(region);
 
 	if (!matchNoBackward())
 	{

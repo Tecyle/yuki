@@ -12,8 +12,8 @@ private:
 class YukiSection : public YukiStruct
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const YukiRegion* region) override;
+	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
 
 private:
-	const YukiRegion* searchSectionBodyRegion();
+	const yuki_region* searchSectionBodyRegion();
 };

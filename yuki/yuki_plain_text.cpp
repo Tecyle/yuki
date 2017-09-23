@@ -18,13 +18,13 @@
 */
 static const wchar_t* g_enterFollowSet = L"abcdefghijklmnopqrstuvwxyz";
 
-bool YukiPlainText::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiPlainText::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	if (region->empty())
 		return true;
 
 	YukiFileReader* reader = getFileReader();
-	const YukiRegion* oldRegion = reader->selectRegion(region);
+	const yuki_region* oldRegion = reader->selectRegion(region);
 	YukiPlainTextNode* textNode = new YukiPlainTextNode;
 	wstring& text = textNode->plainText();
 	wchar_t lastChar = 0;

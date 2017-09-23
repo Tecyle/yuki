@@ -11,5 +11,5 @@ public:
 	YukiBody(YukiGlobal* globalData);
 
 public:
-	virtual bool parse(YukiNode* parent, const YukiRegion* region) override;
+	virtual bool parse(YukiNode* parent, const yuki_region* region) override;
 };

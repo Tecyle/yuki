@@ -5,7 +5,7 @@
 #include "yuki_body.h"
 #include "yuki_document.h"
 
-YukiDocumentNode::YukiDocumentNode(const YukiRegion* region)
+YukiDocumentNode::YukiDocumentNode(const yuki_region* region)
 	: YukiNode(nullptr, region)
 {
 	m_nodeName = L"document";
@@ -32,7 +32,7 @@ YukiDocumentNode* YukiDocument::parseYukiDocument()
 }
 
 // Document : Body
-bool YukiDocument::parse(YukiNode* parent, const YukiRegion* region)
+bool YukiDocument::parse(YukiNode* parent, const yuki_region* region)
 {
 	return getParser(L"body")->parse(parent, region);
 }

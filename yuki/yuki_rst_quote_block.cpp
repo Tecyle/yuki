@@ -21,14 +21,14 @@
 
 	这个结构本身只是提供框架，不移动字符流指针
 */
-bool YukiRstQuoteBlock::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiRstQuoteBlock::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	if (!match())
 		return false;
 
 	YukiQuoteBlockNode* quoteNode = new YukiQuoteBlockNode;
-	const YukiRegion* bodyRegion;
-	const YukiRegion* attrRegion;
+	const yuki_region* bodyRegion;
+	const yuki_region* attrRegion;
 
 	quoteNode->setQuoteLevel(QuoteLevel_default);
 	// 确定引用块的位置
@@ -50,7 +50,7 @@ bool YukiRstQuoteBlock::parse(YukiNode* parentNode, const YukiRegion* region)
 bool YukiRstQuoteBlock::match()
 {
 	YukiFileReader* reader = getFileReader();
-	const YukiRegion* region = reader->getRegion();
+	const yuki_region* region = reader->getRegion();
 
 	const YukiLineString* line = reader->getLine();
 	assert(!line->isBlankLine());
@@ -64,7 +64,7 @@ bool YukiRstQuoteBlock::match()
 	1. BodyRegion：引用块主体部分的位置
 	2. AttributeRegion：引用块 Attribute 范围的位置
 */
-void YukiRstQuoteBlock::searchingBlockRegion(const YukiRegion* &bodyRegion, const YukiRegion* &attrRegion)
+void YukiRstQuoteBlock::searchingBlockRegion(const yuki_region* &bodyRegion, const yuki_region* &attrRegion)
 {
 	YukiFileReader* reader = getFileReader();
 	int indent = reader->getRegion()->getIndent();

@@ -5,10 +5,10 @@
 #include "yuki_line_string.h"
 #include "yuki_doctest_block.h"
 
-bool YukiDoctest::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiDoctest::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* reader = getFileReader();
-	const YukiRegion* oldRegion = reader->selectRegion(region);
+	const yuki_region* oldRegion = reader->selectRegion(region);
 	bool succ = false;
 
 	if (!match())

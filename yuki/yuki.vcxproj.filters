@@ -49,9 +49,6 @@
     <Filter Include="yuki_structure\title">
       <UniqueIdentifier>{fcd3915b-a9ba-4850-965f-8c6e48a391ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utils\memories">
-      <UniqueIdentifier>{cda74e1e-7ee6-4d96-b821-22461d3b7d9e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="utils\match &amp; reader\matchers">
       <UniqueIdentifier>{a199e962-8f06-41e8-8d8f-07a08b937e79}</UniqueIdentifier>
     </Filter>
@@ -84,6 +81,9 @@
     </Filter>
     <Filter Include="yuki_structure\block\explicit_markup_block\directives">
       <UniqueIdentifier>{1e781a75-75a2-4e31-b127-037f4a7fb5a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\managers">
+      <UniqueIdentifier>{cda74e1e-7ee6-4d96-b821-22461d3b7d9e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -169,10 +169,10 @@
       <Filter>yuki_structure</Filter>
     </ClInclude>
     <ClInclude Include="yuki_memo_pools.h">
-      <Filter>utils\memories</Filter>
+      <Filter>utils\managers</Filter>
     </ClInclude>
     <ClInclude Include="yuki_dynamic_class.h">
-      <Filter>utils\memories</Filter>
+      <Filter>utils\managers</Filter>
     </ClInclude>
     <ClInclude Include="yuki_md_title_matcher.h">
       <Filter>utils\match &amp; reader\matchers\title</Filter>
@@ -267,6 +267,9 @@
     <ClInclude Include="yuki_md_quote_block.h">
       <Filter>yuki_structure\block</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_region_manager.h">
+      <Filter>utils\managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -336,7 +339,7 @@
       <Filter>yuki_structure</Filter>
     </ClCompile>
     <ClCompile Include="yuki_memo_pools.cpp">
-      <Filter>utils\memories</Filter>
+      <Filter>utils\managers</Filter>
     </ClCompile>
     <ClCompile Include="yuki_md_title_matcher.cpp">
       <Filter>utils\match &amp; reader\matchers\title</Filter>
@@ -430,6 +433,9 @@
     </ClCompile>
     <ClCompile Include="yuki_md_quote_block.cpp">
       <Filter>yuki_structure\block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_region_manager.cpp">
+      <Filter>utils\managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

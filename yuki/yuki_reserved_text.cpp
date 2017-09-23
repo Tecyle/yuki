@@ -7,10 +7,10 @@
 #include "yuki_line_string.h"
 #include "yuki_reserved_text.h"
 
-bool YukiReservedText::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiReservedText::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* reader = getFileReader();
-	const YukiRegion* oldRegion = reader->selectRegion(region);
+	const yuki_region* oldRegion = reader->selectRegion(region);
 	
 	YukiReservedTextNode* node = new YukiReservedTextNode;
 	wstring& rsvText = node->reservedText();

@@ -31,8 +31,8 @@ protected:
 	const wchar_t* m_infix;
 	const wchar_t* m_suffix;
 
-	const YukiRegion* m_textRegion1;
-	const YukiRegion* m_textRegion2;
+	const yuki_region* m_textRegion1;
+	const yuki_region* m_textRegion2;
 
 	yuki_cursor m_endCursor;
 

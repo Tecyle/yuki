@@ -77,14 +77,14 @@ static const wchar_t* g_startCharSet = L"*`-_=^v!<|[";
 static const wchar_t* g_headSet = L"-:/'\"<([{£º¡¢¡®¡°¡¶£¨¡¾";
 static const wchar_t* g_fllowSet = L"-.,:;!?\\/'\")]}¡££¬£º£»£¡£¿¡¢¡¯¡±£©¡¿";
 
-bool YukiInlineBlock::parse(YukiNode* parentNode, const YukiRegion* region)
+bool YukiInlineBlock::parse(YukiNode* parentNode, const yuki_region* region)
 {
 	YukiFileReader* reader = getFileReader();
 	yuki_cursor startCursor = reader->getCursor();
 	wchar_t ch;
 	bool isLastCharInHeadSet = true;
 	bool isLastCharSlash = false;
-	const YukiRegion* oldRegion = reader->selectRegion(region);
+	const yuki_region* oldRegion = reader->selectRegion(region);
 
 	for(;;)
 	{
