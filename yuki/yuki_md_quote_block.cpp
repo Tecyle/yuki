@@ -18,9 +18,12 @@ bool YukiMdQuoteBlock::parse(YukiNode* parentNode, const YukiRegion* region)
 
 	int commonIndent = INT_MAX;
 	yuki_cursor lineBeginCursor = reader->getCursor();
+	yuki_cursor attrCursor;
 	oldCursor = reader->getCursor();
 	if (m_quoteLevel.empty())
 		commonIndent = reader->skipSpaces();
+
+	bool hasAttr = false;
 	while (reader->moveToNextLine())
 	{
 		lineBeginCursor = reader->getCursor();
@@ -31,14 +34,39 @@ bool YukiMdQuoteBlock::parse(YukiNode* parentNode, const YukiRegion* region)
 		if (indent < 1)
 			break;
 
+		// 如果某一行的缩进等于最大公共缩进，并且匹配 Attribute，则结束 body 部分
+		if (indent == commonIndent && getParser(L"quote_block_attribute")->match())
+		{
+			hasAttr = true;
+			attrCursor = reader->getCursor();
+			break;
+		}
+		
 		commonIndent = yuki_min(commonIndent, indent);
-		// TODO 检测 Attribute
 	}
 
 	YukiQuoteBlockNode* node = new YukiQuoteBlockNode;
 	reader->setCursor(oldCursor);
 	node->setQuoteCategory(m_quoteLevel);
 	getParser(L"body")->parse(node, reader->cutRegionBetween(oldCursor, lineBeginCursor, commonIndent + 1));
+	if (hasAttr)
+	{
+		reader->setCursor(attrCursor);
+		// 继续搜索 Attribute 的位置
+		lineBeginCursor = attrCursor;
+		while (reader->moveToNextLine())
+		{
+			lineBeginCursor = reader->getCursor();
+			if (!reader->matchChar('>'))
+				break;
+
+			int indent = reader->skipSpaces();
+			if (indent != commonIndent)
+				break;
+		}
+		reader->setCursor(attrCursor);
+		getParser(L"quote_block_attribute")->parse(node, reader->cutRegionFromCursorTo(lineBeginCursor, commonIndent + 1));
+	}
 	succ = true;
 	parentNode->appendChild(node);
 

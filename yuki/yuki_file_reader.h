@@ -5,7 +5,7 @@ class YukiFileReader
 public:
 	const YukiRegion* selectRegion(const YukiRegion* region);
 	int skipBlankLines();
-	const YukiRegion* cutRegionFromCursorTo(yuki_cursor cursor);
+	const YukiRegion* cutRegionFromCursorTo(yuki_cursor cursor, int indent = -1);
 	const YukiRegion* cutRegionFromCursorToEnd();
 	// 如果提供了 indent，则使用这个值作为 indent，如果是 -1，则自动计算 indent
 	const YukiRegion* cutRegionToCursorFrom(yuki_cursor cursor, int indent = -1);
