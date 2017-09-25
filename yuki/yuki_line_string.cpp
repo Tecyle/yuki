@@ -34,7 +34,7 @@ static __inline int countIndentLevel(const wchar_t* str, int length, int col)
 	return YUKI_ERROR_INDENT;
 }
 
-bool YukiLineString::moveCursorToNext(yuki_cursor& cursor)
+bool yuki_line_string::moveCursorToNext(yuki_cursor& cursor)
 {
 	if (cursor.ch - m_ch == m_length - 1 || cursor.ch < m_ch)
 		return false;
@@ -54,14 +54,14 @@ bool YukiLineString::moveCursorToNext(yuki_cursor& cursor)
 	return true;
 }
 
-wchar_t YukiLineString::getCharAtIndex(int ch) const
+wchar_t yuki_line_string::getCharAtIndex(int ch) const
 {
 	if (ch >= getLength())
 		return 0;
 	return m_parent->m_buffer[ch];
 }
 
-YukiLineString::YukiLineString(yuki_file_string* parent, int ln, wchar_t* & str)
+yuki_line_string::yuki_line_string(yuki_file_string* parent, int ln, wchar_t* & str)
 {
 	m_parent = parent;
 	m_ln = ln;
@@ -115,7 +115,7 @@ YukiLineString::YukiLineString(yuki_file_string* parent, int ln, wchar_t* & str)
 		str++;
 }
 
-YukiLineString::YukiLineString(const YukiLineString* base, int startCol, int endCol)
+yuki_line_string::yuki_line_string(const yuki_line_string* base, int startCol, int endCol)
 {
 	m_parent = base->m_parent;
 	m_ln = base->m_ln;
@@ -130,7 +130,7 @@ YukiLineString::YukiLineString(const YukiLineString* base, int startCol, int end
 	m_indent = countIndentLevel(getCStr(), getLength(), m_col);
 }
 
-YukiLineString::YukiLineString(const YukiLineString* r)
+yuki_line_string::yuki_line_string(const yuki_line_string* r)
 {
 	m_parent = r->m_parent;
 	m_ln = r->m_ln;
@@ -141,7 +141,7 @@ YukiLineString::YukiLineString(const YukiLineString* r)
 	m_indent = r->m_indent;
 }
 
-int YukiLineString::getChByCol(int col) const
+int yuki_line_string::getChByCol(int col) const
 {
 	col = m_col + col;
 

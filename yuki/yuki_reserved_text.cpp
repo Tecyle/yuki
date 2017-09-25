@@ -16,7 +16,7 @@ bool YukiReservedText::parse(YukiNode* parentNode, const yuki_region* region)
 	wstring& rsvText = node->reservedText();
 	do 
 	{
-		const YukiLineString* line = reader->getLine();
+		const yuki_line_string* line = reader->getLine();
 		rsvText.append(line->getContentPtr(), line->getContentLength());
 	} while (reader->moveToNextLine());
 

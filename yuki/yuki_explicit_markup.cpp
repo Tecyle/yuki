@@ -25,7 +25,7 @@ bool YukiExplicitMarkup::parse(YukiNode* parentNode, const yuki_region* region)
 	oldCursor = reader->getCursor();
 	while (reader->moveToNextLine())
 	{
-		const YukiLineString* line = reader->getLine();
+		const yuki_line_string* line = reader->getLine();
 
 		if (line == nullptr)
 			break;

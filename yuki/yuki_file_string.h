@@ -1,6 +1,6 @@
 #pragma once
 
-class YukiLineString;
+class yuki_line_string;
 
 /*
 	YukiFileString
@@ -11,7 +11,7 @@ class YukiLineString;
 class yuki_file_string
 {
 public:
-	friend class YukiLineString;
+	friend class yuki_line_string;
 	yuki_file_string();
 	~yuki_file_string();
 
@@ -26,7 +26,7 @@ public:
 	/*
 		返回一行，-1 代表最后一行
 	*/
-	__inline const YukiLineString* getLine(int index);
+	__inline const yuki_line_string* getLine(int index);
 
 	/*
 		返回行的总数
@@ -51,6 +51,6 @@ private:
 	wchar_t* m_buffer;				///< 原始文本信息
 	int m_bufferLength;				///< 原始文本长度
 
-	YukiLineString* m_lines;		///< 存储所有的行信息
+	yuki_line_string* m_lines;		///< 存储所有的行信息
 	int m_lineCount;				///< 一共有多少行
 };

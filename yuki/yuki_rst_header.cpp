@@ -19,7 +19,7 @@ bool YukiRstHeader::parse(YukiNode* parentNode, const yuki_region* region)
 	int lowerSize = 0;
 	int titleSize = 0;
 	// 上标线判断，上标线仅做装饰，如果上标线和下标线符号不一致，仅给出警告，以下标线为准
-	const YukiLineString* line = reader->getLine();
+	const yuki_line_string* line = reader->getLine();
 	if (line->isSeperator())
 	{
 		// 约定，标题线必须没有缩进
@@ -76,7 +76,7 @@ bool YukiRstHeader::parse(YukiNode* parentNode, const yuki_region* region)
 bool YukiRstHeader::match()
 {
 	YukiFileReader* reader = getFileReader();
-	const YukiLineString* line = reader->getLine();
+	const yuki_line_string* line = reader->getLine();
 
 	if (line == nullptr || line->isBlankLine() || line->getIndent() != 0)
 		return false;

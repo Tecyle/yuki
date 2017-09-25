@@ -52,7 +52,7 @@ bool YukiRstQuoteBlock::match()
 	YukiFileReader* reader = getFileReader();
 	const yuki_region* region = reader->getRegion();
 
-	const YukiLineString* line = reader->getLine();
+	const yuki_line_string* line = reader->getLine();
 	assert(!line->isBlankLine());
 
 	return line->getIndent() > region->getIndent();
@@ -79,7 +79,7 @@ void YukiRstQuoteBlock::searchingBlockRegion(const yuki_region* &bodyRegion, con
 	// 搜索 body 部分
 	do
 	{
-		const YukiLineString* line = reader->getLine();
+		const yuki_line_string* line = reader->getLine();
 		// 获取超出范围，则认为只有 body 部分
 		if (line == nullptr)
 		{
@@ -119,7 +119,7 @@ void YukiRstQuoteBlock::searchingBlockRegion(const yuki_region* &bodyRegion, con
 	{
 		// 能进到这里，说明上面的 attr 标签匹配成功了
 		// 所以，只需移进缩进匹配的行
-		const YukiLineString* line = reader->getLine();
+		const yuki_line_string* line = reader->getLine();
 
 		if (line == nullptr || line->isBlankLine() || line->getIndent() != commonIndent)
 		{

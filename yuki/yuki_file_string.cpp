@@ -61,7 +61,7 @@ bool yuki_file_string::loadFromFile(const wchar_t* fileName)
 	return true;
 }
 
-const YukiLineString* yuki_file_string::getLine(int index)
+const yuki_line_string* yuki_file_string::getLine(int index)
 {
 	if (m_lineCount == 0)
 		return nullptr;
@@ -106,7 +106,7 @@ void yuki_file_string::addCursorOffsetToCursor(yuki_cursor& target, const yuki_c
 	target.ln += offset.ln;
 	target.col += offset.col;
 
-	const YukiLineString* line = getLine(target.ln);
+	const yuki_line_string* line = getLine(target.ln);
 	assert(line);
 	target.ch = line->getChByCol(target.col);
 	target.offset = line->getOffset() + target.ch;
@@ -119,13 +119,13 @@ bool yuki_file_string::buildFromBuffer()
 	free(m_lines);
 
 	m_lineCount = countLines(m_buffer);
-	m_lines = (YukiLineString*)malloc(m_lineCount * sizeof(YukiLineString));
+	m_lines = (yuki_line_string*)malloc(m_lineCount * sizeof(yuki_line_string));
 	
 	wchar_t* p = m_buffer;
 	for (int i = 0; i < m_lineCount; ++i)
 	{
-		YukiLineString* line = m_lines + i;
-		new(line) YukiLineString(this, i, p);
+		yuki_line_string* line = m_lines + i;
+		new(line) yuki_line_string(this, i, p);
 	}
 
 	assert(*p == 0);

@@ -12,7 +12,7 @@ public:
 	const yuki_region* cutRegionBetween(yuki_cursor start, yuki_cursor end, int indent = -1);
 	const yuki_region* getRegion();
 	int getLineCount() const;
-	const YukiLineString* getLine(int offset = 0) const;
+	const yuki_line_string* getLine(int offset = 0) const;
 	yuki_cursor getCursor() const;
 	void setCursor(yuki_cursor cursor);
 	bool matchStr(const wchar_t* str);

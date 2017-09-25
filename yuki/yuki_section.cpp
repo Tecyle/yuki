@@ -41,7 +41,7 @@ const yuki_region* YukiSection::searchSectionBodyRegion()
 	yuki_cursor oldCursor = fileReader->getCursor();
 	do
 	{
-		const YukiLineString* line = fileReader->getLine();
+		const yuki_line_string* line = fileReader->getLine();
 
 		if (line->isBlankLine())
 		{

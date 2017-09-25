@@ -13,7 +13,7 @@
 	3. 第一行如果是分隔线，则第二行是正常内容
 	4. 正常内容后面那行应该是分隔线
 */
-bool YukiRstTitleMatcher::lookAhead(const YukiLineString* line, YukiFileReader* reader)
+bool YukiRstTitleMatcher::lookAhead(const yuki_line_string* line, YukiFileReader* reader)
 {
 	if (line->isBlankLine() || line->getIndent() != 0)
 		return false;

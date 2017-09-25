@@ -22,7 +22,7 @@ bool YukiMdLiteralBlock::parse(YukiNode* parentNode, const yuki_region* region)
 
 	oldCursor = reader->getCursor();
 	yuki_cursor newCursor = reader->getCursor();
-	const YukiLineString* line = reader->getLine();
+	const yuki_line_string* line = reader->getLine();
 	// ËÑË÷¿é½áÊøÎ»ÖÃ
 	while (line != nullptr)
 	{

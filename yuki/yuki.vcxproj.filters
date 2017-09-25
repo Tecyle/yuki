@@ -270,6 +270,12 @@
     <ClInclude Include="yuki_region_manager.h">
       <Filter>utils\managers</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_object_allocator.h">
+      <Filter>utils\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_line_string_manager.h">
+      <Filter>utils\managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -435,6 +441,12 @@
       <Filter>yuki_structure\block</Filter>
     </ClCompile>
     <ClCompile Include="yuki_region_manager.cpp">
+      <Filter>utils\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_object_allocator.cpp">
+      <Filter>utils\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_line_string_manager.cpp">
       <Filter>utils\managers</Filter>
     </ClCompile>
   </ItemGroup>

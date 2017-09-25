@@ -210,7 +210,7 @@ bool YukiDirective::matchArguments()
 
 	while (reader->moveToNextLine())
 	{
-		const YukiLineString* line = reader->getLine();
+		const yuki_line_string* line = reader->getLine();
 		// 遇到空行，表示 arguments 部分结束
 		if(line->isBlankLine())
 			break;

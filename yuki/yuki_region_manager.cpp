@@ -2,97 +2,13 @@
 #include "yuki_internal_types.h"
 #include "yuki_region_manager.h"
 #include "yuki_file_string.h"
+#include "yuki_object_allocator.h"
+
+typedef yuki_object_allocator<yuki_region,
+	yuki_region_type, const yuki_cursor&, const yuki_cursor&, int>
+	yuki_region_allocator;
 
 yuki_region_manager yuki_region_manager::m_instance;
-
-//////////////////////////////////////////////////////////////////////////
-// yuki_region_allocator
-class yuki_region_allocator
-{
-public:
-	yuki_region_allocator();
-	~yuki_region_allocator();
-
-public:
-	__inline yuki_region* allocRegion(yuki_region_type type, const yuki_cursor& startPos,
-		const yuki_cursor& endPos, int indent);
-
-	__inline yuki_region* cloneRegion(yuki_region* region);
-
-	__inline void freeRegion(yuki_region* region);
-
-protected:
-	void extendPoolIfNeeded();
-	__inline yuki_region* getValidRegion();
-
-protected:
-	typedef vector<yuki_region*> yuki_region_pool;
-	yuki_region_pool m_regionPool;
-	yuki_region_pool m_releasedRegionPool;
-	int m_usedPosition;
-	static const int m_poolSize = 1024;
-};
-
-yuki_region_allocator::yuki_region_allocator()
-{
-	m_usedPosition = 0;
-}
-
-yuki_region_allocator::~yuki_region_allocator()
-{
-	for (auto region : m_regionPool)
-	{
-		free(region);
-	}
-}
-
-yuki_region* yuki_region_allocator::allocRegion(yuki_region_type type, const yuki_cursor& startPos, const yuki_cursor& endPos, int indent)
-{
-	return new(getValidRegion()) yuki_region(type, startPos, endPos, indent);
-}
-
-yuki_region* yuki_region_allocator::cloneRegion(yuki_region* region)
-{
-	return new(getValidRegion()) yuki_region(region);
-}
-
-void yuki_region_allocator::freeRegion(yuki_region* region)
-{
-	m_releasedRegionPool.push_back(region);
-}
-
-void yuki_region_allocator::extendPoolIfNeeded()
-{
-	if (!m_releasedRegionPool.empty())
-		return;
-
-	if (m_usedPosition < m_poolSize)
-		return;
-
-	yuki_region* regions = (yuki_region*)malloc(sizeof(yuki_region) * m_poolSize);
-	m_regionPool.push_back(regions);
-	m_usedPosition = 0;
-}
-
-yuki_region* yuki_region_allocator::getValidRegion()
-{
-	extendPoolIfNeeded();
-
-	yuki_region* region = nullptr;
-	// 先查找释放池里面是否有可用的，没有可用的就扩展一个
-	if (m_releasedRegionPool.empty())
-	{
-		region = m_regionPool[m_usedPosition++];
-	}
-	else
-	{
-		region = m_releasedRegionPool.back();
-		m_releasedRegionPool.pop_back();
-	}
-
-	assert(region);
-	return region;
-}
 
 //////////////////////////////////////////////////////////////////////////
 // yuki_region_manager
@@ -109,17 +25,17 @@ yuki_region_manager::~yuki_region_manager()
 const yuki_region* yuki_region_manager::allocRegion(yuki_region_type type, 
 	const yuki_cursor& startPos, const yuki_cursor& endPos, int indent)
 {
-	return m_allocator->allocRegion(type, startPos, endPos, indent);
+	return m_allocator->allocObject(type, startPos, endPos, indent);
 }
 
 const yuki_region* yuki_region_manager::cloneRegion(const yuki_region* region)
 {
-	return m_allocator->cloneRegion(const_cast<yuki_region*>(region));
+	return m_allocator->cloneObject(*region);
 }
 
 void yuki_region_manager::freeRegion(const yuki_region* region)
 {
-	return m_allocator->freeRegion(const_cast<yuki_region*>(region));
+	return m_allocator->freeObject(const_cast<yuki_region*>(region));
 }
 
 /*
@@ -142,7 +58,7 @@ const yuki_region* yuki_region_manager::allocFromSubRegion(yuki_file_string* buf
 	if (originalRegion->getRegionType() != Yuki_linedRegion || type == Yuki_linedRegion)
 		type = Yuki_blockRegion;
 
-	yuki_region* region = m_allocator->allocRegion(type, startPos, endPos, indent);
+	yuki_region* region = m_allocator->allocObject(type, startPos, endPos, indent);
 
 	const yuki_cursor& originalStartCursor = originalRegion->begin();
 	buffer->addCursorOffsetToCursor(region->startCursor, originalStartCursor);

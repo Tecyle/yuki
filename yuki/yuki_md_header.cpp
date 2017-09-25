@@ -48,7 +48,7 @@ bool YukiMdHeader::match()
 {
 	bool succ = false;
 	YukiFileReader* reader = getFileReader();
-	const YukiLineString* line = reader->getLine();
+	const yuki_line_string* line = reader->getLine();
 	if (line == nullptr)
 		return false;
 

@@ -17,7 +17,7 @@ public:
 	/*
 		无论匹配失败与否，都不能改变原本光标的位置
 	*/
-	virtual bool lookAhead(const YukiLineString* line, YukiFileReader* reader) = 0;
+	virtual bool lookAhead(const yuki_line_string* line, YukiFileReader* reader) = 0;
 
 	const wchar_t* getName() const { return m_name; }
 

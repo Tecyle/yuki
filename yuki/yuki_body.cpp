@@ -84,7 +84,7 @@ bool YukiBody::parse(YukiNode* parent, const yuki_region* region)
 
 	while (!fileReader->outOfRegion())
 	{
-		const YukiLineString* line = fileReader->getLine();
+		const yuki_line_string* line = fileReader->getLine();
 
 		if (line->isBlankLine())
 		{
