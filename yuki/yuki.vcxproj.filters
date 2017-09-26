@@ -276,6 +276,12 @@
     <ClInclude Include="yuki_line_string_manager.h">
       <Filter>utils\managers</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_tool_kit.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_string_match.h">
+      <Filter>utils\match &amp; reader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -448,6 +454,12 @@
     </ClCompile>
     <ClCompile Include="yuki_line_string_manager.cpp">
       <Filter>utils\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_tool_kit.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_string_match.cpp">
+      <Filter>utils\match &amp; reader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

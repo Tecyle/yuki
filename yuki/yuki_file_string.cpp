@@ -4,6 +4,7 @@
 #include "yuki_line_string.h"
 #include "yuki_region_string.h"
 #include "yuki_file_string.h"
+#include "yuki_line_string_manager.h"
 
 static int countLines(const wchar_t* str)
 {
@@ -68,22 +69,7 @@ const yuki_line_string* yuki_file_string::getLine(int index)
 
 	index = yuki_get_absolute_index(index, m_lineCount);
 	if (index >= 0 && index < m_lineCount)
-		return m_lines + index;
-
-	return nullptr;
-}
-
-const YukiRegionString* yuki_file_string::getRegionString(const yuki_region* region)
-{
-	switch (region->getRegionType())
-	{
-	case Yuki_linedRegion:
-		return new YukiLinedRegionString(this, region);
-	case Yuki_blockRegion:
-		return new YukiBlockRegionString(this, region);
-	default:
-		assert(!"Not supported type.");
-	}
+		return *m_lines + index;
 
 	return nullptr;
 }
@@ -119,13 +105,13 @@ bool yuki_file_string::buildFromBuffer()
 	free(m_lines);
 
 	m_lineCount = countLines(m_buffer);
-	m_lines = (yuki_line_string*)malloc(m_lineCount * sizeof(yuki_line_string));
+	m_lines = (const yuki_line_string**)malloc(m_lineCount * sizeof(const yuki_line_string*));
 	
 	wchar_t* p = m_buffer;
 	for (int i = 0; i < m_lineCount; ++i)
 	{
-		yuki_line_string* line = m_lines + i;
-		new(line) yuki_line_string(this, i, p);
+		const yuki_line_string** line = m_lines + i;
+		*line = yukiLineStringManager()->allocLineStringForFileString(this, i, p);
 	}
 
 	assert(*p == 0);

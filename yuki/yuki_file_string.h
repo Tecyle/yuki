@@ -36,7 +36,7 @@ public:
 	/*
 		给定一个 Region，返回对应的 RegionString
 	*/
-	const YukiRegionString* getRegionString(const yuki_region* region);
+	const yuki_region_string* getRegionString(const yuki_region* region);
 
 	/*
 		计算相对于 offset 的游标 target 的绝对游标，结果保存在
@@ -44,13 +44,15 @@ public:
 	*/
 	void addCursorOffsetToCursor(yuki_cursor& target, const yuki_cursor& offset);
 
+	__inline const wchar_t* getBuffer() const { return m_buffer; }
+
 protected:
 	bool buildFromBuffer();
 
 private:
-	wchar_t* m_buffer;				///< 原始文本信息
-	int m_bufferLength;				///< 原始文本长度
+	wchar_t* m_buffer;					///< 原始文本信息
+	int m_bufferLength;					///< 原始文本长度
 
-	yuki_line_string* m_lines;		///< 存储所有的行信息
-	int m_lineCount;				///< 一共有多少行
+	const yuki_line_string** m_lines;	///< 存储所有的行信息
+	int m_lineCount;					///< 一共有多少行
 };

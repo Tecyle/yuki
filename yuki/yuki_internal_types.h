@@ -39,6 +39,10 @@ struct yuki_cursor
 		, ch (-1)
 	{}
 
+	void setCursor(int _ln, int _col, int _offset, int _ch) {
+		ln = _ln; col = _col; offset = _offset; ch = _ch;
+	}
+
 	__inline bool isValid() const {
 		return ln >= 0 && col >= 0 && offset >= 0 && ch >= 0;
 	}

@@ -183,10 +183,12 @@
     <ClInclude Include="yuki_section.h" />
     <ClInclude Include="yuki_simple_reference_name.h" />
     <ClInclude Include="yuki_string.h" />
+    <ClInclude Include="yuki_string_match.h" />
     <ClInclude Include="yuki_struct.h" />
     <ClInclude Include="yuki_substitution_definition.h" />
     <ClInclude Include="yuki_symbol_table.h" />
     <ClInclude Include="yuki_target_table.h" />
+    <ClInclude Include="yuki_tool_kit.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -248,9 +250,11 @@
     <ClCompile Include="yuki_section.cpp" />
     <ClCompile Include="yuki_simple_reference_name.cpp" />
     <ClCompile Include="yuki_string.cpp" />
+    <ClCompile Include="yuki_string_match.cpp" />
     <ClCompile Include="yuki_substitution_definition.cpp" />
     <ClCompile Include="yuki_symbol_table.cpp" />
     <ClCompile Include="yuki_target_table.cpp" />
+    <ClCompile Include="yuki_tool_kit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="orgnization.md" />

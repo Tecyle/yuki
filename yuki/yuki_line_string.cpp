@@ -5,14 +5,6 @@
 #include "yuki_region_string.h"
 #include "yuki_file_string.h"
 
-static __inline int alignPosToTabSize(int pos)
-{
-	int tabSize = yuki_tabSize();
-	int res = (pos + tabSize) / tabSize;
-	res *= tabSize;
-	return res;
-}
-
 static __inline int countIndentLevel(const wchar_t* str, int length, int col)
 {
 	int countedLength = 0;
@@ -32,6 +24,25 @@ static __inline int countIndentLevel(const wchar_t* str, int length, int col)
 	}
 
 	return YUKI_ERROR_INDENT;
+}
+
+yuki_line_string::yuki_line_string(yuki_file_string* parent)
+	: m_parent(parent)
+	, m_length(0)
+	, m_contentLength(0)
+	, m_indent(0)
+{
+}
+
+yuki_line_string::yuki_line_string(const yuki_line_string* r)
+{
+	m_parent = r->m_parent;
+	m_length = r->m_length;
+	m_indent = r->m_indent;
+	m_contentLength = r->m_contentLength;
+	m_lineHeadCursor = r->m_lineHeadCursor;
+	m_contentHeadCursor = r->m_contentHeadCursor;
+	m_contentTailCursor = r->m_contentTailCursor;
 }
 
 bool yuki_line_string::moveCursorToNext(yuki_cursor& cursor)
@@ -61,60 +72,6 @@ wchar_t yuki_line_string::getCharAtIndex(int ch) const
 	return m_parent->m_buffer[ch];
 }
 
-yuki_line_string::yuki_line_string(yuki_file_string* parent, int ln, wchar_t* & str)
-{
-	m_parent = parent;
-	m_ln = ln;
-	m_index = str - parent->m_buffer;
-	m_indent = 0;
-	m_col = 0;
-	m_ch = 0;
-
-	wchar_t* beginPos = str;
-	bool needPassOneChar = false;
-	bool countingIndent = true;
-	int col = 0;
-	for (;; str++)
-	{
-		// 遇到字符串结尾，结束搜索行
-		if (*str == 0)
-			break;
-
-		// 遇到换行符，结束搜索行
-		if (*str == '\n')
-		{
-			// 如果文档是以 ``\r\n`` 结尾的话，去掉 ``\r``
-			if (str[-1] == '\r')
-			{
-				str--;
-				*str = '\n';
-				needPassOneChar = true;
-			}
-			break;
-		}
-
-		// 尝试统计缩进级别
-		if (countingIndent)
-		{
-			if (!isspace(*str))
-			{
-				countingIndent = false;
-				continue;
-			}
-
-			m_indent = *str == '\t' ? alignPosToTabSize(m_indent) : m_indent + 1;
-		}
-	}
-
-	// 如果推出循环的时候都在统计缩进，表明这一行是空行
-	if (countingIndent)
-		m_indent = YUKI_ERROR_INDENT;
-
-	m_length = str - beginPos;
-	if (needPassOneChar)
-		str++;
-}
-
 yuki_line_string::yuki_line_string(const yuki_line_string* base, int startCol, int endCol)
 {
 	m_parent = base->m_parent;
@@ -128,17 +85,6 @@ yuki_line_string::yuki_line_string(const yuki_line_string* base, int startCol, i
 	
 	// 统计子行的缩进
 	m_indent = countIndentLevel(getCStr(), getLength(), m_col);
-}
-
-yuki_line_string::yuki_line_string(const yuki_line_string* r)
-{
-	m_parent = r->m_parent;
-	m_ln = r->m_ln;
-	m_col = r->m_col;
-	m_ch = r->m_ch;
-	m_index = r->m_index;
-	m_length = r->m_length;
-	m_indent = r->m_indent;
 }
 
 int yuki_line_string::getChByCol(int col) const

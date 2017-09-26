@@ -22,22 +22,24 @@ protected:
 	~yuki_line_string_manager();
 
 public:
-	__inline const yuki_line_string* allocLineStringForFileString(yuki_file_string* fileString,
+	/*
+		从全局的 yuki_file_string 全局文件来构造一个 line string。
+		ln 代表当前的行号，
+		str 代表当前的字符指针，会被该函数修改到下一行行首。
+	*/
+	const yuki_line_string* allocLineStringForFileString(yuki_file_string* fileString,
 		int ln, wchar_t* & str);
 
-	__inline const yuki_region* cloneRegion(const yuki_region* region);
+	__inline const yuki_line_string* cloneLineString(const yuki_line_string* str);
 
-	__inline void freeRegion(const yuki_region* region);
+	__inline void freeLineString(const yuki_line_string* str);
 
-	/*
-	指定起终点以及切割方式，从 originalRegion 中切割一个采用绝对坐标的
-	子区域并返回。
-	*/
-	const yuki_region* allocFromSubRegion(yuki_file_string* buffer, const yuki_region* originalRegion,
-		const yuki_cursor& startPos, const yuki_cursor& endPos, int indent,
-		yuki_region_type type = Yuki_linedRegion);
+private:
+	__inline yuki_line_string* allocLineString(yuki_file_string* fileString);
 
 protected:
-	yuki_region_allocator* m_allocator;			///< region 分配器
-	static yuki_region_manager m_instance;		///< 单例实例
+	yuki_line_string_allocator* m_allocator;		///< region 分配器
+	static yuki_line_string_manager m_instance;		///< 单例实例
 };
+
+#define yukiLineStringManager() (yuki_line_string_manager::getInstance())

@@ -28,6 +28,8 @@ using namespace std;
 #include "string_hashmap.h"
 #include "yuki_dynamic_class.h"
 #include "yuki_global.h"
+#include "yuki_tool_kit.h"
+#include "yuki_string_match.h"
 
 #define yuki_error(x)
 #define yuki_tabSize() (8)
