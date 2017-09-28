@@ -31,27 +31,35 @@ public:
 	// properties
 public:
 	__inline int getLineNumber() const { return m_lineHeadCursor.ln; }
-	__inline int getLength() const { return m_length; }
-	__inline int getContentLength() const { return m_contentLength; }
+	__inline int getLength() const { return m_lineTailCursor.ch - m_lineHeadCursor.ch; }
+	__inline int getContentLength() const { return m_contentTailCursor.ch - m_contentHeadCursor.ch; }
 	__inline const wchar_t* getContentPtr() const;
 	__inline wchar_t getCharAtIndex(int ch) const;
-	__inline bool isBlankLine() const { return m_indent == YUKI_ERROR_INDENT; }
-	__inline int getIndent() const { return m_indent; }
+	__inline bool isBlankLine() const { return getContentLength() == 0; }
+	__inline int getIndent() const { return m_contentHeadCursor.col - m_lineHeadCursor.col; }
 	__inline bool isSeperator() const;
 
-	__inline yuki_cursor beginCursor() const { return m_lineHeadCursor; }
-	__inline yuki_cursor endCursor() const { return m_contentTailCursor; }
-	__inline yuki_cursor contentBeginCursor() const { return m_contentHeadCursor; }
-	__inline yuki_cursor contentEndCursor() const { return m_contentTailCursor; }
+	__inline const yuki_cursor& beginCursor() const { return m_lineHeadCursor; }
+	__inline const yuki_cursor& endCursor() const { return m_contentTailCursor; }
+	__inline const yuki_cursor& contentBeginCursor() const { return m_contentHeadCursor; }
+	__inline const yuki_cursor& contentEndCursor() const { return m_contentTailCursor; }
 
 	__inline int getOffset() const { return m_lineHeadCursor.offset; }
+
+	/*
+		根据列号返回这个列号在这一行内的位置游标。
+		列号出错的时候返回无效游标。
+	*/
+	yuki_cursor getCursorByCol(int colNum) const;
+
+	/*
+		获取游标所在位置的字符，任何不匹配都将返回 0。
+	*/
+	wchar_t getCharAtCursor(const yuki_cursor& cursor) const;
 
 protected:
 	yuki_line_string(yuki_file_string* parent);
 	yuki_line_string(const yuki_line_string* r);
-
-	// YukiRegionString 专用构造函数，通过截取一段 YukiLineString 来构造一行
-	void initByRegion(const yuki_line_string* base, int startCol, int endCol);
 
 	// 根据列号来获取行内字符序号，特殊情况在于 Tab 字符，这里的 col 是相对列号
 	int getChByCol(int col) const;
@@ -60,10 +68,8 @@ protected:
 
 private:
 	yuki_file_string* m_parent;			///< 所属 file_string，字符串的源头
-	yuki_cursor m_lineHeadCursor;		///< 行首所在位置的游标，绝对坐标
-	yuki_cursor m_contentHeadCursor;	///< 内容部分开始的游标，绝对坐标
-	yuki_cursor m_contentTailCursor;	///< 内容部分结束的游标，绝对坐标
-	int m_length;						///< 这一行的长度，不包括最后一个换行符（回车符号会被去掉）
-	int m_contentLength;				///< 主体部分的长度，去掉首尾空格的长度
-	int m_indent;						///< 这一行的缩进级别，如果缩进级别是 YUKI_ERROR_INDENT，表明这一行是空行
+	yuki_cursor m_lineHeadCursor;		///< 行首所在位置的游标，绝对坐标，包含该位置
+	yuki_cursor m_lineTailCursor;		///< 行尾所在位置的游标，绝对坐标，不包含该位置
+	yuki_cursor m_contentHeadCursor;	///< 内容部分开始的游标，绝对坐标，包含该位置
+	yuki_cursor m_contentTailCursor;	///< 内容部分结束的游标，绝对坐标，不包含该位置
 };

@@ -5,6 +5,7 @@
 #include "yuki_region_string.h"
 #include "yuki_file_string.h"
 #include "yuki_line_string_manager.h"
+#include "yuki_region_manager.h"
 
 static int countLines(const wchar_t* str)
 {
@@ -57,6 +58,7 @@ bool yuki_file_string::loadFromFile(const wchar_t* fileName)
 
 	// 构建所有行信息
 	buildFromBuffer();
+	buildWholeFileRegionString();
 
 	free(buffer);
 	return true;
@@ -72,6 +74,14 @@ const yuki_line_string* yuki_file_string::getLine(int index)
 		return *m_lines + index;
 
 	return nullptr;
+}
+
+const yuki_region_string* yuki_file_string::allocRegionString(const yuki_region* region)
+{
+	if (region == nullptr)
+		return new yuki_region_string(m_wholeFileRegionString);
+
+	return new yuki_region_string(this, region);
 }
 
 /*
@@ -116,4 +126,12 @@ bool yuki_file_string::buildFromBuffer()
 
 	assert(*p == 0);
 	return true;
+}
+
+void yuki_file_string::buildWholeFileRegionString()
+{
+	delete m_wholeFileRegionString;
+	const yuki_region* region = yukiRegionManager()->allocRegion(Yuki_linedRegion,
+		yuki_cursor(0, 0, 0, 0), yuki_cursor(), 0);
+	m_wholeFileRegionString = new yuki_region_string(this, region, m_lines, m_lineCount);
 }

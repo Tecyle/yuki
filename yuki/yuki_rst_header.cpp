@@ -11,7 +11,7 @@ bool YukiRstHeader::parse(YukiNode* parentNode, const yuki_region* region)
 	if (!match())
 		return false;
 
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	YukiRstHeaderNode* headerNode = new YukiRstHeaderNode;
 	wchar_t upperChar = 0;
 	wchar_t lowerChar = 0;
@@ -75,7 +75,7 @@ bool YukiRstHeader::parse(YukiNode* parentNode, const yuki_region* region)
 */
 bool YukiRstHeader::match()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	const yuki_line_string* line = reader->getLine();
 
 	if (line == nullptr || line->isBlankLine() || line->getIndent() != 0)

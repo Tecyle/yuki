@@ -8,7 +8,7 @@
 
 bool YukiExplicitMarkup::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 	if (!matchNoBackward())
 	{
@@ -88,7 +88,7 @@ bool YukiExplicitMarkup::parse(YukiNode* parentNode, const yuki_region* region)
 
 bool YukiExplicitMarkup::match()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 	bool succ = matchNoBackward();
 	reader->setCursor(oldCursor);
@@ -97,7 +97,7 @@ bool YukiExplicitMarkup::match()
 
 bool YukiExplicitMarkup::matchNoBackward()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	bool succ = false;
 
 	if (!reader->matchStr(L".."))

@@ -10,7 +10,7 @@
 
 bool YukiLinkUri::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	const yuki_region* oldRegion = reader->selectRegion(region);
 
 	YukiHyperlinkTargetNode* node = dynamic_cast<YukiHyperlinkTargetNode*>(parentNode);
@@ -61,7 +61,7 @@ bool YukiLinkUri::parse(YukiNode* parentNode, const yuki_region* region)
 
 void YukiLinkUri::parseAliasTarget(YukiHyperlinkTargetNode* node)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	node->setTargetType(HyperlinkTarget_alias);
 	// 第一个字符为有效字符，判断是否是 反引号，从而决定解析类型及错误
 	bool hasQuote = reader->getChar() == '`';
@@ -115,7 +115,7 @@ void YukiLinkUri::parseAliasTarget(YukiHyperlinkTargetNode* node)
 
 void YukiLinkUri::parseUrlTarget(YukiHyperlinkTargetNode* node)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	node->setTargetType(HyperlinkTarget_external);
 	// 空白字符忽略，转义字符原样输出
 	wstring& target = node->uri();

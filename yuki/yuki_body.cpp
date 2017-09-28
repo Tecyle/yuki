@@ -76,7 +76,7 @@ YukiBody::YukiBody(YukiGlobal* globalData)
 bool YukiBody::parse(YukiNode* parent, const yuki_region* region)
 {
 	int indentLevel = region->getIndent();
-	YukiFileReader* fileReader = getFileReader();
+	yuki_file_reader* fileReader = getFileReader();
 	const yuki_region* oldRegion = fileReader->selectRegion(region);
 	YukiBodyNode* bodyNode = new YukiBodyNode;
 	YukiMatcherCollection* matchers = getMatcherCollection();

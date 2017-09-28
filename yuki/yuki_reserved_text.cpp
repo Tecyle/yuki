@@ -9,7 +9,7 @@
 
 bool YukiReservedText::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	const yuki_region* oldRegion = reader->selectRegion(region);
 	
 	YukiReservedTextNode* node = new YukiReservedTextNode;

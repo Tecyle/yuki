@@ -8,7 +8,7 @@
 
 bool YukiMdQuoteBlock::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 	const yuki_region* oldRegion = reader->selectRegion(region);
 	bool succ = false;
@@ -79,7 +79,7 @@ match_finished:
 
 bool YukiMdQuoteBlock::match()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 	
 	bool succ = matchNoBackward();
@@ -90,7 +90,7 @@ bool YukiMdQuoteBlock::match()
 
 bool YukiMdQuoteBlock::matchNoBackward()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	
 	m_quoteLevel.empty();
 

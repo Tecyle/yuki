@@ -10,7 +10,7 @@ const wchar_t* g_dividerSet = L"-._+:";
 
 bool YukiSimpleReferenceName::parseReferenceName(wstring* res)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 	bool succ = false;
 
@@ -34,7 +34,7 @@ bool YukiSimpleReferenceName::parseReferenceName(wstring* res)
 
 bool YukiSimpleReferenceName::parseWordBlock(wstring* res)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	
 	wchar_t ch = reader->getChar();
 	if (!yuki_isWordChar(ch))

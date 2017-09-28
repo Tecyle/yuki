@@ -33,7 +33,7 @@ public:
 
 protected:
 	__inline YukiStruct* getParser(const wchar_t* name);
-	__inline YukiFileReader* getFileReader();
+	__inline yuki_file_reader* getFileReader();
 	__inline YukiMatcherCollection* getMatcherCollection();
 	__inline YukiMatcher* getMatcher(const wchar_t* name);
 

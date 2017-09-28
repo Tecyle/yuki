@@ -39,6 +39,13 @@ struct yuki_cursor
 		, ch (-1)
 	{}
 
+	yuki_cursor(int _ln, int _col, int _offset, int _ch)
+		: ln(_ln)
+		, col(_col)
+		, offset(_offset)
+		, ch(_ch)
+	{}
+
 	void setCursor(int _ln, int _col, int _offset, int _ch) {
 		ln = _ln; col = _col; offset = _offset; ch = _ch;
 	}
@@ -49,6 +56,10 @@ struct yuki_cursor
 
 	bool operator ==(const yuki_cursor& r) const;
 	bool operator !=(const yuki_cursor& r) const;
+	bool operator <(const yuki_cursor& r) const;
+	bool operator <=(const yuki_cursor& r) const;
+	bool operator >(const yuki_cursor& r) const;
+	bool operator >=(const yuki_cursor& r) const;
 };
 
 /*
@@ -92,6 +103,8 @@ public:
 	__inline yuki_region_type getRegionType() const { return regionType; }
 	__inline const yuki_cursor& begin() const { return startCursor; }
 	__inline const yuki_cursor& end() const { return endCursor; }
+	__inline const yuki_cursor& getLeftEdgeCursor() const { return leftEdgeCursor; }
+	__inline const yuki_cursor& getRightEdige() const { return rightEdgeCursor; }
 	__inline int getIndent() const { return indent; }
 
 	bool operator ==(const yuki_region& r) const;
@@ -106,6 +119,8 @@ protected:
 	yuki_region_type regionType;	///< 区域的类型
 	yuki_cursor startCursor;		///< 区域的起点游标
 	yuki_cursor endCursor;			///< 区域的终点游标
+	yuki_cursor leftEdgeCursor;		///< 区域的左边界，仅在 regionType 为 blockRegion 的时候有效
+	yuki_cursor rightEdgeCursor;	///< 区域的右边界，仅在 regionType 为 blockRegion 的时候有效
 	int indent;						///< 区域的缩进，-1 表示无效的缩进
 
 	friend class yuki_region_allocator;

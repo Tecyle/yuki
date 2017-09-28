@@ -34,9 +34,10 @@ public:
 	__inline const int getLineCount() const { return m_lineCount; }
 
 	/*
-		给定一个 Region，返回对应的 RegionString
+		给定一个 Region，返回对应的 RegionString。
+		如果传入 nullptr，则返回一个代表整个文件的 region string。
 	*/
-	const yuki_region_string* getRegionString(const yuki_region* region);
+	const yuki_region_string* allocRegionString(const yuki_region* region);
 
 	/*
 		计算相对于 offset 的游标 target 的绝对游标，结果保存在
@@ -48,6 +49,7 @@ public:
 
 protected:
 	bool buildFromBuffer();
+	void buildWholeFileRegionString();
 
 private:
 	wchar_t* m_buffer;					///< 原始文本信息
@@ -55,4 +57,6 @@ private:
 
 	const yuki_line_string** m_lines;	///< 存储所有的行信息
 	int m_lineCount;					///< 一共有多少行
+
+	yuki_region_string* m_wholeFileRegionString;
 };

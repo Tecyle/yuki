@@ -8,7 +8,7 @@
 
 bool YukiDirectives::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 	const yuki_region* oldRegion = reader->selectRegion(region);
 	bool succ = false;
@@ -37,7 +37,7 @@ match_finished:
 
 bool YukiDirectives::match()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 
 	bool succ = matchNoBackward();
@@ -48,7 +48,7 @@ bool YukiDirectives::match()
 
 bool YukiDirectives::matchNoBackward()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	YukiSimpleReferenceName* simpleRefName = dynamic_cast<YukiSimpleReferenceName*>(getParser(L"simple_reference_name"));
 
 	if (!simpleRefName->parseReferenceName(&m_directiveName))
@@ -65,7 +65,7 @@ bool YukiDirectives::matchNoBackward()
 
 bool YukiDirective::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 	const yuki_region* oldRegion = reader->selectRegion(region);
 
@@ -79,7 +79,7 @@ bool YukiDirective::parse(YukiNode* parentNode, const yuki_region* region)
 
 bool YukiDirective::match()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 
 	bool succ = matchNoBackward();
@@ -122,7 +122,7 @@ bool YukiDirective::enableInlineMode(bool enable)
 */
 bool YukiDirective::matchNoBackwardBlockMode()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor cursor = reader->getCursor();
 
 	m_bodyRegion = nullptr;
@@ -170,7 +170,7 @@ bool YukiDirective::matchNoBackwardBlockMode()
 
 bool YukiDirective::parseBlockMode(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	
 	if (!matchNoBackwardBlockMode())
 		return false;
@@ -199,7 +199,7 @@ bool YukiDirective::parseBlockMode(YukiNode* parentNode, const yuki_region* regi
 
 bool YukiDirective::matchArguments()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	if (!acceptArguments())
 		return false;
 
@@ -229,7 +229,7 @@ bool YukiDirective::matchArguments()
 
 bool YukiDirective::matchOptionList()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	if (!acceptOptionLists())
 		return false;
 
@@ -245,7 +245,7 @@ bool YukiDirective::matchOptionList()
 
 bool YukiDirective::matchBody()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	if (!acceptBody())
 		return false;
 

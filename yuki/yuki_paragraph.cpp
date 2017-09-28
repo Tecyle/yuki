@@ -7,7 +7,7 @@
 
 bool YukiParagraph::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	const yuki_region* oldRegion = reader->selectRegion(region);
 	yuki_cursor oldCursor = reader->getCursor();
 

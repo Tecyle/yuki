@@ -12,3 +12,9 @@
 	7-14 返回的都应该是 15，以此类推。
 */
 __inline int yukiAlignPosToTabSize(int pos, int tabSize = 8);
+
+template<typename T>
+__inline T yuki_min(T a, T b) { return a < b ? a : b; }
+
+template<typename T>
+__inline T yuki_max(T a, T b) { return a < b ? b : a; }

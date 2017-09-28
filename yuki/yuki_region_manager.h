@@ -40,3 +40,5 @@ protected:
 	yuki_region_allocator* m_allocator;			///< region ·ÖÅäÆ÷
 	static yuki_region_manager m_instance;		///< µ¥ÀýÊµÀý
 };
+
+#define yukiRegionManager() (yuki_region_manager::getInstance())

@@ -7,7 +7,7 @@
 
 bool YukiComment::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	YukiCommentNode* node = new YukiCommentNode;
 
 	// 注释直接按预留文字处理

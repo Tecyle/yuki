@@ -23,7 +23,7 @@ bool YukiPlainText::parse(YukiNode* parentNode, const yuki_region* region)
 	if (region->empty())
 		return true;
 
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	const yuki_region* oldRegion = reader->selectRegion(region);
 	YukiPlainTextNode* textNode = new YukiPlainTextNode;
 	wstring& text = textNode->plainText();

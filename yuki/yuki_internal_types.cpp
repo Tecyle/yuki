@@ -14,6 +14,28 @@ bool yuki_cursor::operator!=(const yuki_cursor& r) const
 	return !operator ==(r);
 }
 
+bool yuki_cursor::operator<(const yuki_cursor& r) const
+{
+	if (offset == r.offset)
+		return col < r.col;
+	return offset < r.offset;
+}
+
+bool yuki_cursor::operator<=(const yuki_cursor& r) const
+{
+	return operator<(r) || operator==(r);
+}
+
+bool yuki_cursor::operator>(const yuki_cursor& r) const
+{
+	return !operator<=(r);
+}
+
+bool yuki_cursor::operator>=(const yuki_cursor& r) const
+{
+	return !operator<(r);
+}
+
 yuki_region::yuki_region(const yuki_region* region)
 {
 	regionType = region->regionType;

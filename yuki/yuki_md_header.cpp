@@ -15,7 +15,7 @@ bool YukiMdHeader::parse(YukiNode* parentNode, const yuki_region* region)
 	if (!match())
 		return false;
 
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	YukiMdHeaderNode* headerNode = new YukiMdHeaderNode;
 	int headerLevel = 0;
 	while (reader->matchChar('#'))
@@ -47,7 +47,7 @@ bool YukiMdHeader::parse(YukiNode* parentNode, const yuki_region* region)
 bool YukiMdHeader::match()
 {
 	bool succ = false;
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	const yuki_line_string* line = reader->getLine();
 	if (line == nullptr)
 		return false;

@@ -15,7 +15,7 @@
 */
 bool YukiSection::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* fileReader = getFileReader();
+	yuki_file_reader* fileReader = getFileReader();
 	const yuki_region* oldRegion = fileReader->selectRegion(region);
 	YukiSectionNode* sectionNode = new YukiSectionNode;
 
@@ -35,7 +35,7 @@ bool YukiSection::parse(YukiNode* parentNode, const yuki_region* region)
 
 const yuki_region* YukiSection::searchSectionBodyRegion()
 {
-	YukiFileReader* fileReader = getFileReader();
+	yuki_file_reader* fileReader = getFileReader();
 	bool lastLineIsBlankLine = false;
 
 	yuki_cursor oldCursor = fileReader->getCursor();

@@ -49,7 +49,7 @@ bool YukiRstQuoteBlock::parse(YukiNode* parentNode, const yuki_region* region)
 
 bool YukiRstQuoteBlock::match()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	const yuki_region* region = reader->getRegion();
 
 	const yuki_line_string* line = reader->getLine();
@@ -66,7 +66,7 @@ bool YukiRstQuoteBlock::match()
 */
 void YukiRstQuoteBlock::searchingBlockRegion(const yuki_region* &bodyRegion, const yuki_region* &attrRegion)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	int indent = reader->getRegion()->getIndent();
 	int commonIndent = INT_MAX;	///< 统计 body 部分的最大公共缩进
 	bool lastLineIsBlankLine = true;

@@ -9,9 +9,20 @@
 
 static int _countRegionLines(yuki_file_string* fileString, const yuki_region* region)
 {
+	int result = 0;
 	if (region->end().isValid())
-		return region->end().ln - region->begin().ln;
-	return fileString->getLineCount() - region->begin().ln;
+	{
+		result = region->end().ln - region->begin().ln;
+		if (region->end().col == 0)
+			result--;
+	}
+	else
+	{
+		result = fileString->getLineCount() - region->begin().ln;
+	}
+
+	assert(result > 0);
+	return result;
 }
 
 yuki_region_string::yuki_region_string(yuki_file_string* parent, const yuki_region* region)
@@ -19,7 +30,35 @@ yuki_region_string::yuki_region_string(yuki_file_string* parent, const yuki_regi
 	, m_region(region)
 	, m_lineCount(0)
 	, m_lines(nullptr)
+	, m_needRelease(true)
 {
+	buildLineStringArray();
+}
+
+yuki_region_string::yuki_region_string(const yuki_region_string* r)
+	: m_parent(r->m_parent)
+	, m_region(r->m_region)
+	, m_lineCount(r->m_lineCount)
+	, m_lines(r->m_lines)
+	, m_needRelease(false)
+{
+}
+
+yuki_region_string::~yuki_region_string()
+{
+	if (m_needRelease)
+	{
+		free(m_lines);
+	}
+}
+
+const yuki_line_string* yuki_region_string::getLineStringAtCursor(const yuki_cursor& cursor) const
+{
+	assert(cursor.isValid());
+	int ln = cursor.ln - m_region->begin().ln;
+	if (ln >= 0 && ln < m_lineCount)
+		return m_lines[ln];
+	return nullptr;
 }
 
 void yuki_region_string::buildLineStringArray()
@@ -30,6 +69,7 @@ void yuki_region_string::buildLineStringArray()
 
 	for (int i = 0; i < m_lineCount; ++i)
 	{
-		m_lines[i] = mgr->allocLineStringForRegionString(this, i);
+		m_lines[i] = mgr->allocLineStringForRegionString(m_parent, m_region, i);
+		assert(m_lines[i]);
 	}
 }

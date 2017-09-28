@@ -28,19 +28,14 @@ static __inline int countIndentLevel(const wchar_t* str, int length, int col)
 
 yuki_line_string::yuki_line_string(yuki_file_string* parent)
 	: m_parent(parent)
-	, m_length(0)
-	, m_contentLength(0)
-	, m_indent(0)
 {
 }
 
 yuki_line_string::yuki_line_string(const yuki_line_string* r)
 {
 	m_parent = r->m_parent;
-	m_length = r->m_length;
-	m_indent = r->m_indent;
-	m_contentLength = r->m_contentLength;
 	m_lineHeadCursor = r->m_lineHeadCursor;
+	m_lineTailCursor = r->m_lineTailCursor;
 	m_contentHeadCursor = r->m_contentHeadCursor;
 	m_contentTailCursor = r->m_contentTailCursor;
 }
@@ -72,42 +67,57 @@ wchar_t yuki_line_string::getCharAtIndex(int ch) const
 	return m_parent->m_buffer[ch];
 }
 
-yuki_line_string::yuki_line_string(const yuki_line_string* base, int startCol, int endCol)
+yuki_cursor yuki_line_string::getCursorByCol(int colNum) const
 {
-	m_parent = base->m_parent;
-	m_ln = base->m_ln;
-	m_col = startCol;
-	m_ch = base->getChByCol(startCol);
-	m_index = base->m_index + m_ch;
-	int endCh = endCol == -1 ? base->m_length - 1 : base->getChByCol(endCol);
-	m_length = endCh - m_ch;
-	m_ch += base->m_ch;
-	
-	// 统计子行的缩进
-	m_indent = countIndentLevel(getCStr(), getLength(), m_col);
+	yuki_cursor cursor;
+	int ch = getChByCol(colNum);
+
+	if (ch < 0)
+		return cursor;
+
+	cursor.setCursor(m_lineHeadCursor.ln, colNum, m_lineHeadCursor.offset + ch, ch);
+	return cursor;
+}
+
+wchar_t yuki_line_string::getCharAtCursor(const yuki_cursor& cursor) const
+{
+	if (cursor.ln != m_lineHeadCursor.ln)
+		return 0;
+
+	if (cursor.ch > m_contentTailCursor.ch)
+		return 0;
+
+	return m_parent->getBuffer()[cursor.offset];
 }
 
 int yuki_line_string::getChByCol(int col) const
 {
-	col = m_col + col;
+	const wchar_t* str;
+	int _col;
+	int ch;
 
-	const wchar_t* str = getCStr();
-	const wchar_t* p = str;
-	int cc = m_col;
-	int res = 0;
-	while (cc < col)
+	if (col > m_contentTailCursor.col)
+		return -1;
+
+	if (col >= m_contentHeadCursor.col)
 	{
-		if (p - str > getLength())
-			return -1;
-
-		if (*str == '\t')
-			cc = alignPosToTabSize(cc);
-		else
-			cc++;
-
-		res++;
-		p++;
+		str = m_parent->getBuffer() + m_contentHeadCursor.offset;
+		_col = m_contentHeadCursor.col;
+		ch = m_contentHeadCursor.ch;
+	}
+	else
+	{
+		str = m_parent->getBuffer() + m_lineHeadCursor.offset;
+		_col = m_lineHeadCursor.col;
+		ch = m_lineHeadCursor.ch;
+	}
+	
+	while (_col < col)
+	{
+		wchar_t c = *str++;
+		ch++;
+		_col = c == '\t' ? yukiAlignPosToTabSize(_col, yuki_tabSize()) : _col + 1;
 	}
 
-	return cc > col ? res - 1 : res;
+	return ch;
 }

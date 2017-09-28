@@ -14,7 +14,7 @@
 */
 bool YukiQuoteBlockAttribute::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 	if (!matchNoBackward())
 	{
@@ -34,7 +34,7 @@ bool YukiQuoteBlockAttribute::parse(YukiNode* parentNode, const yuki_region* reg
 */
 bool YukiQuoteBlockAttribute::match()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 
 	bool succ = matchNoBackward();
@@ -45,7 +45,7 @@ bool YukiQuoteBlockAttribute::match()
 
 bool YukiQuoteBlockAttribute::matchNoBackward()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 
 	reader->skipSpaces();
 	if (!reader->matchStr(L"---")

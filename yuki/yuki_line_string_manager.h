@@ -30,6 +30,20 @@ public:
 	const yuki_line_string* allocLineStringForFileString(yuki_file_string* fileString,
 		int ln, wchar_t* & str);
 
+	/*
+		从一个 region string 中构造一个 line string，这个构造出来
+		的对象仅指向 region 内部的文字。
+		
+		region 指定了裁剪的区域，其中：
+
+			* region 如果指明了缩进，则 line string 会先跳过缩进
+			  长度（尽管这段长度内部可能有内容），然后再继续搜索缩
+			  进（跳过空格）。
+			* 指定的行号如果超过了 region 的范围，则返回 nullptr。
+	*/
+	const yuki_line_string* allocLineStringForRegionString(yuki_file_string* fileString,
+		const yuki_region* region, int lnInRegion);
+
 	__inline const yuki_line_string* cloneLineString(const yuki_line_string* str);
 
 	__inline void freeLineString(const yuki_line_string* str);

@@ -23,6 +23,7 @@
 
 #include <vector>
 #include <string>
+#include <stack>
 using namespace std;
 
 #include "string_hashmap.h"

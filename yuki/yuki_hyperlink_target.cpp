@@ -9,7 +9,7 @@
 
 bool YukiHyperlinkTarget::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 	const yuki_region* oldRegion = reader->selectRegion(region);
 
@@ -31,7 +31,7 @@ bool YukiHyperlinkTarget::parse(YukiNode* parentNode, const yuki_region* region)
 
 bool YukiHyperlinkTarget::match()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 
 	bool succ = matchNoBackward();
@@ -58,7 +58,7 @@ bool YukiHyperlinkTarget::match()
 */
 bool YukiHyperlinkTarget::matchNoBackward()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 
 	// 先识别匿名链接目标
 	if (reader->matchStr(L"__:"))
@@ -97,7 +97,7 @@ bool YukiHyperlinkTarget::matchNoBackward()
 
 bool YukiHyperlinkTarget::readTargetName(wchar_t endChar)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	wchar_t ch = reader->getChar();
 	bool lastCharIsWordChar = true;
 	bool lastCharIsSpace = false;

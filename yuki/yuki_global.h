@@ -3,7 +3,7 @@
 class YukiSettings;
 class YukiStructCollection;
 class YukiMatcherCollection;
-class YukiFileReader;
+class yuki_file_reader;
 
 class YukiGlobal
 {
@@ -12,12 +12,12 @@ public:
 
 public:
 	__inline YukiStructCollection* getStructCollection(const wchar_t* name) { return &m_structCollection; }
-	__inline YukiFileReader* getFileReader() { return &m_fileReader; }
+	__inline yuki_file_reader* getFileReader() { return &m_fileReader; }
 	__inline YukiMatcherCollection* getMatcherCollection() { return &m_matcherCollection; }
 
 private:
 	YukiSettings m_settings;
 	YukiStructCollection m_structCollection;
-	YukiFileReader m_fileReader;
+	yuki_file_reader m_fileReader;
 	YukiMatcherCollection m_matcherCollection;
 };

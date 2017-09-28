@@ -7,7 +7,7 @@
 
 bool YukiDoctest::parse(YukiNode* parentNode, const yuki_region* region)
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	const yuki_region* oldRegion = reader->selectRegion(region);
 	bool succ = false;
 
@@ -48,7 +48,7 @@ match_finished:
 
 bool YukiDoctest::match()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
 
 	bool succ = matchNoBackward();
@@ -59,7 +59,7 @@ bool YukiDoctest::match()
 
 bool YukiDoctest::matchNoBackward()
 {
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	
 	if (!reader->matchStr(L">>>"))
 		return false;

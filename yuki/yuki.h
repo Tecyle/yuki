@@ -57,9 +57,6 @@ struct YukiBlockRegion
 	}
 };
 
-template<typename T>
-inline T yuki_min(T a, T b) { return a < b ? a : b; }
-
 namespace yuki
 {
 	bool convert();

@@ -12,7 +12,7 @@
 	2. 以若干个 ``#`` 打头，并且 ``#`` 后面有至少一个空格
 	3. ``#`` 后面至少有一个非空白字符
 */
-bool YukiMdTitleMatcher::lookAhead(const yuki_line_string* line, YukiFileReader* reader)
+bool YukiMdTitleMatcher::lookAhead(const yuki_line_string* line, yuki_file_reader* reader)
 {
 	bool succ = false;
 	if (line->isBlankLine() || line->getIndent() != 0)

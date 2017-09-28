@@ -11,7 +11,7 @@ bool YukiInlineFormat::parse(YukiNode* parentNode, const yuki_region* region)
 	if (!match())
 		return false;
 
-	YukiFileReader* reader = getFileReader();
+	yuki_file_reader* reader = getFileReader();
 	YukiNode* node = allocNode();
 	reader->setCursor(m_textRegion1->getCursorAtRegionBegin());
 	if (m_allowEscapeNearMark)
