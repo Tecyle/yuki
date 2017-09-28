@@ -61,8 +61,6 @@ const yuki_region* yuki_region_manager::allocFromSubRegion(yuki_file_string* buf
 	yuki_region* region = m_allocator->allocObject(type, startPos, endPos, indent);
 
 	const yuki_cursor& originalStartCursor = originalRegion->begin();
-	buffer->addCursorOffsetToCursor(region->startCursor, originalStartCursor);
-	buffer->addCursorOffsetToCursor(region->endCursor, originalStartCursor);
 	if (!region->endCursor.isValid())
 		region->endCursor = originalRegion->end();
 	region->indent += originalRegion->getIndent();

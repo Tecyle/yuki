@@ -4,6 +4,7 @@
 #include "yuki_file_reader.h"
 #include "yuki_region_string.h"
 #include "yuki_line_string.h"
+#include "yuki_region_manager.h"
 
 class yuki_region_stack_manager
 {
@@ -16,7 +17,8 @@ public:
 	void pushRegion(const yuki_region* region);
 	void popRegion();
 
-	const yuki_region_string* getCurrentRegionString() const { return m_currentRegionString; }
+	__inline const yuki_region_string* getCurrentRegionString() const { return m_currentRegionString; }
+	__inline yuki_file_string* getFileString() { return &m_fileString; }
 
 private:
 	void releaseStack();
@@ -117,6 +119,42 @@ int yuki_file_reader::skipBlankLines()
 	return blankLineCount;
 }
 
+const yuki_region* yuki_file_reader::cutRegionFromCursorTo(const yuki_cursor& cursor, int indent)
+{
+	return yukiRegionManager()->allocFromSubRegion(m_regions->getFileString(),
+		getRegion(),
+		m_cursor,
+		cursor,
+		indent < 0 ? getRegion()->getIndent() : indent);
+}
+
+const yuki_region* yuki_file_reader::cutRegionFromCursorToEnd(int indent /*= -1*/)
+{
+	return yukiRegionManager()->allocFromSubRegion(m_regions->getFileString(),
+		getRegion(),
+		m_cursor,
+		getRegion()->end(),
+		indent < 0 ? getRegion()->getIndent() : indent);
+}
+
+const yuki_region* yuki_file_reader::cutRegionToCursorFrom(const yuki_cursor& cursor, int indent /*= -1*/)
+{
+	return yukiRegionManager()->allocFromSubRegion(m_regions->getFileString(),
+		getRegion(),
+		cursor,
+		m_cursor,
+		indent < 0 ? getRegion()->getIndent() : indent);
+}
+
+const yuki_region* yuki_file_reader::cutRegionBetween(const yuki_cursor& start, const yuki_cursor& end, int indent /*= -1*/)
+{
+	return yukiRegionManager()->allocFromSubRegion(m_regions->getFileString(),
+		getRegion(),
+		start,
+		end,
+		indent < 0 ? getRegion()->getIndent() : indent);
+}
+
 const yuki_region* yuki_file_reader::getRegion()
 {
 	return m_regions->getCurrentRegionString()->getRegion();
@@ -136,6 +174,21 @@ const yuki_line_string* yuki_file_reader::getLine(int offset /*= 0*/) const
 		return nullptr;
 
 	return regionString->getLine(ln);
+}
+
+const yuki_cursor& yuki_file_reader::getCursor() const
+{
+	return m_cursor;
+}
+
+void yuki_file_reader::setCursor(const yuki_cursor& cursor)
+{
+	m_cursor = cursor;
+}
+
+bool yuki_file_reader::matchStr(const wchar_t* str)
+{
+
 }
 
 bool yuki_file_reader::moveToNextLine()

@@ -31,10 +31,37 @@ public:
 		如果没跳过任何空行，返回 0。
 	*/
 	int skipBlankLines();
-	const yuki_region* cutRegionFromCursorTo(const yuki_cursor& cursor, int indent = -1);
-	const yuki_region* cutRegionFromCursorToEnd();
-	// 如果提供了 indent，则使用这个值作为 indent，如果是 -1，则自动计算 indent
+
+	/*
+		从当前 region 中裁剪一个从 当前游标 到 cursor 的一个行连续区域。
+		区域的缩进指定为 indent。
+
+		如果指定 indent 为 -1，则 indent 等于 当前区域 的 indent。
+	*/
+	__inline const yuki_region* cutRegionFromCursorTo(const yuki_cursor& cursor, int indent = -1);
+
+	/*
+		从当前 region 中裁剪一个从 当前游标 到 当前区域的末尾游标 的一个
+		行连续区域。
+
+		如果指定 indent 为 -1，则 indent 等于 当前区域 的 indent。
+	*/
+	__inline const yuki_region* cutRegionFromCursorToEnd(int indent = -1);
+	
+	/*
+		从当前 region 中裁剪一个从 cursor 到 当前游标 的一个行连续区域。
+		区域的缩进指定为 indent。
+
+		如果指定 indent 为 -1，则 indent 等于 当前区域 的 indent。
+	*/
 	const yuki_region* cutRegionToCursorFrom(const yuki_cursor& cursor, int indent = -1);
+
+	/*
+		从当前 region 中裁剪一个从 start 到 end 的一个行连续区域。
+		区域的缩进指定为 indent。
+
+		如果指定 indent 为 -1，则 indent 等于 当前区域 的 indent。
+	*/
 	const yuki_region* cutRegionBetween(const yuki_cursor& start, const yuki_cursor& end, int indent = -1);
 	__inline const yuki_region* getRegion();
 	__inline int getLineCount() const;
@@ -44,6 +71,15 @@ public:
 	const yuki_line_string* getLine(int offset = 0) const;
 	__inline const yuki_cursor& getCursor() const;
 	void setCursor(const yuki_cursor& cursor);
+
+	/*
+		从当前游标位置开始，匹配一个字符串 str。
+		匹配成功返回 true，并移动游标到匹配的字符串后面。
+		如果匹配失败，返回 false，并且不移动游标。
+
+		这种匹配不能跨行。
+		匹配的字符串中不能有 \t 字符。
+	*/
 	bool matchStr(const wchar_t* str);
 	bool matchChar(wchar_t ch);
 	int skipSpaces();

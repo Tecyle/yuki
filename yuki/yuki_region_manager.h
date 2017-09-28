@@ -31,6 +31,8 @@ public:
 	/*
 		指定起终点以及切割方式，从 originalRegion 中切割一个采用绝对坐标的
 		子区域并返回。
+
+		startPos 和 endPos 都采用绝对坐标。
 	*/
 	const yuki_region* allocFromSubRegion(yuki_file_string* buffer, const yuki_region* originalRegion, 
 		const yuki_cursor& startPos, const yuki_cursor& endPos, int indent, 
