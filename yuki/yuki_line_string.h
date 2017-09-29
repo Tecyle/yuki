@@ -25,8 +25,11 @@ public:
 	friend class yuki_line_string_allocator;
 	friend class yuki_line_string_manager;
 
-	// 将光标移动到下一个位置，这里的光标是相对光标
-	bool moveCursorToNext(yuki_cursor& cursor);
+	// 将光标移动到下一个位置，这里的光标是绝对光标
+	bool moveCursorToNext(yuki_cursor& cursor) const;
+
+	// 判断光标是否落在行内
+	bool isCursorInLine(const yuki_cursor& cursor) const;
 
 	// properties
 public:
@@ -46,6 +49,8 @@ public:
 
 	__inline int getOffset() const { return m_lineHeadCursor.offset; }
 
+	__inline bool isCursorAtLineEnd(const yuki_cursor& cursor) const;
+
 	/*
 		根据列号返回这个列号在这一行内的位置游标。
 		列号出错的时候返回无效游标。
@@ -57,14 +62,14 @@ public:
 	*/
 	wchar_t getCharAtCursor(const yuki_cursor& cursor) const;
 
+	__inline const wchar_t* getCStr(int ch = 0) const;
+
 protected:
 	yuki_line_string(yuki_file_string* parent);
 	yuki_line_string(const yuki_line_string* r);
 
 	// 根据列号来获取行内字符序号，特殊情况在于 Tab 字符，这里的 col 是相对列号
 	int getChByCol(int col) const;
-
-	__inline wchar_t* getCStr() const { return m_parent->m_buffer + getOffset(); }
 
 private:
 	yuki_file_string* m_parent;			///< 所属 file_string，字符串的源头

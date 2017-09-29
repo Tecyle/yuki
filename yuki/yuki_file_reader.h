@@ -82,6 +82,14 @@ public:
 	*/
 	bool matchStr(const wchar_t* str);
 	bool matchChar(wchar_t ch);
+
+	/*
+		匹配并跳过当前位置开始的所有连续空白字符。
+		注意，Tab 字符会换算成等同数量的空格。
+
+		返回跳过的空格数。
+		该操作仅在行内进行。
+	*/
 	int skipSpaces();
 	bool cursorAtLineEnd() const;
 	bool moveToNextLine();
@@ -90,6 +98,10 @@ public:
 		如果匹配成功，返回指向匹配字符串起点的光标，
 		如果匹配失败，返回行尾光标。
 		匹配不会移动当前光标。
+
+		目前用于后缀匹配。
+
+		如果匹配失败，会返回一个无效游标。
 	*/
 	yuki_cursor findSuffixChar(wchar_t ch, int count = 0);
 
@@ -98,6 +110,10 @@ public:
 	wchar_t getChar(int offset = 0);
 	wchar_t peekPreviousChar();
 
+	/*
+		从当前游标位置开始，向后搜索 str 是否出现。
+		crossLine 指定是否跨行搜索。
+	*/
 	bool searchStr(const wchar_t* str, bool crossLine = false);
 	bool matchBlankLine();
 

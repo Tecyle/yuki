@@ -5,27 +5,6 @@
 #include "yuki_region_string.h"
 #include "yuki_file_string.h"
 
-static __inline int countIndentLevel(const wchar_t* str, int length, int col)
-{
-	int countedLength = 0;
-	int indent = col;
-
-	while (countedLength < length)
-	{
-		if (*str == '\t')
-			indent = alignPosToTabSize(indent);
-		else if (isspace(*str))
-			indent++;
-		else
-			return indent;
-
-		countedLength++;
-		str++;
-	}
-
-	return YUKI_ERROR_INDENT;
-}
-
 yuki_line_string::yuki_line_string(yuki_file_string* parent)
 	: m_parent(parent)
 {
@@ -40,24 +19,21 @@ yuki_line_string::yuki_line_string(const yuki_line_string* r)
 	m_contentTailCursor = r->m_contentTailCursor;
 }
 
-bool yuki_line_string::moveCursorToNext(yuki_cursor& cursor)
+bool yuki_line_string::moveCursorToNext(yuki_cursor& cursor) const
 {
-	if (cursor.ch - m_ch == m_length - 1 || cursor.ch < m_ch)
+	if (!isCursorInLine(cursor))
 		return false;
 
-	wchar_t c = *getCStr();
-	if (c == '\t')
-	{
-		int col = cursor.col + m_col;
-		cursor.col += alignPosToTabSize(col) - col;
-	}
-	else
-	{
-		cursor.col++;
-	}
-
+	wchar_t c = getCharAtCursor(cursor);
+	cursor.col = c == '\t' ? yukiAlignPosToTabSize(cursor.col, yuki_tabSize()) : cursor.col + 1;
 	cursor.ch++;
+	cursor.offset++;
 	return true;
+}
+
+bool yuki_line_string::isCursorInLine(const yuki_cursor& cursor) const
+{
+	return cursor >= m_lineHeadCursor && cursor < m_lineTailCursor;
 }
 
 wchar_t yuki_line_string::getCharAtIndex(int ch) const
@@ -65,6 +41,11 @@ wchar_t yuki_line_string::getCharAtIndex(int ch) const
 	if (ch >= getLength())
 		return 0;
 	return m_parent->m_buffer[ch];
+}
+
+bool yuki_line_string::isCursorAtLineEnd(const yuki_cursor& cursor) const
+{
+	return cursor >= m_contentTailCursor && cursor <= m_lineTailCursor;
 }
 
 yuki_cursor yuki_line_string::getCursorByCol(int colNum) const
@@ -88,6 +69,14 @@ wchar_t yuki_line_string::getCharAtCursor(const yuki_cursor& cursor) const
 		return 0;
 
 	return m_parent->getBuffer()[cursor.offset];
+}
+
+const wchar_t* yuki_line_string::getCStr(int ch) const
+{
+	if (ch > m_contentTailCursor.ch)
+		return nullptr;
+
+	return m_parent->getBuffer() + ch;
 }
 
 int yuki_line_string::getChByCol(int col) const

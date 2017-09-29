@@ -188,7 +188,55 @@ void yuki_file_reader::setCursor(const yuki_cursor& cursor)
 
 bool yuki_file_reader::matchStr(const wchar_t* str)
 {
+	const yuki_line_string* line = getLine();
+	if (line == nullptr)
+		return false;
 
+	int len = wcslen(str);
+	if (wcsncmp(line->getCStr(m_cursor.ch), str, len) == 0)
+	{
+		m_cursor.col += len;
+		m_cursor.ch += len;
+		m_cursor.offset += len;
+		return true;
+	}
+
+	return false;
+}
+
+bool yuki_file_reader::matchChar(wchar_t ch)
+{
+	const yuki_line_string* line = getLine();
+	if (line == nullptr)
+		return false;
+
+	if (line->getCharAtCursor(m_cursor) == ch)
+	{
+		line->moveCursorToNext(m_cursor);
+		return true;
+	}
+
+	return false;
+}
+
+int yuki_file_reader::skipSpaces()
+{
+	wchar_t ch = getChar();
+	int col = m_cursor.col;
+	while (ch != 0 && isspace(ch))
+	{
+		if (!moveToNextChar(false))
+			break;
+		ch = getchar();
+	}
+
+	return m_cursor.col - col;
+}
+
+bool yuki_file_reader::cursorAtLineEnd() const
+{
+	const yuki_line_string* line = getLine();
+	return (line && line->isCursorAtLineEnd(m_cursor));
 }
 
 bool yuki_file_reader::moveToNextLine()
@@ -199,4 +247,82 @@ bool yuki_file_reader::moveToNextLine()
 
 	m_cursor = line->beginCursor();
 	return true;
+}
+
+yuki_cursor yuki_file_reader::findSuffixChar(wchar_t ch, int count /*= 0*/)
+{
+	yuki_cursor cursor;
+	const yuki_line_string* line = getLine();
+	if (line == nullptr)
+		return cursor;
+
+	cursor = line->contentEndCursor();
+	cursor.ch -= count;
+	cursor.col -= count;
+	cursor.offset -= count;
+
+	const wchar_t* str = line->getCStr(cursor.ch);
+	for (int i = 0; i < count; ++i)
+	{
+		if (str[i] != ch)
+			return yuki_cursor();
+	}
+
+	return cursor;
+}
+
+bool yuki_file_reader::moveToNextChar(bool crossLines /*= true*/)
+{
+	if (cursorAtLineEnd())
+	{
+		if (!crossLines)
+			return false;
+
+		return moveToNextLine();
+	}
+
+	const yuki_line_string* line = getLine();
+	if (line == nullptr)
+		return false;
+	return line->moveCursorToNext(m_cursor);
+}
+
+wchar_t yuki_file_reader::getChar(int offset /*= 0*/)
+{
+	const yuki_line_string* line = getLine();
+	if (line == nullptr)
+		return 0;
+
+	return line->getCharAtIndex(m_cursor.ch + offset);
+}
+
+wchar_t yuki_file_reader::peekPreviousChar()
+{
+	return getChar(-1);
+}
+
+bool yuki_file_reader::searchStr(const wchar_t* str, bool crossLine /*= false*/)
+{
+	const yuki_line_string* line = getLine();
+	int lineOffset = 0;
+	
+	do 
+	{
+		if (wcsstr(line->getCStr(lineOffset == 0 ? m_cursor.ch : 0), str) != nullptr)
+			return true;
+	} while (crossLine && (line = getLine(++lineOffset)) != nullptr);
+
+	return false;
+}
+
+bool yuki_file_reader::matchBlankLine()
+{
+	const yuki_line_string* line = getLine();
+	if (line && line->isBlankLine())
+	{
+		moveToNextLine();
+		return true;
+	}
+
+	return false;
 }
