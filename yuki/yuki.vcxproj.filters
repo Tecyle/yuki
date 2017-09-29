@@ -49,12 +49,6 @@
     <Filter Include="yuki_structure\title">
       <UniqueIdentifier>{fcd3915b-a9ba-4850-965f-8c6e48a391ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utils\match &amp; reader\matchers">
-      <UniqueIdentifier>{a199e962-8f06-41e8-8d8f-07a08b937e79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utils\match &amp; reader\matchers\title">
-      <UniqueIdentifier>{6f87698a-787a-4801-9aa4-2e3be3e447af}</UniqueIdentifier>
-    </Filter>
     <Filter Include="yuki_generator\yuki_docx_generator">
       <UniqueIdentifier>{787ba496-b1ec-425c-ab10-c5198b1d71a7}</UniqueIdentifier>
     </Filter>
@@ -85,6 +79,9 @@
     <Filter Include="utils\managers">
       <UniqueIdentifier>{cda74e1e-7ee6-4d96-b821-22461d3b7d9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utils\tools">
+      <UniqueIdentifier>{bfb6045f-1c3d-449a-bb9b-83493646ddf2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -95,9 +92,6 @@
     </ClInclude>
     <ClInclude Include="yuki_node.h">
       <Filter>yuki_basic</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_string.h">
-      <Filter>utils</Filter>
     </ClInclude>
     <ClInclude Include="yuki_directive.h">
       <Filter>yuki_basic</Filter>
@@ -113,9 +107,6 @@
     </ClInclude>
     <ClInclude Include="yuki_document.h">
       <Filter>yuki_structure</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_file_loader.h">
-      <Filter>utils</Filter>
     </ClInclude>
     <ClInclude Include="yuki_interpreter.h">
       <Filter>yuki_basic</Filter>
@@ -147,13 +138,7 @@
     <ClInclude Include="yuki_region_string.h">
       <Filter>utils\string</Filter>
     </ClInclude>
-    <ClInclude Include="yuki_region_ex.h">
-      <Filter>utils\string</Filter>
-    </ClInclude>
     <ClInclude Include="yuki_file_reader.h">
-      <Filter>utils\match &amp; reader</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_matcher.h">
       <Filter>utils\match &amp; reader</Filter>
     </ClInclude>
     <ClInclude Include="yuki_generator.h">
@@ -162,32 +147,17 @@
     <ClInclude Include="yuki_global.h">
       <Filter>yuki_basic</Filter>
     </ClInclude>
-    <ClInclude Include="string_hashmap.h">
-      <Filter>utils</Filter>
-    </ClInclude>
     <ClInclude Include="yuki_section.h">
       <Filter>yuki_structure</Filter>
     </ClInclude>
     <ClInclude Include="yuki_memo_pools.h">
       <Filter>utils\managers</Filter>
     </ClInclude>
-    <ClInclude Include="yuki_dynamic_class.h">
-      <Filter>utils\managers</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_md_title_matcher.h">
-      <Filter>utils\match &amp; reader\matchers\title</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_rst_title_matcher.h">
-      <Filter>utils\match &amp; reader\matchers\title</Filter>
-    </ClInclude>
     <ClInclude Include="yuki_md_header.h">
       <Filter>yuki_structure\title</Filter>
     </ClInclude>
     <ClInclude Include="yuki_rst_header.h">
       <Filter>yuki_structure\title</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_chained_string.h">
-      <Filter>utils\string</Filter>
     </ClInclude>
     <ClInclude Include="yuki_inline_code.h">
       <Filter>yuki_structure\inline\format_markup</Filter>
@@ -276,11 +246,14 @@
     <ClInclude Include="yuki_line_string_manager.h">
       <Filter>utils\managers</Filter>
     </ClInclude>
-    <ClInclude Include="yuki_tool_kit.h">
-      <Filter>utils</Filter>
-    </ClInclude>
     <ClInclude Include="yuki_string_match.h">
       <Filter>utils\match &amp; reader</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_tool_kit.h">
+      <Filter>utils\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="string_hashmap.h">
+      <Filter>utils\tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -289,12 +262,6 @@
     </ClCompile>
     <ClCompile Include="yuki_document.cpp">
       <Filter>yuki_structure</Filter>
-    </ClCompile>
-    <ClCompile Include="yuki_file_loader.cpp">
-      <Filter>utils</Filter>
-    </ClCompile>
-    <ClCompile Include="yuki_string.cpp">
-      <Filter>utils</Filter>
     </ClCompile>
     <ClCompile Include="yuki_interpreter.cpp">
       <Filter>yuki_basic</Filter>
@@ -326,9 +293,6 @@
     <ClCompile Include="yuki_region_string.cpp">
       <Filter>utils\string</Filter>
     </ClCompile>
-    <ClCompile Include="yuki_region_ex.cpp">
-      <Filter>utils\string</Filter>
-    </ClCompile>
     <ClCompile Include="yuki_internal_types.cpp">
       <Filter>yuki_basic</Filter>
     </ClCompile>
@@ -341,9 +305,6 @@
     <ClCompile Include="yuki_generator.cpp">
       <Filter>yuki_generator</Filter>
     </ClCompile>
-    <ClCompile Include="yuki_matcher.cpp">
-      <Filter>utils\match &amp; reader</Filter>
-    </ClCompile>
     <ClCompile Include="yuki_global.cpp">
       <Filter>yuki_basic</Filter>
     </ClCompile>
@@ -353,20 +314,11 @@
     <ClCompile Include="yuki_memo_pools.cpp">
       <Filter>utils\managers</Filter>
     </ClCompile>
-    <ClCompile Include="yuki_md_title_matcher.cpp">
-      <Filter>utils\match &amp; reader\matchers\title</Filter>
-    </ClCompile>
-    <ClCompile Include="yuki_rst_title_matcher.cpp">
-      <Filter>utils\match &amp; reader\matchers\title</Filter>
-    </ClCompile>
     <ClCompile Include="yuki_md_header.cpp">
       <Filter>yuki_structure\title</Filter>
     </ClCompile>
     <ClCompile Include="yuki_rst_header.cpp">
       <Filter>yuki_structure\title</Filter>
-    </ClCompile>
-    <ClCompile Include="yuki_chained_string.cpp">
-      <Filter>utils\string</Filter>
     </ClCompile>
     <ClCompile Include="yuki_inline_code.cpp">
       <Filter>yuki_structure\inline\format_markup</Filter>
@@ -455,11 +407,11 @@
     <ClCompile Include="yuki_line_string_manager.cpp">
       <Filter>utils\managers</Filter>
     </ClCompile>
-    <ClCompile Include="yuki_tool_kit.cpp">
-      <Filter>utils</Filter>
-    </ClCompile>
     <ClCompile Include="yuki_string_match.cpp">
       <Filter>utils\match &amp; reader</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_tool_kit.cpp">
+      <Filter>utils\tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
