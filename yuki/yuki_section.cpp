@@ -13,7 +13,7 @@
 
 	标题的前面必须有空行或者是文档开头
 */
-bool YukiSection::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiSection::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* fileReader = getFileReader();
 	const yuki_region* oldRegion = fileReader->selectRegion(region);

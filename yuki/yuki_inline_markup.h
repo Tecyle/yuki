@@ -14,7 +14,7 @@
 	m_textRegion2 : 文本2 的区间
 	m_endCursor : 结束位置的光标
 */
-class YukiInlineMarkup : public YukiStruct
+class YukiInlineMarkup : public yuki_structure
 {
 public:
 	virtual bool match() override;

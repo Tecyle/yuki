@@ -1,11 +1,5 @@
 #pragma once
 
-enum yuki_region_type
-{
-	Yuki_linedRegion,		///< 行连续区域
-	Yuki_blockRegion		///< 块状区域
-};
-
 /*
 	yuki_curosr
 	游标对象

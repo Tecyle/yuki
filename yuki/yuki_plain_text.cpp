@@ -18,7 +18,7 @@
 */
 static const wchar_t* g_enterFollowSet = L"abcdefghijklmnopqrstuvwxyz";
 
-bool YukiPlainText::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiPlainText::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	if (region->empty())
 		return true;

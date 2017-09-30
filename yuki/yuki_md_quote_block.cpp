@@ -6,7 +6,7 @@
 #include "yuki_md_quote_block.h"
 #include "yuki_simple_reference_name.h"
 
-bool YukiMdQuoteBlock::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiMdQuoteBlock::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();

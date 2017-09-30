@@ -1,12 +1,12 @@
 #pragma once
 
-class YukiSubstitutionDefinitionNode : public YukiNode
+class YukiSubstitutionDefinitionNode : public yuki_node
 {
 
 };
 
-class YukiSubstitutionDefinition : public YukiStruct
+class YukiSubstitutionDefinition : public yuki_structure
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 };

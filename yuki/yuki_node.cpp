@@ -2,14 +2,14 @@
 #include "yuki_internal_types.h"
 #include "yuki_node.h"
 
-void YukiNodeWalker::walk(YukiNode* root)
+void YukiNodeWalker::walk(yuki_node* root)
 {
 	m_rootNode = root;
 
 	visit(root);
 }
 
-void YukiNodeWalker::visit(YukiNode* root)
+void YukiNodeWalker::visit(yuki_node* root)
 {
 	YukiWalkerAction* action = m_actionCollection->getAction(root->getNodeName());
 	action->beforeVisit(m_rootNode, root);
@@ -20,7 +20,7 @@ void YukiNodeWalker::visit(YukiNode* root)
 	action->afterVisit(m_rootNode, root);
 }
 
-void YukiNode::appendChild(YukiNode* child)
+void yuki_node::appendChild(yuki_node* child)
 {
 	assert(child->m_parent == nullptr);
 	child->m_parent = this;

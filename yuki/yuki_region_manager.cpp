@@ -55,8 +55,8 @@ const yuki_region* yuki_region_manager::allocFromSubRegion(yuki_file_string* buf
 	const yuki_region* originalRegion, const yuki_cursor& startPos, const yuki_cursor& endPos, 
 	int indent, yuki_region_type type /*= Yuki_linedRegion*/)
 {
-	if (originalRegion->getRegionType() != Yuki_linedRegion || type == Yuki_linedRegion)
-		type = Yuki_blockRegion;
+	if (originalRegion->getRegionType() != yuki_linedRegion || type == yuki_linedRegion)
+		type = yuki_blockRegion;
 
 	yuki_region* region = m_allocator->allocObject(type, startPos, endPos, indent);
 
@@ -65,12 +65,12 @@ const yuki_region* yuki_region_manager::allocFromSubRegion(yuki_file_string* buf
 		region->endCursor = originalRegion->end();
 	region->indent += originalRegion->getIndent();
 
-	if (type == Yuki_blockRegion)
+	if (type == yuki_blockRegion)
 	{
 		region->leftEdgeCursor = startPos;
 		region->rightEdgeCursor = endPos;
 	}
-	else if (originalRegion->getRegionType() == Yuki_blockRegion)
+	else if (originalRegion->getRegionType() == yuki_blockRegion)
 	{
 		region->leftEdgeCursor = originalRegion->leftEdgeCursor;
 		region->rightEdgeCursor = originalRegion->rightEdgeCursor;

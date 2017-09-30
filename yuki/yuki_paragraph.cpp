@@ -5,7 +5,7 @@
 #include "yuki_line_string.h"
 #include "yuki_paragraph.h"
 
-bool YukiParagraph::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiParagraph::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	const yuki_region* oldRegion = reader->selectRegion(region);

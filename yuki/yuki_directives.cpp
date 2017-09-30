@@ -6,7 +6,7 @@
 #include "yuki_directives.h"
 #include "yuki_simple_reference_name.h"
 
-bool YukiDirectives::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiDirectives::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -18,7 +18,7 @@ bool YukiDirectives::parse(YukiNode* parentNode, const yuki_region* region)
 
 	succ = true;
 	wstring directive = m_directiveName + +L"-directive";
-	YukiStruct* parser = getParser(directive.c_str());
+	yuki_structure* parser = getParser(directive.c_str());
 	if (parser != nullptr)
 	{
 		parser->parse(parentNode, reader->cutRegionFromCursorToEnd());
@@ -63,7 +63,7 @@ bool YukiDirectives::matchNoBackward()
 	return true;
 }
 
-bool YukiDirective::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiDirective::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -168,14 +168,14 @@ bool YukiDirective::matchNoBackwardBlockMode()
 	return true;
 }
 
-bool YukiDirective::parseBlockMode(YukiNode* parentNode, const yuki_region* region)
+bool YukiDirective::parseBlockMode(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	
 	if (!matchNoBackwardBlockMode())
 		return false;
 
-	YukiNode* node = getMainDirectiveNode();
+	yuki_node* node = getMainDirectiveNode();
 	if (m_argumentsRegion != nullptr)
 	{
 		reader->setCursor(m_argumentsCursor);
@@ -205,7 +205,7 @@ bool YukiDirective::matchArguments()
 
 	bool needOptionList = acceptOptionLists();
 	int commonIndent = m_isFirstLine ? INT_MAX : reader->getLine()->getIndent();
-	YukiStruct* parser = getParser(L"option_list");
+	yuki_structure* parser = getParser(L"option_list");
 	m_argumentsCursor = reader->getCursor();
 
 	while (reader->moveToNextLine())

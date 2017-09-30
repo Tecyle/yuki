@@ -13,7 +13,7 @@ YukiInlineBoldItalic::YukiInlineBoldItalic()
 	m_allowEscapeNearMark = false;
 }
 
-YukiNode* YukiInlineBoldItalic::allocNode()
+yuki_node* YukiInlineBoldItalic::allocNode()
 {
 	return new YukiInlineBoldItalicNode;
 }

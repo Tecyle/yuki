@@ -5,41 +5,42 @@
 	语法解析的结果会生成一个节点树，代表了整个文档的逻辑结构。
 */
 
-class YukiNode : virtual public YukiDynamicClass
+class yuki_node
 {
 protected:
-	YukiNode(YukiNode* parent, const yuki_region* region);
+	yuki_node();
+	virtual ~yuki_node();
 
 public:
-	virtual yuki_struct_type getNodeType() const { return m_nodeType; }
+	virtual yuki_structure_type getNodeType() const { return m_nodeType; }
 	virtual const wchar_t* getNodeName() const { return m_nodeName; }
 
-	virtual YukiNode* getParent() { return m_parent; }
+	virtual yuki_node* getParent() { return m_parent; }
 	virtual int getChildrenCount() { return m_children.size(); }
-	virtual YukiNode* getChild(int index);
-	virtual const vector<YukiNode*>& getChildren() const { return m_children; }
+	virtual yuki_node* getChild(int index);
+	virtual const vector<yuki_node*>& getChildren() const { return m_children; }
 
 	virtual const yuki_region* getRegion() const { return m_region; }
 
-	virtual __inline void appendChild(YukiNode* child);
+	virtual __inline void appendChild(yuki_node* child);
 
 protected:
 	const wchar_t* m_nodeName;
-	yuki_struct_type m_nodeType;
+	yuki_structure_type m_nodeType;
 
-	YukiNode* m_parent;
-	vector<YukiNode*> m_children;
+	yuki_node* m_parent;
+	vector<yuki_node*> m_children;
 
 	yuki_region* m_region;
 };
 
-class YukiWalkerAction : virtual public YukiDynamicClass
+class YukiWalkerAction
 {
 public:
 	// 在访问 currentNode 的子节点之前调用
-	virtual void beforeVisit(YukiNode* root, YukiNode* currentNode) = 0;
+	virtual void beforeVisit(yuki_node* root, yuki_node* currentNode) = 0;
 	// 在访问 currentNode 的子节点之后调用
-	virtual void afterVisit(YukiNode* root, YukiNode* currentNode) = 0;
+	virtual void afterVisit(yuki_node* root, yuki_node* currentNode) = 0;
 };
 
 class YukiWalkerActionCollection
@@ -51,12 +52,12 @@ public:
 class YukiNodeWalker
 {
 public:
-	void walk(YukiNode* root);
+	void walk(yuki_node* root);
 
 protected:
-	void visit(YukiNode* root);
+	void visit(yuki_node* root);
 
 private:
 	YukiWalkerActionCollection* m_actionCollection;
-	YukiNode* m_rootNode;
+	yuki_node* m_rootNode;
 };

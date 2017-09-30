@@ -13,7 +13,7 @@ YukiInlineUnderline::YukiInlineUnderline()
 	m_allowEscapeNearMark = false;
 }
 
-YukiNode* YukiInlineUnderline::allocNode()
+yuki_node* YukiInlineUnderline::allocNode()
 {
 	return new YukiInlineEmphasisNode;
 }

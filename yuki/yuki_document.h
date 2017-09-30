@@ -1,6 +1,6 @@
 #pragma once
 
-class YukiDocumentNode : public YukiNode
+class YukiDocumentNode : public yuki_node
 {
 public:
 	YukiDocumentNode(const yuki_region* region);
@@ -21,14 +21,14 @@ private:
 	wstring m_title;
 };
 
-class YukiDocument : public YukiStruct
+class yuki_document : public yuki_structure
 {
 public:
-	YukiDocument(YukiGlobal* globalData);
+	yuki_document(yuki_session* globalData);
 
 public:
 	YukiDocumentNode* parseYukiDocument();
 
 protected:
-	virtual bool parse(YukiNode* parent, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parent, const yuki_region* region) override;
 };

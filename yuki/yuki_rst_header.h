@@ -1,6 +1,6 @@
 #pragma once
 
-class YukiRstHeaderNode : public YukiNode
+class YukiRstHeaderNode : public yuki_node
 {
 public:
 	void setHeaderChar(wchar_t ch);
@@ -13,9 +13,9 @@ private:
 	int m_headerLevel;
 };
 
-class YukiRstHeader : public YukiStruct
+class YukiRstHeader : public yuki_structure
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;
 };

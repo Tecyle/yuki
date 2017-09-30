@@ -2,9 +2,9 @@
 #include "yuki_document.h"
 #include "yuki_interpreter.h"
 
-YukiDocument* YukiInterpreter::parseYukiToTree()
+yuki_document* YukiInterpreter::parseYukiToTree()
 {
-	YukiDocument* doc = new YukiDocument(&m_fileLoader, 0);
+	yuki_document* doc = new yuki_document(&m_fileLoader, 0);
 	doc->parse(nullptr);
 	return doc;
 }

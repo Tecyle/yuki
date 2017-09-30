@@ -10,7 +10,7 @@ static bool yuki_isLanguageNameChar(wchar_t ch)
 	return !isspace(ch) && ch != '`';
 }
 
-bool YukiMdLiteralBlock::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiMdLiteralBlock::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();

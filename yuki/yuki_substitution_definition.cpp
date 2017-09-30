@@ -7,7 +7,7 @@
 #include "yuki_substitution_definition.h"
 #include "yuki_simple_reference_name.h"
 
-bool YukiSubstitutionDefinition::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiSubstitutionDefinition::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();

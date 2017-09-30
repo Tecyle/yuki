@@ -77,7 +77,7 @@ static const wchar_t* g_startCharSet = L"*`-_=^v!<|[";
 static const wchar_t* g_headSet = L"-:/'\"<([{£º¡¢¡®¡°¡¶£¨¡¾";
 static const wchar_t* g_fllowSet = L"-.,:;!?\\/'\")]}¡££¬£º£»£¡£¿¡¢¡¯¡±£©¡¿";
 
-bool YukiInlineBlock::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiInlineBlock::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor startCursor = reader->getCursor();
@@ -116,7 +116,7 @@ bool YukiInlineBlock::parse(YukiNode* parentNode, const yuki_region* region)
 	return true;
 }
 
-bool YukiInlineBlock::parseInlineMarkup(YukiNode* parentNode, yuki_cursor& formerCursor)
+bool YukiInlineBlock::parseInlineMarkup(yuki_node* parentNode, yuki_cursor& formerCursor)
 {
 	yuki_file_reader* reader = getFileReader();
 	wchar_t ch = reader->getChar();

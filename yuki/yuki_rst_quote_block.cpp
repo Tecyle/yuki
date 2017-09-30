@@ -21,7 +21,7 @@
 
 	这个结构本身只是提供框架，不移动字符流指针
 */
-bool YukiRstQuoteBlock::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiRstQuoteBlock::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	if (!match())
 		return false;

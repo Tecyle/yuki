@@ -36,7 +36,7 @@ public:
 	*/
 	const yuki_region* allocFromSubRegion(yuki_file_string* buffer, const yuki_region* originalRegion, 
 		const yuki_cursor& startPos, const yuki_cursor& endPos, int indent, 
-		yuki_region_type type = Yuki_linedRegion);
+		yuki_region_type type = yuki_linedRegion);
 
 protected:
 	yuki_region_allocator* m_allocator;			///< region ·ÖÅäÆ÷

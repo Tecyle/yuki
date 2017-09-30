@@ -13,7 +13,7 @@ YukiInlineStrong::YukiInlineStrong()
 	m_allowEscapeNearMark = false;
 }
 
-YukiNode* YukiInlineStrong::allocNode()
+yuki_node* YukiInlineStrong::allocNode()
 {
 	return new YukiInlineStrongNode;
 }

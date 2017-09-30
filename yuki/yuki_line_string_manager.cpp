@@ -141,7 +141,7 @@ const yuki_line_string* yuki_line_string_manager::allocLineStringForRegionString
 	{
 		// 处理首行
 		line->m_lineHeadCursor = region->begin();
-		if (region->getRegionType() == Yuki_linedRegion)
+		if (region->getRegionType() == yuki_linedRegion)
 		{
 			line->m_lineTailCursor = originalLine->m_lineTailCursor;
 		}
@@ -154,7 +154,7 @@ const yuki_line_string* yuki_line_string_manager::allocLineStringForRegionString
 		|| lnInRegion < region->end().ln)
 	{
 		// 处理中间行
-		if (region->getRegionType() == Yuki_linedRegion)
+		if (region->getRegionType() == yuki_linedRegion)
 		{
 			line->m_lineHeadCursor = originalLine->m_lineHeadCursor;
 			line->m_lineTailCursor = originalLine->m_lineTailCursor;
@@ -169,7 +169,7 @@ const yuki_line_string* yuki_line_string_manager::allocLineStringForRegionString
 	{
 		// 处理尾行
 		line->m_lineTailCursor = region->end();
-		if (region->getRegionType() == Yuki_linedRegion)
+		if (region->getRegionType() == yuki_linedRegion)
 		{
 			line->m_lineHeadCursor = originalLine->m_lineHeadCursor;
 		}

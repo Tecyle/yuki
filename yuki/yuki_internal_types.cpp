@@ -91,7 +91,7 @@ static __inline bool _isInBlockRegion(const yuki_cursor& startPos, const yuki_cu
 
 bool yuki_region::isInRange(const yuki_cursor& cursor) const
 {
-	if (regionType == Yuki_linedRegion)
+	if (regionType == yuki_linedRegion)
 		return _isInLinedRegion(begin(), end(), cursor);
 
 	return _isInBlockRegion(begin(), end(), cursor);

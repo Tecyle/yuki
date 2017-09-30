@@ -1,13 +1,13 @@
 #pragma once
 
-class YukiParagraphNode : public YukiNode
+class YukiParagraphNode : public yuki_node
 {
 
 };
 
-class YukiParagraph : public YukiStruct
+class YukiParagraph : public yuki_structure
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override { return true; }
 };

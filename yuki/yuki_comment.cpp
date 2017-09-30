@@ -5,7 +5,7 @@
 #include "yuki_line_string.h"
 #include "yuki_comment.h"
 
-bool YukiComment::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiComment::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	YukiCommentNode* node = new YukiCommentNode;

@@ -1,6 +1,6 @@
 #pragma once
 
-class YukiSectionNode : public YukiNode 
+class YukiSectionNode : public yuki_node 
 {
 public:
 	YukiSectionNode();
@@ -9,10 +9,10 @@ private:
 	int m_sectionLevel;
 };
 
-class YukiSection : public YukiStruct
+class YukiSection : public yuki_structure
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 
 private:
 	const yuki_region* searchSectionBodyRegion();

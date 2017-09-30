@@ -13,7 +13,7 @@ YukiInlineKey::YukiInlineKey()
 	m_allowEscapeNearMark = true;
 }
 
-YukiNode* YukiInlineKey::allocNode()
+yuki_node* YukiInlineKey::allocNode()
 {
 	return new YukiInlineKeyNode;
 }

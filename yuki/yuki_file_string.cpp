@@ -131,7 +131,7 @@ bool yuki_file_string::buildFromBuffer()
 void yuki_file_string::buildWholeFileRegionString()
 {
 	delete m_wholeFileRegionString;
-	const yuki_region* region = yukiRegionManager()->allocRegion(Yuki_linedRegion,
+	const yuki_region* region = yukiRegionManager()->allocRegion(yuki_linedRegion,
 		yuki_cursor(0, 0, 0, 0), yuki_cursor(), 0);
 	m_wholeFileRegionString = new yuki_region_string(this, region, m_lines, m_lineCount);
 }

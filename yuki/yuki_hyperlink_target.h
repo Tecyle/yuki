@@ -7,17 +7,17 @@ enum yuki_hyperlink_target_type
 	HyperlinkTarget_alias
 };
 
-class YukiHyperlinkTargetNode : public YukiNode
+class YukiHyperlinkTargetNode : public yuki_node
 {
 public:
 	void setTargetType(yuki_hyperlink_target_type type);
 	wstring& uri();
 };
 
-class YukiHyperlinkTarget : public YukiStruct
+class YukiHyperlinkTarget : public yuki_structure
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;
 
 private:

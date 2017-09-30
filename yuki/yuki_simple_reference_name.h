@@ -10,13 +10,13 @@
 
 	本解析不产生节点，而是通过专有函数移动解析指针并返回解析结果
 */
-class YukiSimpleReferenceName : public YukiStruct
+class YukiSimpleReferenceName : public yuki_structure
 {
 public:
 	bool parseReferenceName(wstring* res);
 
 protected:
-	virtual bool parse(YukiNode*, const yuki_region*) {}
+	virtual bool parse(yuki_node*, const yuki_region*) {}
 	virtual bool match() {}
 
 	bool parseWordBlock(wstring* res);

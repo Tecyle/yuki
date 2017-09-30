@@ -8,7 +8,7 @@
 #include "yuki_hyperlink_target.h"
 #include "yuki_link_uri.h"
 
-bool YukiLinkUri::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiLinkUri::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	const yuki_region* oldRegion = reader->selectRegion(region);

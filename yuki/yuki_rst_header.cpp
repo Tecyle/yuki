@@ -6,7 +6,7 @@
 #include "yuki_region_ex.h"
 #include "yuki_rst_header.h"
 
-bool YukiRstHeader::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiRstHeader::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	if (!match())
 		return false;

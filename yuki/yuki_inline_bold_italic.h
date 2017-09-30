@@ -1,6 +1,6 @@
 #pragma once
 
-class YukiInlineBoldItalicNode : public YukiNode
+class YukiInlineBoldItalicNode : public yuki_node
 {
 
 };
@@ -11,5 +11,5 @@ public:
 	YukiInlineBoldItalic();
 
 protected:
-	virtual YukiNode* allocNode() override;
+	virtual yuki_node* allocNode() override;
 };

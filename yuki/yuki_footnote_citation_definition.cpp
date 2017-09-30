@@ -20,7 +20,7 @@
 
 	则识别成功
 */
-bool YukiFootnoteCitationDefinition::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiFootnoteCitationDefinition::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -47,7 +47,7 @@ bool YukiFootnoteCitationDefinition::parse(YukiNode* parentNode, const yuki_regi
 	if (reader->skipSpaces() == 0 && !reader->cursorAtLineEnd())
 		goto match_finished;
 
-	YukiNode* node;
+	yuki_node* node;
 	if (isFootnote)
 	{
 		node = new YukiFootnoteDefinitionNode;

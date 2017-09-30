@@ -4,8 +4,8 @@
 class YukiInlineFormat : public YukiInlineMarkup
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 
 protected:
-	virtual YukiNode* allocNode() = 0;
+	virtual yuki_node* allocNode() = 0;
 };

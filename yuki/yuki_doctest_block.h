@@ -8,15 +8,15 @@
 	   否则，全部认为是输出部分
 	3. 遇过遇到了空行，则结束 doctest 部分
 */
-class YukiDoctestNode : public YukiNode
+class YukiDoctestNode : public yuki_node
 {
 
 };
 
-class YukiDoctest : public YukiStruct
+class YukiDoctest : public yuki_structure
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;
 
 protected:

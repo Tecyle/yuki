@@ -66,14 +66,14 @@
 	16. 如果以 ``| `` 打头，则识别为行列表
 	17. 然后只剩段落了
 */
-YukiBody::YukiBody(YukiGlobal* globalData)
-	: YukiStruct(globalData)
+YukiBody::YukiBody(yuki_session* globalData)
+	: yuki_structure(globalData)
 {
 	m_name = L"body";
 	m_type = Yuki_blockType;
 }
 
-bool YukiBody::parse(YukiNode* parent, const yuki_region* region)
+bool YukiBody::parse(yuki_node* parent, const yuki_region* region)
 {
 	int indentLevel = region->getIndent();
 	yuki_file_reader* fileReader = getFileReader();

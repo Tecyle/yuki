@@ -5,7 +5,7 @@ class YukiInterpreter
 public:
 
 protected:
-	YukiDocument* parseYukiToTree();
+	yuki_document* parseYukiToTree();
 
 private:
 	YukiFileLoader m_fileLoader;

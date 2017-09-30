@@ -29,10 +29,10 @@
 */
 
 // 指令分配器
-class YukiDirectives : public YukiStruct
+class YukiDirectives : public yuki_structure
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;
 
 protected:
@@ -43,10 +43,10 @@ protected:
 };
 
 // 指令基类，所有指令必须命名为 指令名称 + ``-directive``，比如 ``image-directive``
-class YukiDirective : public YukiStruct
+class YukiDirective : public yuki_structure
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;
 
 	virtual bool matchNoBackward();
@@ -63,14 +63,14 @@ protected:
 	virtual bool matchNoBackwardInlineMode();
 	virtual bool matchNoBackwardBlockMode();
 
-	virtual bool parseInlineMode(YukiNode* parentNode, const yuki_region* region);
-	virtual bool parseBlockMode(YukiNode* parentNode, const yuki_region* region);
+	virtual bool parseInlineMode(yuki_node* parentNode, const yuki_region* region);
+	virtual bool parseBlockMode(yuki_node* parentNode, const yuki_region* region);
 
-	virtual bool parseArguments(YukiNode* parentNode, const yuki_region* region) = 0;
-	virtual bool parseOptionLists(YukiNode* parentNode, const yuki_region* region) = 0;
-	virtual bool parseBody(YukiNode* parentNode, const yuki_region* region) = 0;
+	virtual bool parseArguments(yuki_node* parentNode, const yuki_region* region) = 0;
+	virtual bool parseOptionLists(yuki_node* parentNode, const yuki_region* region) = 0;
+	virtual bool parseBody(yuki_node* parentNode, const yuki_region* region) = 0;
 
-	virtual YukiNode* getMainDirectiveNode() = 0;
+	virtual yuki_node* getMainDirectiveNode() = 0;
 
 	virtual bool matchArguments();
 	virtual bool matchOptionList();

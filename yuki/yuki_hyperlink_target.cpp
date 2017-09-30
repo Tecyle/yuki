@@ -7,7 +7,7 @@
 #include "yuki_footnote_citation_definition.h"
 #include "yuki_hyperlink_target.h"
 
-bool YukiHyperlinkTarget::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiHyperlinkTarget::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();

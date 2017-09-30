@@ -1,6 +1,6 @@
 #pragma once
 
-class YukiInlineSupNode : public YukiNode
+class YukiInlineSupNode : public yuki_node
 {
 
 };
@@ -11,5 +11,5 @@ public:
 	YukiInlineSup();
 
 protected:
-	virtual YukiNode* allocNode() override;
+	virtual yuki_node* allocNode() override;
 };

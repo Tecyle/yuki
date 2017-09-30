@@ -13,7 +13,7 @@ YukiInlineDeleted::YukiInlineDeleted()
 	m_allowEscapeNearMark = false;
 }
 
-YukiNode* YukiInlineDeleted::allocNode()
+yuki_node* YukiInlineDeleted::allocNode()
 {
 	return new YukiInlineDeletedNode;
 }

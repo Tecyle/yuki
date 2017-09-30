@@ -6,7 +6,7 @@
 #include "yuki_struct.h"
 #include "yuki_explicit_markup.h"
 
-bool YukiExplicitMarkup::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiExplicitMarkup::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();

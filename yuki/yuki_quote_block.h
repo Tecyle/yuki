@@ -1,19 +1,19 @@
 #pragma once
 
-class YukiQuoteBlockAttributeNode : public YukiNode
+class YukiQuoteBlockAttributeNode : public yuki_node
 {
 
 };
 
-class YukiQuoteBlockAttribute : public YukiStruct
+class YukiQuoteBlockAttribute : public yuki_structure
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;
 	virtual bool matchNoBackward();
 };
 
-class YukiQuoteBlockNode : public YukiNode
+class YukiQuoteBlockNode : public yuki_node
 {
 public:
 	void setQuoteCategory(wstring categoryName);

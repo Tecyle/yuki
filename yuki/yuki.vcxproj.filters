@@ -76,11 +76,41 @@
     <Filter Include="yuki_structure\block\explicit_markup_block\directives">
       <UniqueIdentifier>{1e781a75-75a2-4e31-b127-037f4a7fb5a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utils\managers">
-      <UniqueIdentifier>{cda74e1e-7ee6-4d96-b821-22461d3b7d9e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="utils\tools">
       <UniqueIdentifier>{bfb6045f-1c3d-449a-bb9b-83493646ddf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\managers &amp; collections">
+      <UniqueIdentifier>{cda74e1e-7ee6-4d96-b821-22461d3b7d9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_node">
+      <UniqueIdentifier>{47b032f0-13d6-4c70-aeeb-2f2e9b9a16e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_node\block">
+      <UniqueIdentifier>{8c637b68-22d5-43cd-bcb4-385008c36aa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_node\formula">
+      <UniqueIdentifier>{ad3544bf-67a3-4319-80f9-7f7c9ffa9927}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_node\image">
+      <UniqueIdentifier>{2f312c22-c5c0-4ba5-93de-7aeeb957de2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_node\inline">
+      <UniqueIdentifier>{29324b87-8f51-4da7-a34a-d3e27553084d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_node\list">
+      <UniqueIdentifier>{6c61676a-2571-4b37-9038-81f94cbba4f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_node\table">
+      <UniqueIdentifier>{51791995-05d2-4ded-be00-32052e387597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_node\title">
+      <UniqueIdentifier>{c7100bf8-7c08-4023-adb3-edbf60de99cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_structure\outline">
+      <UniqueIdentifier>{090fea78-9ae6-4163-9bae-12673a5c96b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yuki_node\outline">
+      <UniqueIdentifier>{4dcfccbe-73f0-4cf8-9dc8-b44a933cb379}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,23 +120,11 @@
     <ClInclude Include="targetver.h">
       <Filter>normal</Filter>
     </ClInclude>
-    <ClInclude Include="yuki_node.h">
-      <Filter>yuki_basic</Filter>
-    </ClInclude>
     <ClInclude Include="yuki_directive.h">
-      <Filter>yuki_basic</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_struct.h">
       <Filter>yuki_basic</Filter>
     </ClInclude>
     <ClInclude Include="yuki.h">
       <Filter>yuki_basic</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_body.h">
-      <Filter>yuki_structure</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_document.h">
-      <Filter>yuki_structure</Filter>
     </ClInclude>
     <ClInclude Include="yuki_interpreter.h">
       <Filter>yuki_basic</Filter>
@@ -144,14 +162,8 @@
     <ClInclude Include="yuki_generator.h">
       <Filter>yuki_generator</Filter>
     </ClInclude>
-    <ClInclude Include="yuki_global.h">
-      <Filter>yuki_basic</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_section.h">
-      <Filter>yuki_structure</Filter>
-    </ClInclude>
     <ClInclude Include="yuki_memo_pools.h">
-      <Filter>utils\managers</Filter>
+      <Filter>utils\managers &amp; collections</Filter>
     </ClInclude>
     <ClInclude Include="yuki_md_header.h">
       <Filter>yuki_structure\title</Filter>
@@ -238,13 +250,13 @@
       <Filter>yuki_structure\block</Filter>
     </ClInclude>
     <ClInclude Include="yuki_region_manager.h">
-      <Filter>utils\managers</Filter>
+      <Filter>utils\managers &amp; collections</Filter>
     </ClInclude>
     <ClInclude Include="yuki_object_allocator.h">
-      <Filter>utils\managers</Filter>
+      <Filter>utils\managers &amp; collections</Filter>
     </ClInclude>
     <ClInclude Include="yuki_line_string_manager.h">
-      <Filter>utils\managers</Filter>
+      <Filter>utils\managers &amp; collections</Filter>
     </ClInclude>
     <ClInclude Include="yuki_string_match.h">
       <Filter>utils\match &amp; reader</Filter>
@@ -252,22 +264,46 @@
     <ClInclude Include="yuki_tool_kit.h">
       <Filter>utils\tools</Filter>
     </ClInclude>
-    <ClInclude Include="string_hashmap.h">
+    <ClInclude Include="yuki_settings.h">
+      <Filter>yuki_basic</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_session.h">
+      <Filter>yuki_basic</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_structure_collection.h">
+      <Filter>utils\managers &amp; collections</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_string_hashmap.h">
       <Filter>utils\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_structure.h">
+      <Filter>yuki_structure</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_names.h">
+      <Filter>yuki_basic</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_node.h">
+      <Filter>yuki_node</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_types.h">
+      <Filter>yuki_basic</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_document.h">
+      <Filter>yuki_structure\outline</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_body.h">
+      <Filter>yuki_structure\outline</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_section.h">
+      <Filter>yuki_structure\outline</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>normal</Filter>
     </ClCompile>
-    <ClCompile Include="yuki_document.cpp">
-      <Filter>yuki_structure</Filter>
-    </ClCompile>
     <ClCompile Include="yuki_interpreter.cpp">
       <Filter>yuki_basic</Filter>
-    </ClCompile>
-    <ClCompile Include="yuki_body.cpp">
-      <Filter>yuki_structure</Filter>
     </ClCompile>
     <ClCompile Include="yuki_rst_quote_block.cpp">
       <Filter>yuki_structure\block</Filter>
@@ -299,20 +335,11 @@
     <ClCompile Include="yuki_file_reader.cpp">
       <Filter>utils\match &amp; reader</Filter>
     </ClCompile>
-    <ClCompile Include="yuki_node.cpp">
-      <Filter>yuki_basic</Filter>
-    </ClCompile>
     <ClCompile Include="yuki_generator.cpp">
       <Filter>yuki_generator</Filter>
     </ClCompile>
-    <ClCompile Include="yuki_global.cpp">
-      <Filter>yuki_basic</Filter>
-    </ClCompile>
-    <ClCompile Include="yuki_section.cpp">
-      <Filter>yuki_structure</Filter>
-    </ClCompile>
     <ClCompile Include="yuki_memo_pools.cpp">
-      <Filter>utils\managers</Filter>
+      <Filter>utils\managers &amp; collections</Filter>
     </ClCompile>
     <ClCompile Include="yuki_md_header.cpp">
       <Filter>yuki_structure\title</Filter>
@@ -399,19 +426,40 @@
       <Filter>yuki_structure\block</Filter>
     </ClCompile>
     <ClCompile Include="yuki_region_manager.cpp">
-      <Filter>utils\managers</Filter>
+      <Filter>utils\managers &amp; collections</Filter>
     </ClCompile>
     <ClCompile Include="yuki_object_allocator.cpp">
-      <Filter>utils\managers</Filter>
+      <Filter>utils\managers &amp; collections</Filter>
     </ClCompile>
     <ClCompile Include="yuki_line_string_manager.cpp">
-      <Filter>utils\managers</Filter>
+      <Filter>utils\managers &amp; collections</Filter>
     </ClCompile>
     <ClCompile Include="yuki_string_match.cpp">
       <Filter>utils\match &amp; reader</Filter>
     </ClCompile>
     <ClCompile Include="yuki_tool_kit.cpp">
       <Filter>utils\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_settings.cpp">
+      <Filter>yuki_basic</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_session.cpp">
+      <Filter>yuki_basic</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_structure_collection.cpp">
+      <Filter>utils\managers &amp; collections</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_node.cpp">
+      <Filter>yuki_node</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_document.cpp">
+      <Filter>yuki_structure\outline</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_body.cpp">
+      <Filter>yuki_structure\outline</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_section.cpp">
+      <Filter>yuki_structure\outline</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

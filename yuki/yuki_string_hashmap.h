@@ -3,7 +3,7 @@
 #include <unordered_map>
 using namespace stdext;
 
-struct StringHashmapCmp
+struct yuki_string_hashmap_cmp
 {
 	bool operator()(const wchar_t* l, const wchar_t* r) const
 	{
@@ -11,7 +11,7 @@ struct StringHashmapCmp
 	}
 };
 
-struct StringHashmapHash
+struct yuki_string_hashmap_hash
 {
 	size_t operator()(const wchar_t* str) const
 	{
@@ -20,6 +20,6 @@ struct StringHashmapHash
 };
 
 template <typename T>
-class StringHashmap : public unordered_map<const wchar_t*, T, StringHashmapHash, StringHashmapCmp>
+class yuki_string_hashmap : public unordered_map<const wchar_t*, T, yuki_string_hashmap_hash, yuki_string_hashmap_cmp>
 {
 };

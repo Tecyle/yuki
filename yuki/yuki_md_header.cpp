@@ -10,7 +10,7 @@
 
 /*
 */
-bool YukiMdHeader::parse(YukiNode* parentNode, const yuki_region* region)
+bool YukiMdHeader::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	if (!match())
 		return false;

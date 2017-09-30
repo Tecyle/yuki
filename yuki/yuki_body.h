@@ -1,15 +1,15 @@
 #pragma once
 
-class YukiBodyNode : public YukiNode
+class YukiBodyNode : public yuki_node
 {
 
 };
 
-class YukiBody : public YukiStruct
+class YukiBody : public yuki_structure
 {
 public:
-	YukiBody(YukiGlobal* globalData);
+	YukiBody(yuki_session* globalData);
 
 public:
-	virtual bool parse(YukiNode* parent, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parent, const yuki_region* region) override;
 };

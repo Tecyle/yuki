@@ -12,10 +12,10 @@
 */
 class YukiHyperlinkTargetNode;
 
-class YukiLinkUri : public YukiStruct
+class YukiLinkUri : public yuki_structure
 {
 public:
-	virtual bool parse(YukiNode* parentNode, const yuki_region* region) override;
+	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 
 protected:
 	virtual bool match() override { return false; }
