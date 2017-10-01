@@ -12,26 +12,26 @@ protected:
 	virtual ~yuki_node();
 
 public:
-	virtual yuki_structure_type getNodeType() const { return m_nodeType; }
-	virtual const wchar_t* getNodeName() const { return m_nodeName; }
+	__inline virtual yuki_structure_type getNodeType() const { return m_nodeType; }
+	__inline virtual const wchar_t* getNodeName() const { return m_nodeName; }
 
-	virtual yuki_node* getParent() { return m_parent; }
-	virtual int getChildrenCount() { return m_children.size(); }
-	virtual yuki_node* getChild(int index);
-	virtual const vector<yuki_node*>& getChildren() const { return m_children; }
+	__inline virtual yuki_node* getParent() { return m_parent; }
+	__inline virtual int getChildrenCount() { return m_children.size(); }
+	__inline virtual yuki_node* getChild(int index);
+	__inline virtual const vector<yuki_node*>& getChildren() const { return m_children; }
 
-	virtual const yuki_region* getRegion() const { return m_region; }
+	__inline virtual const yuki_region* getRegion() const { return m_region; }
 
-	virtual __inline void appendChild(yuki_node* child);
+	__inline virtual void appendChild(yuki_node* child);
 
 protected:
-	const wchar_t* m_nodeName;
-	yuki_structure_type m_nodeType;
+	const wchar_t* m_nodeName;				///< 节点的名称，用来标识节点
+	yuki_structure_type m_nodeType;			///< 节点类型
 
-	yuki_node* m_parent;
-	vector<yuki_node*> m_children;
+	yuki_node* m_parent;					///< 节点的父节点，顶层节点此值为 nullptr
+	vector<yuki_node*> m_children;			///< 节点的子节点列表
 
-	yuki_region* m_region;
+	yuki_region* m_region;					///< 该节点所包括的区域
 };
 
 class YukiWalkerAction

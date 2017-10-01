@@ -1,21 +1,15 @@
 #include "stdafx.h"
 #include "yuki_internal_types.h"
 #include "yuki.h"
+#include "yuki_structure_parser.h"
 #include "yuki_body.h"
 #include "yuki_document.h"
 
-YukiDocumentNode::YukiDocumentNode(const yuki_region* region)
-	: yuki_node(nullptr, region)
-{
-	m_nodeName = L"document";
-	m_nodeType = Yuki_blockType;
-}
-
 yuki_document::yuki_document(yuki_session* globalData)
-	: yuki_structure(globalData)
+	: yuki_structure_parser(globalData)
 {
-	m_name = L"document";
-	m_type = Yuki_blockType;
+	m_name = _T(yuki_document_name);
+	m_type = yuki_blockStructure;
 }
 
 YukiDocumentNode* yuki_document::parseYukiDocument()

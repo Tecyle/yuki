@@ -39,3 +39,7 @@
 #define yuki_footnote_citation_definition_block_name	"footnote_citation_definition"
 #define yuki_hyperlink_target_block_name				"hyperlink_target"
 #define yuki_substitution_definition_block_name			"substitution_definition"
+
+#if !defined(_T)
+#	define _T(s) L#s
+#endif

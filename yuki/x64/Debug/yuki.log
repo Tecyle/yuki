@@ -1,0 +1,22 @@
+﻿  stdafx.cpp
+e:\github workspaces\xiyue\yuki\yuki\stdafx.h(12): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(13): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(13): error C2433: “yuki_session::YukiStructCollection”: 不允许在数据声明中使用“inline”
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(13): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(13): error C2238: 意外的标记位于“;”之前
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(15): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(15): error C2433: “yuki_session::YukiMatcherCollection”: 不允许在数据声明中使用“inline”
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(15): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(15): error C2238: 意外的标记位于“;”之前
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(16): error C2143: 语法错误: 缺少“;”(在“*”的前面)
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(16): error C2433: “yuki_session::yuki_document_node”: 不允许在数据声明中使用“inline”
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(16): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(16): error C2238: 意外的标记位于“;”之前
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(19): error C3646: “m_settings”: 未知重写说明符
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(19): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(20): error C3646: “m_structCollection”: 未知重写说明符
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(20): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(21): error C2079: “yuki_session::m_fileReader”使用未定义的 class“yuki_file_reader”
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(22): error C3646: “m_matcherCollection”: 未知重写说明符
+e:\github workspaces\xiyue\yuki\yuki\yuki_session.h(22): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+e:\github workspaces\xiyue\yuki\yuki\stdafx.h(43): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)

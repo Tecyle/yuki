@@ -270,14 +270,8 @@
     <ClInclude Include="yuki_session.h">
       <Filter>yuki_basic</Filter>
     </ClInclude>
-    <ClInclude Include="yuki_structure_collection.h">
-      <Filter>utils\managers &amp; collections</Filter>
-    </ClInclude>
     <ClInclude Include="yuki_string_hashmap.h">
       <Filter>utils\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="yuki_structure.h">
-      <Filter>yuki_structure</Filter>
     </ClInclude>
     <ClInclude Include="yuki_names.h">
       <Filter>yuki_basic</Filter>
@@ -296,6 +290,15 @@
     </ClInclude>
     <ClInclude Include="yuki_section.h">
       <Filter>yuki_structure\outline</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_document_node.h">
+      <Filter>yuki_node\outline</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_structure_parser.h">
+      <Filter>yuki_structure</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_structure_parser_collection.h">
+      <Filter>utils\managers &amp; collections</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -446,9 +449,6 @@
     <ClCompile Include="yuki_session.cpp">
       <Filter>yuki_basic</Filter>
     </ClCompile>
-    <ClCompile Include="yuki_structure_collection.cpp">
-      <Filter>utils\managers &amp; collections</Filter>
-    </ClCompile>
     <ClCompile Include="yuki_node.cpp">
       <Filter>yuki_node</Filter>
     </ClCompile>
@@ -460,6 +460,15 @@
     </ClCompile>
     <ClCompile Include="yuki_section.cpp">
       <Filter>yuki_structure\outline</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_document_node.cpp">
+      <Filter>yuki_node\outline</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_structure_parser.cpp">
+      <Filter>yuki_structure</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_structure_parser_collection.cpp">
+      <Filter>utils\managers &amp; collections</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
