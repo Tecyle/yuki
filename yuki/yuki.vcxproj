@@ -125,6 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="yuki_body_node.h" />
     <ClInclude Include="yuki_document_node.h" />
     <ClInclude Include="yuki_names.h" />
     <ClInclude Include="yuki_string_hashmap.h" />
@@ -195,6 +196,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="yuki_body.cpp" />
+    <ClCompile Include="yuki_body_node.cpp" />
     <ClCompile Include="yuki_comment.cpp" />
     <ClCompile Include="yuki_directives.cpp" />
     <ClCompile Include="yuki_doctest_block.cpp" />

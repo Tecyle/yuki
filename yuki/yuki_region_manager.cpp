@@ -15,6 +15,8 @@ yuki_region_manager yuki_region_manager::m_instance;
 yuki_region_manager::yuki_region_manager()
 	: m_allocator(new yuki_region_allocator())
 {
+	m_wholeBufferRegion = allocRegion(yuki_linedRegion,
+		yuki_cursor(0, 0, 0, 0), yuki_cursor(), 0);
 }
 
 yuki_region_manager::~yuki_region_manager()
@@ -77,4 +79,9 @@ const yuki_region* yuki_region_manager::allocFromSubRegion(yuki_file_string* buf
 	}
 
 	return region;
+}
+
+const yuki_region* yuki_region_manager::getWholeBufferRegion()
+{
+	return m_wholeBufferRegion;
 }

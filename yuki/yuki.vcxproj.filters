@@ -300,6 +300,9 @@
     <ClInclude Include="yuki_structure_parser_collection.h">
       <Filter>utils\managers &amp; collections</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_body_node.h">
+      <Filter>yuki_node\outline</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -469,6 +472,9 @@
     </ClCompile>
     <ClCompile Include="yuki_structure_parser_collection.cpp">
       <Filter>utils\managers &amp; collections</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_body_node.cpp">
+      <Filter>yuki_node\outline</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

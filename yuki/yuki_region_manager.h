@@ -38,9 +38,12 @@ public:
 		const yuki_cursor& startPos, const yuki_cursor& endPos, int indent, 
 		yuki_region_type type = yuki_linedRegion);
 
+	__inline const yuki_region* getWholeBufferRegion();
+
 protected:
 	yuki_region_allocator* m_allocator;			///< region 分配器
 	static yuki_region_manager m_instance;		///< 单例实例
+	const yuki_region* m_wholeBufferRegion;		///< 代表最大区域，包含整个缓冲区的区域
 };
 
 #define yukiRegionManager() (yuki_region_manager::getInstance())

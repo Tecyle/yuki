@@ -31,6 +31,9 @@ using namespace std;
 #include "yuki_tool_kit.h"
 #include "yuki_string_match.h"
 
+#include "yuki_structure_parser.h"
+#include "yuki_node.h"
+
 #define yuki_error(x)
 #define yuki_tabSize() (8)
 #define yuki_simple_inline_markup() (false)

@@ -8,20 +8,8 @@
 yuki_document::yuki_document(yuki_session* globalData)
 	: yuki_structure_parser(globalData)
 {
-	m_name = _T(yuki_document_name);
+	m_name = yuki_document_name;
 	m_type = yuki_blockStructure;
-}
-
-YukiDocumentNode* yuki_document::parseYukiDocument()
-{
-	YukiLinedRegion region;
-	YukiDocumentNode* documentNode = new YukiDocumentNode(&region);
-
-	if (parse(documentNode, &region))
-		return documentNode;
-
-	delete documentNode;
-	return nullptr;
 }
 
 // Document : Body

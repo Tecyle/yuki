@@ -66,12 +66,13 @@
 	16. 如果以 ``| `` 打头，则识别为行列表
 	17. 然后只剩段落了
 */
-YukiBody::YukiBody(yuki_session* globalData)
-	: yuki_structure(globalData)
+yuki_body::yuki_body(yuki_session* globalData)
+	: yuki_structure_parser(globalData)
 {
-	m_name = L"body";
-	m_type = Yuki_blockType;
+	m_name = yuki_body_name;
+	m_type = yuki_blockStructure;
 }
+
 
 bool YukiBody::parse(yuki_node* parent, const yuki_region* region)
 {
