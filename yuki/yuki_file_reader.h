@@ -63,7 +63,7 @@ public:
 		如果指定 indent 为 -1，则 indent 等于 当前区域 的 indent。
 	*/
 	const yuki_region* cutRegionBetween(const yuki_cursor& start, const yuki_cursor& end, int indent = -1);
-	__inline const yuki_region* getRegion();
+	__inline const yuki_region* getRegion() const;
 	__inline int getLineCount() const;
 	/*
 		根据行序号获取某一行，行序号是相对序号，相对于当前游标。
@@ -116,6 +116,11 @@ public:
 	*/
 	bool searchStr(const wchar_t* str, bool crossLine = false);
 	bool matchBlankLine();
+
+	/*
+		当前游标是否到达或者超出范围末尾了
+	*/
+	bool outOfRegion() const;
 
 protected:
 	yuki_region_stack_manager* m_regions;

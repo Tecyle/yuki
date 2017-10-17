@@ -11,6 +11,7 @@ public:
 
 public:
 	yuki_structure_parser* getStructureParserByName(const wchar_t* name);
+	vector<yuki_structure_parser*>* getFollowParsersByName(const wchar_t* name);
 
 private:
 	yuki_structure_parser_collection_imple* m_collections;

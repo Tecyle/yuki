@@ -303,6 +303,12 @@
     <ClInclude Include="yuki_body_node.h">
       <Filter>yuki_node\outline</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_quote_block_node.h">
+      <Filter>yuki_node\block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_quote_block_attribute_node.h">
+      <Filter>yuki_node\block</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

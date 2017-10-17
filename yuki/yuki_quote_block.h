@@ -1,22 +1,15 @@
 #pragma once
 
-class YukiQuoteBlockAttributeNode : public yuki_node
+class yuki_quote_block_attribute : public yuki_structure_parser
 {
+public:
+	yuki_quote_block_attribute(yuki_session* session);
+	virtual ~yuki_quote_block_attribute() {}
 
-};
-
-class YukiQuoteBlockAttribute : public yuki_structure
-{
 public:
 	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;
+
+protected:
 	virtual bool matchNoBackward();
-};
-
-class YukiQuoteBlockNode : public yuki_node
-{
-public:
-	void setQuoteCategory(wstring categoryName);
-
-private:
 };

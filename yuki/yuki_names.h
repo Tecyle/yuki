@@ -30,6 +30,7 @@
 #define yuki_rst_literal_block_name						L"rst_literal_block"
 #define yuki_md_literal_block_name						L"md_literal_block"
 #define yuki_quote_block_name							L"quote_block"
+#define yuki_quote_block_attribute_name					L"quote_block_attribute"
 #define yuki_rst_quote_block_name						L"rst_quote_block"
 #define yuki_md_quote_block_name						L"md_quote_block"
 #define yuki_paragraph_block_name						L"paragraph"

@@ -155,7 +155,7 @@ const yuki_region* yuki_file_reader::cutRegionBetween(const yuki_cursor& start, 
 		indent < 0 ? getRegion()->getIndent() : indent);
 }
 
-const yuki_region* yuki_file_reader::getRegion()
+const yuki_region* yuki_file_reader::getRegion() const
 {
 	return m_regions->getCurrentRegionString()->getRegion();
 }
@@ -325,4 +325,9 @@ bool yuki_file_reader::matchBlankLine()
 	}
 
 	return false;
+}
+
+bool yuki_file_reader::outOfRegion() const
+{
+	return m_cursor >= getRegion()->end();
 }

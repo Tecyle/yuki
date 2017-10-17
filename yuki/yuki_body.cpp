@@ -2,8 +2,12 @@
 #include "yuki.h"
 #include "yuki_internal_types.h"
 #include "yuki_rst_quote_block.h"
-#include "yuki_matcher.h"
+#include "yuki_session.h"
 #include "yuki_body.h"
+#include "yuki_file_reader.h"
+#include "yuki_body_node.h"
+#include "yuki_structure_parser_collection.h"
+#include "yuki_line_string.h"
 
 /*
 	Body 节点下面允许出现以下节点：
@@ -74,18 +78,21 @@ yuki_body::yuki_body(yuki_session* globalData)
 }
 
 
-bool YukiBody::parse(yuki_node* parent, const yuki_region* region)
+bool yuki_body::parse(yuki_node* parent, const yuki_region* region)
 {
 	int indentLevel = region->getIndent();
 	yuki_file_reader* fileReader = getFileReader();
-	const yuki_region* oldRegion = fileReader->selectRegion(region);
-	YukiBodyNode* bodyNode = new YukiBodyNode;
-	YukiMatcherCollection* matchers = getMatcherCollection();
-	auto followMatchers = matchers->getFollowSet(getName());
+	fileReader->pushRegion(region);
+
+	yuki_body_node* bodyNode = new yuki_body_node();
+	auto followSet = m_session->getStructureParserCollection()->getFollowParsersByName(getName());
 
 	while (!fileReader->outOfRegion())
 	{
 		const yuki_line_string* line = fileReader->getLine();
+
+		if (line == nullptr)
+			break;
 
 		if (line->isBlankLine())
 		{
@@ -97,18 +104,21 @@ bool YukiBody::parse(yuki_node* parent, const yuki_region* region)
 			break;
 
 		bool matched = false;
-		for (auto matcherName : *followMatchers)
+		for (auto parser : *followSet)
 		{
-			if (!getParser(matcherName)->parse(bodyNode, region))
+			assert(parser);
+			if (!parser->match())
 				continue;
-			matched = true;
+
+			matched = parser->parse(parent, region);
 			break;
 		}
 
 		assert(matched);
 	}
 
-	fileReader->selectRegion(oldRegion);
-	bodyNode->setRegion(fileReader->cutRegion());
+	fileReader->popRegion();
 	parent->appendChild(bodyNode);
+
+	return true;
 }
