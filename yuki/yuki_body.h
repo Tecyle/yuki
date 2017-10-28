@@ -8,5 +8,5 @@ public:
 
 public:
 	virtual bool parse(yuki_node* parent, const yuki_region* region) override;
-	virtual bool match() override {}
+	virtual bool match() override { return true; }
 };

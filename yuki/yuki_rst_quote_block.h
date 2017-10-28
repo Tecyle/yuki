@@ -1,8 +1,12 @@
 #pragma once
 #include "yuki_quote_block.h"
 
-class YukiRstQuoteBlock : public yuki_structure
+class yuki_rst_quote_block : public yuki_structure_parser
 {
+public:
+	yuki_rst_quote_block(yuki_session* globalData);
+	virtual ~yuki_rst_quote_block() {}
+
 public:
 	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;

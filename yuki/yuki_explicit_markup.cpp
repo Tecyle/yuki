@@ -3,10 +3,10 @@
 #include "yuki_internal_types.h"
 #include "yuki_file_reader.h"
 #include "yuki_line_string.h"
-#include "yuki_struct.h"
+#include "yuki_structure_parser.h"
 #include "yuki_explicit_markup.h"
 
-bool YukiExplicitMarkup::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_explicit_markup::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -86,7 +86,7 @@ bool YukiExplicitMarkup::parse(yuki_node* parentNode, const yuki_region* region)
 	return getParser(L"comment")->parse(parentNode, explicitBlockRegion);
 }
 
-bool YukiExplicitMarkup::match()
+bool yuki_explicit_markup::match()
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -95,7 +95,7 @@ bool YukiExplicitMarkup::match()
 	return succ;
 }
 
-bool YukiExplicitMarkup::matchNoBackward()
+bool yuki_explicit_markup::matchNoBackward()
 {
 	yuki_file_reader* reader = getFileReader();
 	bool succ = false;

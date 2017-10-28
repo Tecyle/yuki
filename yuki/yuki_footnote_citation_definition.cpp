@@ -3,9 +3,11 @@
 #include "yuki_internal_types.h"
 #include "yuki_file_reader.h"
 #include "yuki_line_string.h"
-#include "yuki_struct.h"
+#include "yuki_structure_parser.h"
 #include "yuki_footnote_citation_definition.h"
 #include "yuki_simple_reference_name.h"
+#include "yuki_footnote_definition_node.h"
+#include "yuki_citation_definition_node.h"
 
 /*
 	识别脚注或者是引用标注的要点：
@@ -20,11 +22,11 @@
 
 	则识别成功
 */
-bool YukiFootnoteCitationDefinition::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_footnote_citation_definition::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const yuki_region* oldRegion = reader->selectRegion(region);
+	reader->pushRegion(region);
 	bool succ = false;
 
 	if (!reader->matchChar('['))
@@ -50,11 +52,11 @@ bool YukiFootnoteCitationDefinition::parse(yuki_node* parentNode, const yuki_reg
 	yuki_node* node;
 	if (isFootnote)
 	{
-		node = new YukiFootnoteDefinitionNode;
+		node = new yuki_footnote_definition_node;
 	}
 	else
 	{
-		node = new YukiCitationDefinitionNode;
+		node = new yuki_citation_definition_node;
 	}
 	parentNode->appendChild(node);
 	getParser(L"body")->parse(node, reader->cutRegionFromCursorToEnd());
@@ -64,11 +66,11 @@ bool YukiFootnoteCitationDefinition::parse(yuki_node* parentNode, const yuki_reg
 match_finished:
 	if (!succ)
 		reader->setCursor(oldCursor);
-	reader->selectRegion(oldRegion);
+	reader->popRegion();
 	return succ;
 }
 
-bool YukiFootnoteCitationDefinition::parseLabel(wstring& label, bool& isFootnote)
+bool yuki_footnote_citation_definition::parseLabel(wstring& label, bool& isFootnote)
 {
 	yuki_file_reader* reader = getFileReader();
 	wstring number;

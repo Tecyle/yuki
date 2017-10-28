@@ -3,15 +3,16 @@
 #include "yuki_internal_types.h"
 #include "yuki_file_reader.h"
 #include "yuki_line_string.h"
-#include "yuki_struct.h"
+#include "yuki_structure_parser.h"
 #include "yuki_footnote_citation_definition.h"
 #include "yuki_hyperlink_target.h"
+#include "yuki_hyperlink_target_node.h"
 
-bool YukiHyperlinkTarget::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_hyperlink_target::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const yuki_region* oldRegion = reader->selectRegion(region);
+	reader->pushRegion(region);
 
 	if (!matchNoBackward())
 	{
@@ -19,7 +20,7 @@ bool YukiHyperlinkTarget::parse(yuki_node* parentNode, const yuki_region* region
 		return false;
 	}
 
-	YukiHyperlinkTargetNode* node = new YukiHyperlinkTargetNode;
+	yuki_hyperlink_target_node* node = new yuki_hyperlink_target_node;
 
 	if (!getParser(L"link_uri")->parse(node, reader->cutRegionFromCursorToEnd()))
 	{
@@ -29,7 +30,7 @@ bool YukiHyperlinkTarget::parse(yuki_node* parentNode, const yuki_region* region
 	return true;
 }
 
-bool YukiHyperlinkTarget::match()
+bool yuki_hyperlink_target::match()
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -56,7 +57,7 @@ bool YukiHyperlinkTarget::match()
 	4. 冒号后面必须有空格
 	5. 在识别的时候非字母数字的地方会统一被替换成单一的减号
 */
-bool YukiHyperlinkTarget::matchNoBackward()
+bool yuki_hyperlink_target::matchNoBackward()
 {
 	yuki_file_reader* reader = getFileReader();
 
@@ -95,7 +96,7 @@ bool YukiHyperlinkTarget::matchNoBackward()
 	return true;
 }
 
-bool YukiHyperlinkTarget::readTargetName(wchar_t endChar)
+bool yuki_hyperlink_target::readTargetName(wchar_t endChar)
 {
 	yuki_file_reader* reader = getFileReader();
 	wchar_t ch = reader->getChar();

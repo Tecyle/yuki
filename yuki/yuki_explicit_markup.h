@@ -24,8 +24,12 @@
 
 	这个解析器只是一个中转路由，本身不会产生节点。
 */
-class YukiExplicitMarkup : public yuki_structure
+class yuki_explicit_markup : public yuki_structure_parser
 {
+public:
+	yuki_explicit_markup(yuki_session* globalData) : yuki_structure_parser(globalData) {}
+	virtual ~yuki_explicit_markup() {}
+
 public:
 	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;

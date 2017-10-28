@@ -1,12 +1,19 @@
 #include "stdafx.h"
 #include "yuki.h"
 #include "yuki_internal_types.h"
+#include "yuki_region_manager.h"
 #include "yuki_file_reader.h"
 #include "yuki_line_string.h"
-#include "yuki_struct.h"
+#include "yuki_structure_parser.h"
 #include "yuki_body.h"
 #include "yuki_quote_block.h"
 #include "yuki_rst_quote_block.h"
+#include "yuki_quote_block_node.h"
+
+yuki_rst_quote_block::yuki_rst_quote_block(yuki_session* globalData)
+	: yuki_structure_parser(globalData)
+{
+}
 
 /*
 	rst 引用块解析要点：
@@ -21,16 +28,16 @@
 
 	这个结构本身只是提供框架，不移动字符流指针
 */
-bool YukiRstQuoteBlock::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_rst_quote_block::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	if (!match())
 		return false;
 
-	YukiQuoteBlockNode* quoteNode = new YukiQuoteBlockNode;
+	yuki_quote_block_node* quoteNode = new yuki_quote_block_node;
 	const yuki_region* bodyRegion;
 	const yuki_region* attrRegion;
 
-	quoteNode->setQuoteLevel(QuoteLevel_default);
+	quoteNode->setQuoteType(L"");
 	// 确定引用块的位置
 	searchingBlockRegion(bodyRegion, attrRegion);
 
@@ -47,7 +54,7 @@ bool YukiRstQuoteBlock::parse(yuki_node* parentNode, const yuki_region* region)
 }
 
 
-bool YukiRstQuoteBlock::match()
+bool yuki_rst_quote_block::match()
 {
 	yuki_file_reader* reader = getFileReader();
 	const yuki_region* region = reader->getRegion();
@@ -64,7 +71,7 @@ bool YukiRstQuoteBlock::match()
 	1. BodyRegion：引用块主体部分的位置
 	2. AttributeRegion：引用块 Attribute 范围的位置
 */
-void YukiRstQuoteBlock::searchingBlockRegion(const yuki_region* &bodyRegion, const yuki_region* &attrRegion)
+void yuki_rst_quote_block::searchingBlockRegion(const yuki_region* &bodyRegion, const yuki_region* &attrRegion)
 {
 	yuki_file_reader* reader = getFileReader();
 	int indent = reader->getRegion()->getIndent();

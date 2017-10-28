@@ -112,6 +112,9 @@
     <Filter Include="yuki_node\outline">
       <UniqueIdentifier>{4dcfccbe-73f0-4cf8-9dc8-b44a933cb379}</UniqueIdentifier>
     </Filter>
+    <Filter Include="yuki_node\block\explicit_markup_block">
+      <UniqueIdentifier>{d7569964-0394-4efe-ae9e-eb14aec35f15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -309,6 +312,15 @@
     <ClInclude Include="yuki_quote_block_attribute_node.h">
       <Filter>yuki_node\block</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_footnote_definition_node.h">
+      <Filter>yuki_node\block\explicit_markup_block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_citation_definition_node.h">
+      <Filter>yuki_node\block\explicit_markup_block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_hyperlink_target_node.h">
+      <Filter>yuki_node\block\explicit_markup_block</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -481,6 +493,15 @@
     </ClCompile>
     <ClCompile Include="yuki_body_node.cpp">
       <Filter>yuki_node\outline</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_footnote_definition_node.cpp">
+      <Filter>yuki_node\block\explicit_markup_block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_citation_definition_node.cpp">
+      <Filter>yuki_node\block\explicit_markup_block</Filter>
+    </ClCompile>
+    <ClCompile Include="yuki_hyperlink_target_node.cpp">
+      <Filter>yuki_node\block\explicit_markup_block</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
