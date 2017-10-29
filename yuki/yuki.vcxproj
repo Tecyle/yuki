@@ -188,6 +188,7 @@
     <ClInclude Include="yuki_structure_parser.h" />
     <ClInclude Include="yuki_structure_parser_collection.h" />
     <ClInclude Include="yuki_substitution_definition.h" />
+    <ClInclude Include="yuki_substitution_definition_node.h" />
     <ClInclude Include="yuki_symbol_table.h" />
     <ClInclude Include="yuki_target_table.h" />
     <ClInclude Include="yuki_tool_kit.h" />

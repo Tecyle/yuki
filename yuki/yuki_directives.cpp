@@ -6,11 +6,11 @@
 #include "yuki_directives.h"
 #include "yuki_simple_reference_name.h"
 
-bool YukiDirectives::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_directives::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const yuki_region* oldRegion = reader->selectRegion(region);
+	reader->pushRegion(region);
 	bool succ = false;
 
 	if (!matchNoBackward())
@@ -18,7 +18,7 @@ bool YukiDirectives::parse(yuki_node* parentNode, const yuki_region* region)
 
 	succ = true;
 	wstring directive = m_directiveName + +L"-directive";
-	yuki_structure* parser = getParser(directive.c_str());
+	yuki_structure_parser* parser = getParser(directive.c_str());
 	if (parser != nullptr)
 	{
 		parser->parse(parentNode, reader->cutRegionFromCursorToEnd());
@@ -31,11 +31,11 @@ bool YukiDirectives::parse(yuki_node* parentNode, const yuki_region* region)
 match_finished:
 	if (!succ)
 		reader->setCursor(oldCursor);
-	reader->selectRegion(oldRegion);
+	reader->popRegion();
 	return succ;
 }
 
-bool YukiDirectives::match()
+bool yuki_directives::match()
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -46,7 +46,7 @@ bool YukiDirectives::match()
 	return succ;
 }
 
-bool YukiDirectives::matchNoBackward()
+bool yuki_directives::matchNoBackward()
 {
 	yuki_file_reader* reader = getFileReader();
 	YukiSimpleReferenceName* simpleRefName = dynamic_cast<YukiSimpleReferenceName*>(getParser(L"simple_reference_name"));
@@ -63,21 +63,21 @@ bool YukiDirectives::matchNoBackward()
 	return true;
 }
 
-bool YukiDirective::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_directive::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const yuki_region* oldRegion = reader->selectRegion(region);
+	reader->pushRegion(region);
 
 	bool succ =  inlineMode() ? parseInlineMode(parentNode, region) : parseBlockMode(parentNode, region);
 
 	if (!succ)
 		reader->setCursor(oldCursor);
-	reader->selectRegion(oldRegion);
+	reader->popRegion();
 	return succ;
 }
 
-bool YukiDirective::match()
+bool yuki_directive::match()
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -88,12 +88,12 @@ bool YukiDirective::match()
 	return succ;
 }
 
-bool YukiDirective::matchNoBackward()
+bool yuki_directive::matchNoBackward()
 {
 	return inlineMode() ? matchNoBackwardInlineMode() : matchNoBackwardBlockMode();
 }
 
-bool YukiDirective::enableInlineMode(bool enable)
+bool yuki_directive::enableInlineMode(bool enable)
 {
 	if (!m_allowInlineMode)
 		return false;
@@ -120,7 +120,7 @@ bool YukiDirective::enableInlineMode(bool enable)
 	   并且接受 <arguments>，则识别为 <arguments>，否则识别为 <body>；如果
 	   成功，则识别为 <option list>，并认为 <arguments> 没有给出。
 */
-bool YukiDirective::matchNoBackwardBlockMode()
+bool yuki_directive::matchNoBackwardBlockMode()
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor cursor = reader->getCursor();
@@ -168,7 +168,7 @@ bool YukiDirective::matchNoBackwardBlockMode()
 	return true;
 }
 
-bool YukiDirective::parseBlockMode(yuki_node* parentNode, const yuki_region* region)
+bool yuki_directive::parseBlockMode(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	
@@ -197,7 +197,7 @@ bool YukiDirective::parseBlockMode(yuki_node* parentNode, const yuki_region* reg
 	return true;
 }
 
-bool YukiDirective::matchArguments()
+bool yuki_directive::matchArguments()
 {
 	yuki_file_reader* reader = getFileReader();
 	if (!acceptArguments())
@@ -205,7 +205,7 @@ bool YukiDirective::matchArguments()
 
 	bool needOptionList = acceptOptionLists();
 	int commonIndent = m_isFirstLine ? INT_MAX : reader->getLine()->getIndent();
-	yuki_structure* parser = getParser(L"option_list");
+	yuki_structure_parser* parser = getParser(L"option_list");
 	m_argumentsCursor = reader->getCursor();
 
 	while (reader->moveToNextLine())
@@ -227,7 +227,7 @@ bool YukiDirective::matchArguments()
 	return true;
 }
 
-bool YukiDirective::matchOptionList()
+bool yuki_directive::matchOptionList()
 {
 	yuki_file_reader* reader = getFileReader();
 	if (!acceptOptionLists())
@@ -243,7 +243,7 @@ bool YukiDirective::matchOptionList()
 	return true;
 }
 
-bool YukiDirective::matchBody()
+bool yuki_directive::matchBody()
 {
 	yuki_file_reader* reader = getFileReader();
 	if (!acceptBody())

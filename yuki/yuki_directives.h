@@ -29,8 +29,12 @@
 */
 
 // 指令分配器
-class YukiDirectives : public yuki_structure
+class yuki_directives : public yuki_structure_parser
 {
+public:
+	yuki_directives(yuki_session* globalData) : yuki_structure_parser(globalData) {}
+	virtual ~yuki_directives() {}
+
 public:
 	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;
@@ -43,7 +47,7 @@ protected:
 };
 
 // 指令基类，所有指令必须命名为 指令名称 + ``-directive``，比如 ``image-directive``
-class YukiDirective : public yuki_structure
+class yuki_directive : public yuki_structure_parser
 {
 public:
 	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;

@@ -115,6 +115,9 @@
     <Filter Include="yuki_node\block\explicit_markup_block">
       <UniqueIdentifier>{d7569964-0394-4efe-ae9e-eb14aec35f15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="yuki_node\block\explicit_markup_block\directives">
+      <UniqueIdentifier>{10606567-0cda-4025-8302-6ed6e9a98ff3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -319,6 +322,9 @@
       <Filter>yuki_node\block\explicit_markup_block</Filter>
     </ClInclude>
     <ClInclude Include="yuki_hyperlink_target_node.h">
+      <Filter>yuki_node\block\explicit_markup_block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_substitution_definition_node.h">
       <Filter>yuki_node\block\explicit_markup_block</Filter>
     </ClInclude>
   </ItemGroup>

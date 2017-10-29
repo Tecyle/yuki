@@ -63,22 +63,22 @@ bool yuki_explicit_markup::parse(yuki_node* parentNode, const yuki_region* regio
 	switch (ch)
 	{
 	case '[':
-		if (getParser(L"footnote_citation_definition")->parse(parentNode, explicitBlockRegion))
+		if (getParser(yuki_footnote_citation_definition_block_name)->parse(parentNode, explicitBlockRegion))
 			return true;
 		break;
 	case '_':
-		if (getParser(L"hyperlink_target")->parse(parentNode, explicitBlockRegion))
+		if (getParser(yuki_hyperlink_target_block_name)->parse(parentNode, explicitBlockRegion))
 			return true;
 		break;
 	case '|':
-		if (getParser(L"substitution_definition")->parse(parentNode, explicitBlockRegion))
+		if (getParser(yuki_substitution_definition_block_name)->parse(parentNode, explicitBlockRegion))
 			return true;
 		break;
 	case 0:
 	case '\n':
 		break;
 	default:
-		if (getParser(L"directive")->parse(parentNode, explicitBlockRegion))
+		if (getParser(yuki_directives_block_name)->parse(parentNode, explicitBlockRegion))
 			return true;
 		break;
 	}

@@ -3,15 +3,16 @@
 #include "yuki_internal_types.h"
 #include "yuki_file_reader.h"
 #include "yuki_line_string.h"
-#include "yuki_struct.h"
+#include "yuki_structure_parser.h"
 #include "yuki_substitution_definition.h"
 #include "yuki_simple_reference_name.h"
+#include "yuki_substitution_definition_node.h"
 
-bool YukiSubstitutionDefinition::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_substitution_definition::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const yuki_region* oldRegion = reader->selectRegion(region);
+	reader->pushRegion(region);
 	bool succ = false;
 
 	if (!reader->matchChar('|'))
@@ -29,13 +30,13 @@ bool YukiSubstitutionDefinition::parse(yuki_node* parentNode, const yuki_region*
 		goto match_finished;
 
 	succ = true;
-	YukiSubstitutionDefinitionNode* node = new YukiSubstitutionDefinitionNode;
+	yuki_substitution_definition_node* node = new yuki_substitution_definition_node;
 	getParser(L"directives")->parse(node, reader->cutRegionFromCursorToEnd());
 	parentNode->appendChild(node);
 
 match_finished:
 	if (!succ)
 		reader->setCursor(oldCursor);
-	reader->selectRegion(oldRegion);
+	reader->popRegion();
 	return succ;
 }
