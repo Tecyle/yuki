@@ -4,17 +4,18 @@
 #include "yuki_file_reader.h"
 #include "yuki_line_string.h"
 #include "yuki_md_literal_block.h"
+#include "yuki_literal_block_node.h"
 
 static bool yuki_isLanguageNameChar(wchar_t ch)
 {
 	return !isspace(ch) && ch != '`';
 }
 
-bool YukiMdLiteralBlock::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_md_literal_block::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const yuki_region* oldRegion = reader->selectRegion(region);
+	reader->pushRegion(region);
 	bool succ = false;
 
 	if (!matchNoBackward())
@@ -38,7 +39,7 @@ bool YukiMdLiteralBlock::parse(yuki_node* parentNode, const yuki_region* region)
 	}
 	// 决定主体部位的位置
 	const yuki_region* bodyRegion = reader->cutRegionBetween(oldCursor, newCursor);
-	YukiLiteralBlockNode* node = new YukiLiteralBlockNode;
+	yuki_literal_block_node* node = new yuki_literal_block_node;
 	node->setLanguage(m_language);
 	reader->setCursor(oldCursor);
 	getParser(L"reserved_text")->parse(node, bodyRegion);
@@ -51,11 +52,11 @@ bool YukiMdLiteralBlock::parse(yuki_node* parentNode, const yuki_region* region)
 match_finished:
 	if (!succ)
 		reader->setCursor(oldCursor);
-	reader->selectRegion(oldRegion);
+	reader->popRegion();
 	return succ;
 }
 
-bool YukiMdLiteralBlock::match()
+bool yuki_md_literal_block::match()
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -66,7 +67,7 @@ bool YukiMdLiteralBlock::match()
 	return succ;
 }
 
-bool YukiMdLiteralBlock::matchNoBackward()
+bool yuki_md_literal_block::matchNoBackward()
 {
 	yuki_file_reader* reader = getFileReader();
 

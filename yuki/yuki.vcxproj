@@ -127,10 +127,15 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="yuki_body_node.h" />
     <ClInclude Include="yuki_citation_definition_node.h" />
+    <ClInclude Include="yuki_comment_node.h" />
+    <ClInclude Include="yuki_doctest_block_node.h" />
     <ClInclude Include="yuki_document_node.h" />
     <ClInclude Include="yuki_footnote_definition_node.h" />
     <ClInclude Include="yuki_hyperlink_target_node.h" />
+    <ClInclude Include="yuki_inline_block_node.h" />
+    <ClInclude Include="yuki_literal_block_node.h" />
     <ClInclude Include="yuki_names.h" />
+    <ClInclude Include="yuki_paragraph_node.h" />
     <ClInclude Include="yuki_quote_block_attribute_node.h" />
     <ClInclude Include="yuki_quote_block_node.h" />
     <ClInclude Include="yuki_string_hashmap.h" />

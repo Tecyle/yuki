@@ -1,14 +1,11 @@
 #pragma once
 
-class YukiLiteralBlockNode : public yuki_node
+class yuki_md_literal_block : public yuki_structure_parser
 {
 public:
-	void setLanguage(wstring language);
-	const wstring& getLanguage();
-};
+	yuki_md_literal_block(yuki_session* globalData) : yuki_structure_parser(globalData) {}
+	virtual ~yuki_md_literal_block() {}
 
-class YukiMdLiteralBlock : public yuki_structure
-{
 public:
 	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;

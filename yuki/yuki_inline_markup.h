@@ -13,8 +13,10 @@
 	m_textRegion1 : 文本1 的区间
 	m_textRegion2 : 文本2 的区间
 	m_endCursor : 结束位置的光标
+
+	本类不单独使用
 */
-class YukiInlineMarkup : public yuki_structure
+class yuki_inline_markup : public yuki_structure_parser
 {
 public:
 	virtual bool match() override;

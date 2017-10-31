@@ -83,7 +83,7 @@ bool yuki_explicit_markup::parse(yuki_node* parentNode, const yuki_region* regio
 		break;
 	}
 
-	return getParser(L"comment")->parse(parentNode, explicitBlockRegion);
+	return getParser(yuki_comment_block_name)->parse(parentNode, explicitBlockRegion);
 }
 
 bool yuki_explicit_markup::match()

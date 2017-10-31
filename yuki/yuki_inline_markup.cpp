@@ -5,7 +5,7 @@
 #include "yuki_line_string.h"
 #include "yuki_inline_markup.h"
 
-bool YukiInlineMarkup::match()
+bool yuki_inline_markup::match()
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -100,7 +100,7 @@ static bool matchPrefixRules(wchar_t prev, wchar_t next)
 	return true;
 }
 
-bool YukiInlineMarkup::matchPrefix()
+bool yuki_inline_markup::matchPrefix()
 {
 	yuki_file_reader* reader = getFileReader();
 	wchar_t prevChar = reader->peekPreviousChar();
@@ -114,13 +114,13 @@ bool YukiInlineMarkup::matchPrefix()
 	return matchPrefixRules(prevChar, curChar);
 }
 
-bool YukiInlineMarkup::matchInfix(yuki_cursor& cursor)
+bool yuki_inline_markup::matchInfix(yuki_cursor& cursor)
 {
 	assert(m_infix != nullptr);
 	return searchAndMatch(m_infix, cursor);
 }
 
-bool YukiInlineMarkup::matchSuffix(yuki_cursor& cursor)
+bool yuki_inline_markup::matchSuffix(yuki_cursor& cursor)
 {
 	return searchAndMatch(m_suffix, cursor);
 }
@@ -178,7 +178,7 @@ inline static bool matchInfixRules(wchar_t prev, wchar_t next, bool allowEscape)
 	return matchPrefixRules(prev, next) && matchSufixRules(prev, next, allowEscape);
 }
 
-bool YukiInlineMarkup::searchAndMatch(const wchar_t* pattern, yuki_cursor& contentCursor)
+bool yuki_inline_markup::searchAndMatch(const wchar_t* pattern, yuki_cursor& contentCursor)
 {
 	yuki_file_reader* reader = getFileReader();
 	bool matchSucc = false;

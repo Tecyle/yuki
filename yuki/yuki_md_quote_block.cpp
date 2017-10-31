@@ -5,12 +5,13 @@
 #include "yuki_line_string.h"
 #include "yuki_md_quote_block.h"
 #include "yuki_simple_reference_name.h"
+#include "yuki_quote_block_node.h"
 
-bool YukiMdQuoteBlock::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_md_quote_block::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
-	const yuki_region* oldRegion = reader->selectRegion(region);
+	reader->pushRegion(region);
 	bool succ = false;
 
 	if (!matchNoBackward())
@@ -45,9 +46,9 @@ bool YukiMdQuoteBlock::parse(yuki_node* parentNode, const yuki_region* region)
 		commonIndent = yuki_min(commonIndent, indent);
 	}
 
-	YukiQuoteBlockNode* node = new YukiQuoteBlockNode;
+	yuki_quote_block_node* node = new yuki_quote_block_node;
 	reader->setCursor(oldCursor);
-	node->setQuoteCategory(m_quoteLevel);
+	node->setQuoteType(m_quoteLevel);
 	getParser(L"body")->parse(node, reader->cutRegionBetween(oldCursor, lineBeginCursor, commonIndent + 1));
 	if (hasAttr)
 	{
@@ -73,11 +74,11 @@ bool YukiMdQuoteBlock::parse(yuki_node* parentNode, const yuki_region* region)
 match_finished:
 	if (!succ)
 		reader->setCursor(oldCursor);
-	reader->selectRegion(oldRegion);
+	reader->popRegion();
 	return succ;
 }
 
-bool YukiMdQuoteBlock::match()
+bool yuki_md_quote_block::match()
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -88,7 +89,7 @@ bool YukiMdQuoteBlock::match()
 	return succ;
 }
 
-bool YukiMdQuoteBlock::matchNoBackward()
+bool yuki_md_quote_block::matchNoBackward()
 {
 	yuki_file_reader* reader = getFileReader();
 	

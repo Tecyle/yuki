@@ -4,11 +4,12 @@
 #include "yuki_file_reader.h"
 #include "yuki_line_string.h"
 #include "yuki_comment.h"
+#include "yuki_comment_node.h"
 
-bool YukiComment::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_comment::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
-	YukiCommentNode* node = new YukiCommentNode;
+	yuki_comment_node* node = new yuki_comment_node;
 
 	// 注释直接按预留文字处理
 	getParser(L"reserved_text")->parse(node, region);

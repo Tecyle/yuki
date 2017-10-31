@@ -3,10 +3,9 @@
 #include "yuki_internal_types.h"
 #include "yuki_file_reader.h"
 #include "yuki_line_string.h"
-#include "yuki_struct.h"
-#include "yuki_matcher.h"
 #include "yuki_plain_text.h"
 #include "yuki_inline_block.h"
+#include "yuki_structure_parser_collection.h"
 
 /*
 	内联结构解析要点：
@@ -77,14 +76,14 @@ static const wchar_t* g_startCharSet = L"*`-_=^v!<|[";
 static const wchar_t* g_headSet = L"-:/'\"<([{：、‘“《（【";
 static const wchar_t* g_fllowSet = L"-.,:;!?\\/'\")]}。，：；！？、’”）】";
 
-bool YukiInlineBlock::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_inline_block::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor startCursor = reader->getCursor();
 	wchar_t ch;
 	bool isLastCharInHeadSet = true;
 	bool isLastCharSlash = false;
-	const yuki_region* oldRegion = reader->selectRegion(region);
+	reader->pushRegion(region);
 
 	for(;;)
 	{
@@ -111,20 +110,21 @@ bool YukiInlineBlock::parse(yuki_node* parentNode, const yuki_region* region)
 	}
 
 	// 最后一段 plain_text 生成
-	getParser(L"plain_text")->parse(parentNode, reader->cutRegionFromCursorToEnd());
-	reader->selectRegion(oldRegion);
+	getParser(yuki_plain_text_name)->parse(parentNode, reader->cutRegionFromCursorToEnd());
+	reader->popRegion();
 	return true;
 }
 
-bool YukiInlineBlock::parseInlineMarkup(yuki_node* parentNode, yuki_cursor& formerCursor)
+bool yuki_inline_block::parseInlineMarkup(yuki_node* parentNode, yuki_cursor& formerCursor)
 {
 	yuki_file_reader* reader = getFileReader();
 	wchar_t ch = reader->getChar();
 	yuki_cursor cursor = reader->getCursor();
+	auto followSet = m_session->getStructureParserCollection()->getFollowParsersByName(getName());
 
-	for (auto matcherName : *getMatcherCollection()->getInlineFollowSet(ch))
+	for (auto parser : *followSet)
 	{
-		if (getParser(matcherName)->parse(parentNode, reader->getRegion()))
+		if (parser->parse(parentNode, reader->getRegion()))
 		{
 			YukiPlainText* plainText = dynamic_cast<YukiPlainText*>(getParser(L"plain_text"));
 			plainText->parseInPenult(parentNode, reader->cutRegionBetween(formerCursor, cursor));

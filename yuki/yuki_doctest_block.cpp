@@ -4,17 +4,18 @@
 #include "yuki_file_reader.h"
 #include "yuki_line_string.h"
 #include "yuki_doctest_block.h"
+#include "yuki_doctest_block_node.h"
 
-bool YukiDoctest::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_doctest_block::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
-	const yuki_region* oldRegion = reader->selectRegion(region);
+	reader->pushRegion(region);
 	bool succ = false;
 
 	if (!match())
 		goto match_finished;
 
-	YukiDoctestNode* node = new YukiDoctestNode;
+	yuki_doctest_block_node* node = new yuki_doctest_block_node;
 	yuki_cursor oldCursor = reader->getCursor();
 	yuki_cursor newCursor = reader->getCursor();
 	// ËÑË÷ÃüÁî²¿·Ö
@@ -42,11 +43,11 @@ bool YukiDoctest::parse(yuki_node* parentNode, const yuki_region* region)
 
 	parentNode->appendChild(node);
 match_finished:
-	reader->selectRegion(oldRegion);
+	reader->popRegion();
 	return succ;
 }
 
-bool YukiDoctest::match()
+bool yuki_doctest_block::match()
 {
 	yuki_file_reader* reader = getFileReader();
 	yuki_cursor oldCursor = reader->getCursor();
@@ -57,7 +58,7 @@ bool YukiDoctest::match()
 	return succ;
 }
 
-bool YukiDoctest::matchNoBackward()
+bool yuki_doctest_block::matchNoBackward()
 {
 	yuki_file_reader* reader = getFileReader();
 	

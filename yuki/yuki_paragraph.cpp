@@ -4,11 +4,12 @@
 #include "yuki_file_reader.h"
 #include "yuki_line_string.h"
 #include "yuki_paragraph.h"
+#include "yuki_paragraph_node.h"
 
-bool YukiParagraph::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_paragraph::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	yuki_file_reader* reader = getFileReader();
-	const yuki_region* oldRegion = reader->selectRegion(region);
+	reader->pushRegion(region);
 	yuki_cursor oldCursor = reader->getCursor();
 
 	while (!reader->matchBlankLine())
@@ -17,12 +18,12 @@ bool YukiParagraph::parse(yuki_node* parentNode, const yuki_region* region)
 			break;
 	}
 
-	YukiParagraphNode* node = new YukiParagraphNode;
+	yuki_paragraph_node* node = new yuki_paragraph_node;
 	const yuki_region* paragraphRegion = reader->cutRegionToCursorFrom(oldCursor);
 	reader->setCursor(oldCursor);
 	getParser(L"inline_block")->parse(node, paragraphRegion);
 	parentNode->appendChild(node);
 
-	reader->selectRegion(oldRegion);
+	reader->popRegion();
 	return true;
 }

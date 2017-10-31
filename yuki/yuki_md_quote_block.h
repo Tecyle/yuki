@@ -22,8 +22,12 @@
 	* 可以指定引用块的类别，类别名称将作为引用块的 class 属性，区分引用块
 	  的作用，比如摘要，导读，等
 */
-class YukiMdQuoteBlock : public yuki_structure
+class yuki_md_quote_block : public yuki_structure_parser
 {
+public:
+	yuki_md_quote_block(yuki_session* globalData) : yuki_structure_parser(globalData) {}
+	virtual ~yuki_md_quote_block() {}
+
 public:
 	virtual bool parse(yuki_node* parentNode, const yuki_region* region) override;
 	virtual bool match() override;

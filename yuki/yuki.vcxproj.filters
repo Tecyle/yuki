@@ -327,6 +327,21 @@
     <ClInclude Include="yuki_substitution_definition_node.h">
       <Filter>yuki_node\block\explicit_markup_block</Filter>
     </ClInclude>
+    <ClInclude Include="yuki_comment_node.h">
+      <Filter>yuki_node\block\explicit_markup_block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_literal_block_node.h">
+      <Filter>yuki_node\block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_doctest_block_node.h">
+      <Filter>yuki_node\block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_paragraph_node.h">
+      <Filter>yuki_node\block</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_inline_block_node.h">
+      <Filter>yuki_node\inline</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
