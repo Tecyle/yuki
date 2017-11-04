@@ -133,6 +133,7 @@
     <ClInclude Include="yuki_footnote_definition_node.h" />
     <ClInclude Include="yuki_hyperlink_target_node.h" />
     <ClInclude Include="yuki_inline_block_node.h" />
+    <ClInclude Include="yuki_inline_bold_italic_node.h" />
     <ClInclude Include="yuki_literal_block_node.h" />
     <ClInclude Include="yuki_names.h" />
     <ClInclude Include="yuki_paragraph_node.h" />

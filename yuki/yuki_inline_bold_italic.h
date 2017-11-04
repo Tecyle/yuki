@@ -1,14 +1,9 @@
 #pragma once
 
-class YukiInlineBoldItalicNode : public yuki_node
-{
-
-};
-
-class YukiInlineBoldItalic : public YukiInlineFormat
+class yuki_inline_bold_italic : public yuki_inline_format
 {
 public:
-	YukiInlineBoldItalic();
+	yuki_inline_bold_italic(yuki_session* globalData);
 
 protected:
 	virtual yuki_node* allocNode() override;

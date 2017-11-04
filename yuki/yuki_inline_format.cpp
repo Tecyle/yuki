@@ -6,14 +6,14 @@
 #include "yuki_inline_markup.h"
 #include "yuki_inline_format.h"
 
-bool YukiInlineFormat::parse(yuki_node* parentNode, const yuki_region* region)
+bool yuki_inline_format::parse(yuki_node* parentNode, const yuki_region* region)
 {
 	if (!match())
 		return false;
 
 	yuki_file_reader* reader = getFileReader();
 	yuki_node* node = allocNode();
-	reader->setCursor(m_textRegion1->getCursorAtRegionBegin());
+	reader->setCursor(m_textRegion1->begin());
 	if (m_allowEscapeNearMark)
 		getParser(L"reserved_text")->parse(node, m_textRegion1);
 	else

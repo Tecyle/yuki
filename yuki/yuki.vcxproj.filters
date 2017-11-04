@@ -118,6 +118,9 @@
     <Filter Include="yuki_node\block\explicit_markup_block\directives">
       <UniqueIdentifier>{10606567-0cda-4025-8302-6ed6e9a98ff3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="yuki_node\inline\format_markup">
+      <UniqueIdentifier>{092487fc-5f50-411f-987c-dd3377cbd0b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -341,6 +344,9 @@
     </ClInclude>
     <ClInclude Include="yuki_inline_block_node.h">
       <Filter>yuki_node\inline</Filter>
+    </ClInclude>
+    <ClInclude Include="yuki_inline_bold_italic_node.h">
+      <Filter>yuki_node\inline\format_markup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

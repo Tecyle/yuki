@@ -5,15 +5,17 @@
 #include "yuki_line_string.h"
 #include "yuki_inline_format.h"
 #include "yuki_inline_bold_italic.h"
+#include "yuki_inline_bold_italic_node.h"
 
-YukiInlineBoldItalic::YukiInlineBoldItalic()
+yuki_inline_bold_italic::yuki_inline_bold_italic(yuki_session* globalData)
+	: yuki_inline_format(globalData)
 {
 	m_prefix = m_suffix = L"***";
 	m_infix = nullptr;
 	m_allowEscapeNearMark = false;
 }
 
-yuki_node* YukiInlineBoldItalic::allocNode()
+yuki_node* yuki_inline_bold_italic::allocNode()
 {
-	return new YukiInlineBoldItalicNode;
+	return new yuki_inline_bold_italic_node;
 }

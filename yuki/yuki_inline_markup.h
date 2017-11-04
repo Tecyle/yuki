@@ -19,6 +19,9 @@
 class yuki_inline_markup : public yuki_structure_parser
 {
 public:
+	yuki_inline_markup(yuki_session* globalData) : yuki_structure_parser(globalData) {}
+
+public:
 	virtual bool match() override;
 
 protected:
